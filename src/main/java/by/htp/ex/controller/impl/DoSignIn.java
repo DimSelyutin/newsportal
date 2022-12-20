@@ -15,18 +15,19 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-public class DoSignIn implements Command{
+public class DoSignIn implements Command {
 
     private final IUserService service = ServiceProvider.getInstance().getUserService();
     private static final String JSP_LOGIN_PARAM = "login";
-	private static final String JSP_PASSWORD_PARAM = "password";
-    
+    private static final String JSP_PASSWORD_PARAM = "password";
+
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DaoException, ConnectionPoolException, SQLException {
+    public void execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, DaoException, ConnectionPoolException, SQLException {
         String login = request.getParameter(JSP_LOGIN_PARAM);
         String passsword = request.getParameter(JSP_PASSWORD_PARAM);
 
-       String role = service.signin(login, passsword);
+        String role = service.signin(login, passsword);
 
         if (!role.equals("guest")) {
 
@@ -34,15 +35,14 @@ public class DoSignIn implements Command{
             request.getSession(true).setAttribute("role", role);
             request.getSession(true).setAttribute("login", login);
             response.sendRedirect("controller?command=go_to_news");
-            
 
         } else {
             System.out.println("not guset");
             request.getSession(true).setAttribute("user", "not active");
-			request.setAttribute("AuthenticationError", "wrong login or password");
-			request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
+            request.setAttribute("AuthenticationError", "wrong login or password");
+            request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
         }
         response.getWriter().println("<h2>Do logination</h2>");
     }
-    
+
 }

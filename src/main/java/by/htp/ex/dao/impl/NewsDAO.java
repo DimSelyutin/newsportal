@@ -31,7 +31,7 @@ public class NewsDAO implements INewsDAO{
 
     public List<News> getAllNews(){
         List<News> listok = new ArrayList<>();
-        News news = new News("Lorem ipsum", 
+        News news = new News(1,"Lorem ipsum", 
                                 "WARNING [http-nio-8080-exec-106] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalsForLeaks When running on Java 9 or later you need to add  to the JVM command line arguments to enable",
                                createDatePost());
         for (int i = 0; i < 10; i++) {

@@ -33,8 +33,10 @@ public class NewsServiceImpl implements INewsService{
 
     @Override
     public List<News> latestList(int count) throws ServiceException {
-        // TODO Auto-generated method stub
-        return null;
+        List<News> listNews;
+
+        listNews = newsDAO.getAllNews().subList(1, count);
+        return listNews;
     }
 
     @Override

@@ -65,6 +65,7 @@ public class UserDAO implements IUserDAO{
     public String getRole(int id) throws ConnectionPoolException, SQLException{
 
         Connection con = DaoProvider.getInstance().getConnectionDAO().getConnection();
+        
         String sqlUser = "SELECT * FROM role_user WHERE `user_id`='"+id+"'";            
         String role = "guest";
         

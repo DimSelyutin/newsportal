@@ -10,11 +10,10 @@ import by.htp.ex.service.INewsService;
 import by.htp.ex.service.ServiceException;
 import by.htp.ex.service.ServiceProvider;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class GoToNews extends HttpServlet implements Command{
+public class GoToNews implements Command{
 
     private final INewsService newsService = ServiceProvider.getInstance().getNewsService();
 
@@ -28,6 +27,7 @@ public class GoToNews extends HttpServlet implements Command{
                 request.setAttribute("presentation", "newsList");
 			    request.getRequestDispatcher("WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
             } catch (ServiceException e) {
+            
                 e.printStackTrace();
                 
             }

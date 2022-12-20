@@ -1,19 +1,26 @@
-<div class="view_news">
-    <div class="title">
+<form action="command.do?method=delete" method="post">
+	<c:forEach var="news" items="${requestScope.newsList}">
+		<div class="single-news-wrapper">
+			<div class="single-news-header-wrapper">
+				<div class="news-title">
+					<c:out value="${news.title}" />
+				</div>
+				<div class="news-date">
+					<c:out value="${news.postDate}" />
+				</div>
 
-    </div>
-    <div class="news_date">
+				<div class="news-content">
+					<c:out value="${news.text}" />
+				</div>
+			</div>
+		</div>
 
-    </div>
-    <div class="text">
+	</c:forEach>
 
-    </div>
-    <div class="button">
-        Edit
-    </div>
-    <div class="button">
-        Delete
-    </div>
+	<div class="no-news">
+		<c:if test="${requestScope.news eq null}">
+        No news.
+	</c:if>
+	</div>
 
-
-</div>
+</form>
