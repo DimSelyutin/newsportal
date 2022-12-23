@@ -15,6 +15,7 @@ public class CommandProvider {
     private Map<CommandName, Command> commandProvider = new HashMap<>();
 
     public CommandProvider(){
+        System.out.println("Main-Controler-CMD-provider");
         commandProvider.put(CommandName.GO_TO_MAIN_PAGE, new GoToMainPage());
         commandProvider.put(CommandName.GO_TO_NEWS, new GoToNews());
         commandProvider.put(CommandName.GO_TO_VIEW_NEWS, new GoToViewNews());

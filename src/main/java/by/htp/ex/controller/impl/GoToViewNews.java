@@ -21,7 +21,7 @@ public class GoToViewNews extends HttpServlet implements Command{
                 String id;
                 
                 id = request.getParameter("id");
-                
+                System.out.println("GoToViewNews");
 
                 request.getRequestDispatcher("/WEB-INF/pages/tiles/baselayout.jsp").forward(request, response);
         

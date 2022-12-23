@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/")
 public class MainController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -21,19 +20,25 @@ public class MainController extends HttpServlet {
 
     public MainController() {
         super();
+        System.out.println("1. Main-Controller-Constructor");
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try {
+        System.out.println("Main-controller!");
         String commandStr = req.getParameter("command");
         Command command = commandProvider.getCommand(commandStr); // ComandProvider return Comand in
                                                                  // method(getCommand)from String
-        command.execute(req, resp);
-
+        try {
+            command.execute(req, resp);
         } catch (DaoException | ConnectionPoolException | SQLException e) {
+            // TODO Auto-generated catch block
+            System.out.println("Just error");
             e.printStackTrace();
-        } 
+        }
+        
+
+      
     }
 
     @Override

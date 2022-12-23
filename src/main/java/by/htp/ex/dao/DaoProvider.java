@@ -14,7 +14,9 @@ public final class DaoProvider {
 
     private final IConnectionDAO connectionDAO = new ConnectionDAO();
 
-    private DaoProvider(){}
+    private DaoProvider(){
+        System.out.println("DAO");
+    }
 
     public IUserDAO getUserDAO() {
         return userDAO;

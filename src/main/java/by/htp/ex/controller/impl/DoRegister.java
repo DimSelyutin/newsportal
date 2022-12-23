@@ -13,6 +13,7 @@ public class DoRegister implements Command{
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
 
+        System.out.println("Main-Page");
 
         request.getRequestDispatcher("/WEB-INF/pages/jsp/registration.jsp").forward(request, response);
         

@@ -1,10 +1,12 @@
 package by.htp.ex.service.impl;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import by.htp.ex.bean.News;
 import by.htp.ex.dao.DaoProvider;
 import by.htp.ex.dao.INewsDAO;
+import by.htp.ex.dao.connection.ConnectionPoolException;
 import by.htp.ex.service.INewsService;
 import by.htp.ex.service.ServiceException;
 
@@ -32,15 +34,15 @@ public class NewsServiceImpl implements INewsService{
     }
 
     @Override
-    public List<News> latestList(int count) throws ServiceException {
+    public List<News> latestList(int count) throws ServiceException, ConnectionPoolException, SQLException {
         List<News> listNews;
-
+        System.out.println("Servis method latest list");
         listNews = newsDAO.getAllNews().subList(1, count);
         return listNews;
     }
 
     @Override
-    public List<News> list() throws ServiceException {
+    public List<News> list() throws ServiceException, ConnectionPoolException, SQLException {
         List<News> listNews;
         listNews = newsDAO.getAllNews();
         return listNews;

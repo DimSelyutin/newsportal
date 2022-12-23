@@ -6,11 +6,18 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 import by.htp.ex.bean.News;
+import by.htp.ex.dao.DaoProvider;
 import by.htp.ex.dao.INewsDAO;
+import by.htp.ex.dao.connection.ConnectionPoolException;
+import java.sql.ResultSet;
 
 public class NewsDAO implements INewsDAO{
+
+    
 
     @Override
     public void addNews() {
@@ -29,13 +36,15 @@ public class NewsDAO implements INewsDAO{
         return null;
     }
 
-    public List<News> getAllNews(){
+    public List<News> getAllNews() throws ConnectionPoolException, SQLException{
         List<News> listok = new ArrayList<>();
-        News news = new News(1,"Lorem ipsum", 
-                                "WARNING [http-nio-8080-exec-106] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalsForLeaks When running on Java 9 or later you need to add  to the JVM command line arguments to enable",
-                               createDatePost());
-        for (int i = 0; i < 10; i++) {
-            listok.add(news);
+        Connection con = DaoProvider.getInstance().getConnectionDAO().getConnection();
+
+        String sqlAllNews = "SELECT * FROM posts";
+
+        ResultSet rs = con.createStatement().executeQuery(sqlAllNews);
+        while(rs.next()){
+            listok.add(new News(rs.getInt(1), rs.getString(2), rs.getString(2), rs.getString(5)));
         }
         return listok;
     }

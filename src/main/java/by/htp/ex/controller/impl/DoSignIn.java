@@ -26,8 +26,9 @@ public class DoSignIn implements Command {
             throws ServletException, IOException, DaoException, ConnectionPoolException, SQLException {
         String login = request.getParameter(JSP_LOGIN_PARAM);
         String passsword = request.getParameter(JSP_PASSWORD_PARAM);
-
+        System.out.println("Точка входа! DoSignIn");
         String role = service.signin(login, passsword);
+        System.out.println("Main-Page");
 
         if (!role.equals("guest")) {
 

@@ -1,8 +1,10 @@
 package by.htp.ex.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import by.htp.ex.bean.News;
+import by.htp.ex.dao.connection.ConnectionPoolException;
 
 public interface INewsDAO {
     void addNews();
@@ -11,5 +13,5 @@ public interface INewsDAO {
     News getNews();
     String createDatePost();
 
-    List<News> getAllNews();
+    List<News> getAllNews() throws ConnectionPoolException, SQLException;
 }

@@ -13,7 +13,6 @@ public class ConnectionDAO implements IConnectionDAO{
 
     @Override
     public Connection getConnection() throws ConnectionPoolException, SQLException {
-        
         poolConnection.initPoolData();
 
         Connection con = poolConnection.takeConnection();

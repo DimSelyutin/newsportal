@@ -1,4 +1,5 @@
 <form action="command.do?method=delete" method="post">
+	asdasd
 	<c:forEach var="news" items="${requestScope.newsList}">
 		<div class="single-news-wrapper">
 			<div class="single-news-header-wrapper">

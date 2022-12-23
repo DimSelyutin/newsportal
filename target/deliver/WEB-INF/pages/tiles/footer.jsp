@@ -1,4 +1,0 @@
-
-
-<center>footer
-</center>
