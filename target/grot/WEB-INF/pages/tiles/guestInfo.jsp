@@ -1,12 +1,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-
+guestInfo
 <div class="body-title">
 	<a href="">News >> </a> Latest News
 </div>
 
 <form action="command.do?method=delete" method="post">
-	<c:forEach var="news" items="${requestScope.newsList}">
+	<c:forEach var="news" items="${requestScope.news}">
 		<div class="single-news-wrapper">
 			<div class="single-news-header-wrapper">
 				<div class="news-title">

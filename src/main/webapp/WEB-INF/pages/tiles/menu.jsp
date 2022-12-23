@@ -22,7 +22,6 @@
 							<a href="">add news </a>
 
 							<br />
-
 						</li>
 					</c:if>
 				</ul>

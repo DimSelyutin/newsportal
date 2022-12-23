@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+newsList
 <div class="body-title">
 	<a href="">News</a> News List
 

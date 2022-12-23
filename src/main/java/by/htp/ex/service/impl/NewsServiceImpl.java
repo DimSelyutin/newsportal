@@ -36,8 +36,7 @@ public class NewsServiceImpl implements INewsService{
     @Override
     public List<News> latestList(int count) throws ServiceException, ConnectionPoolException, SQLException {
         List<News> listNews;
-        System.out.println("Servis method latest list");
-        listNews = newsDAO.getAllNews().subList(1, count);
+        listNews = newsDAO.getAllNews().subList(0, count);
         return listNews;
     }
 

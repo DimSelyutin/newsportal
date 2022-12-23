@@ -29,7 +29,7 @@ public class GoToMainPage implements Command{
                 latestNews = newsService.latestList(5);
                
                 request.setAttribute("news", latestNews);
-                request.setAttribute("presentation", "newsList");
+                request.setAttribute("presentation", "guestInfo");
 
             } catch (ServiceException e) {
                 e.printStackTrace();

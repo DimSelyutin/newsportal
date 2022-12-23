@@ -37,14 +37,13 @@ public class NewsDAO implements INewsDAO{
     }
 
     public List<News> getAllNews() throws ConnectionPoolException, SQLException{
-        List<News> listok = new ArrayList<>();
         Connection con = DaoProvider.getInstance().getConnectionDAO().getConnection();
-
+        List<News> listok = new ArrayList<>();
         String sqlAllNews = "SELECT * FROM posts";
 
         ResultSet rs = con.createStatement().executeQuery(sqlAllNews);
         while(rs.next()){
-            listok.add(new News(rs.getInt(1), rs.getString(2), rs.getString(2), rs.getString(5)));
+            listok.add(new News(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(5)));
         }
         return listok;
     }

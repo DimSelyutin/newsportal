@@ -21,22 +21,19 @@ public class GoToNews implements Command{
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<News> newsList = new ArrayList<>();
+        List<News> newsList;
         try {
-            try {
-                newsList = newsService.latestList(5);
+            newsList = newsService.latestList(6);
+
+            request.setAttribute("presentation", "newsList");
+            request.setAttribute("news", newsList);
+                
+            } catch (ServiceException e) {
+                e.printStackTrace();
+                
             } catch (ConnectionPoolException | SQLException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-            }
-            request.setAttribute("presentation", "newsList");
-            request.setAttribute("news", newsList);
-            System.out.println("GoToNews");
-                
-            } catch (ServiceException e) {
-                System.out.println("Eroor goToNews");
-                e.printStackTrace();
-                
             }
             
             
