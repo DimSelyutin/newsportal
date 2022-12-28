@@ -9,3 +9,6 @@
 	<c:import url="/WEB-INF/pages/tiles/newsList.jsp" />
 </c:if>
 
+<c:if test="${requestScope.presentation eq 'userId'}">
+	<c:import url="/WEB-INF/pages/tiles/editNews.jsp" />
+</c:if>

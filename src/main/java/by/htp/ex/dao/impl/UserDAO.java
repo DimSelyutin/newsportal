@@ -12,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.Format;
+import java.sql.Connection;
+
 
 import by.htp.ex.dao.connection.ConnectionPoolException;
 
@@ -56,8 +58,13 @@ public class UserDAO implements IUserDAO{
     @Override
     public User getUser(String login) throws ConnectionPoolException, SQLException {
         Connection con = DaoProvider.getInstance().getConnectionDAO().getConnection();
-        String sqlUser = "SELECT * FROM role_user WHERE `login`='"+login+"'";
-        return null;
+        String sqlUser = "SELECT * FROM user WHERE `login`='"+login+"'";
+        User user = null;
+        ResultSet rs = con.prepareStatement(sqlUser).executeQuery();
+        while (rs.next()) {
+            user = new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),rs.getString(6));
+        }
+        return user;
     }
 
 
@@ -68,9 +75,6 @@ public class UserDAO implements IUserDAO{
         
         String sqlUser = "SELECT * FROM role_user WHERE `user_id`='"+id+"'";            
         String role = "guest";
-        
-        
-        
         ResultSet rs = con.prepareStatement(sqlUser).executeQuery();
         if (rs.next()) {
             int role_id = rs.getInt(2);
@@ -94,7 +98,7 @@ public class UserDAO implements IUserDAO{
     @Override
     public List<User> findAllUser() throws ConnectionPoolException, SQLException {
         Connection con = DaoProvider.getInstance().getConnectionDAO().getConnection();
-        String sqlUser = "SELECT * FROM user ";
+        String sqlUser = "SELECT * FROM user";
         List<User> users = new ArrayList<>();
         ResultSet rs = con.prepareStatement(sqlUser).executeQuery();
         while (rs.next()) {
@@ -106,9 +110,15 @@ public class UserDAO implements IUserDAO{
     }
 
     @Override
-    public User findUserById(String id) {
-        // TODO Auto-generated method stub
-        return null;
+    public User findUserById(String id) throws SQLException, ConnectionPoolException {
+        Connection con = DaoProvider.getInstance().getConnectionDAO().getConnection();
+        String sqlAllNews = "SELECT * FROM user where `id`='"+id+"'";
+        ResultSet rs = con.createStatement().executeQuery(sqlAllNews);
+        User user = null;
+        while(rs.next()){
+            user = new User(rs.getInt(1), rs.getString(2), rs.getString(4), rs.getString(5),rs.getString(3), rs.getString(9));
+        }
+        return user;
     }
 
 

@@ -29,5 +29,24 @@ public class UserServiceImpl implements IUserService{
             return role = "guest";
         }
     }
+
+    @Override
+    public User findUserById(String id) throws SQLException, ConnectionPoolException {
+        User user = userDAO.findUserById(id);
+        return user;
+    }
+
+    @Override
+    public int getUserId(String login) throws ConnectionPoolException, SQLException {
+        User user = userDAO.getUser(login);
+        System.out.println(user.getLogin());
+        int id = user.getId();
+        return id;
+    }
+
+    
+
+  
+    
     
 }

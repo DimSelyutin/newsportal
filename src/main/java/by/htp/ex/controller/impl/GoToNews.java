@@ -23,10 +23,10 @@ public class GoToNews implements Command{
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<News> newsList;
         try {
+            request.setAttribute("presentation", "userInfo");
             newsList = newsService.latestList(6);
-
-            request.setAttribute("presentation", "newsList");
             request.setAttribute("news", newsList);
+
                 
             } catch (ServiceException e) {
                 e.printStackTrace();

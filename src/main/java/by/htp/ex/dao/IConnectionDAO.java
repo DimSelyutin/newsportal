@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import by.htp.ex.dao.connection.ConnectionPoolException;
 public interface IConnectionDAO {
 
-    Connection getConnection() throws ConnectionPoolException, SQLException;
+    Connection getConnection() throws SQLException, ConnectionPoolException;
 
     void closeConnection();
     

@@ -17,7 +17,8 @@
 	<!-- ///menu with authorization -->
 	<c:if test="${not (sessionScope.user eq 'active')}">
 		<div class="header_button">
-			<button>SIgnIn</button>
+			<button id="signin">SIgnIn</button>
+			<button id="signup">SgnUp</button>
 		</div>
 		
 	</c:if>

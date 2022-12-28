@@ -1,17 +1,50 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<form action="controller" method="post">
-		<input type="hidden" name="command" value="do_logination" /> Enter login:<br />
-		<input type="text" name="login" value="" /><br /> Enter password:<br />
-		<input type="password" name="password" value="" /><br /> <input
-			type="submit" value="Отправить" /><br />
-	</form>
-</body>
-</html> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<div class="popup popup-login" style="display: none;">
+<form action="controller" method="post" id="js-modal" class="modal">
+    <input type="hidden" name="command" value="do_signin" />
+    <c:if test="${not (requestScope.AuthenticationError eq null)}">
+        <font color="red">
+            <c:out value="${requestScope.AuthenticationError}" />
+        </font>
+    </c:if>
+    <div id="js-close-button" class="modal__close">
+        <div id="" title="" class="icon ">
+            <svg viewBox="0 0 32 32">
+                <use xlink:href="#close-icon"></use>
+            </svg>
+        </div>
+    </div>
+    <div class="modal__header">Log In</div>
+    <div class="modal__description">Enter your login and password</div>
+    <div class="modal__section">
+        <div class="input-with-label">
+            <input id="name" name="login" type="text" value="" class="input-with-label__input">
+            <label for="name" class="input-with-label__label">login
+                <div class="input-with-label__label__corner"></div>
+            </label>
+        </div>
+    </div>
+    <div class="modal__section">
+        <div class="input-with-label">
+            <input id="password" name="password" type="password" value=""
+                class="input-with-label__input">
+            <label for="password" class="input-with-label__label">password
+                <div class="input-with-label__label__corner"></div>
+            </label>
+        </div>
+    </div>
+    <div class="g-recaptcha" data-sitekey="6Ldn_KMjAAAAAOwa5s3MK4ax_NqNXt5rwa_9LTch" style="margin-bottom:1em";></div>
+    
+    <div class="modal__section grid grid--sliced grid--gutter-x2">
+        <div class="grid-bit grid-bit--14-20">
+            <input type="submit" value="log in" class="button"></input>
+        </div>
+        <div class="grid-bit grid-bit--6-20">
+            <button class="button--grey">cancel</button>
+        </div>
+        <a href="">Registration</a> <input type="submit" value="Sign In" />
+    </div>
+</form>
+</div>
+
+

@@ -26,11 +26,11 @@ public class GoToMainPage implements Command{
         
 
 			try {
-                latestNews = newsService.latestList(5);
-               
-                request.setAttribute("news", latestNews);
+                
                 request.setAttribute("presentation", "guestInfo");
-
+                latestNews = newsService.latestList(2);
+                request.setAttribute("news", latestNews);
+                
             } catch (ServiceException e) {
                 e.printStackTrace();
             } catch(ConnectionPoolException e) {
@@ -40,7 +40,6 @@ public class GoToMainPage implements Command{
                 
                 e.printStackTrace();
             }
-        System.out.println("Go-Main-Page");
         request.getRequestDispatcher("WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
 
         

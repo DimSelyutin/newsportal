@@ -10,8 +10,9 @@ public interface INewsDAO {
     void addNews();
     
     void deleteNews(News news);
-    News getNews();
+    News getNews(int id) throws ConnectionPoolException, SQLException;
     String createDatePost();
+    
 
     List<News> getAllNews() throws ConnectionPoolException, SQLException;
 }

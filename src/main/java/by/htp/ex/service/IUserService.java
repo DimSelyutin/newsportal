@@ -9,4 +9,6 @@ import by.htp.ex.dao.connection.ConnectionPoolException;
 public interface IUserService {
     String signin(String login, String password) throws DaoException, ConnectionPoolException, SQLException;
     boolean registration(User newUser);
+    User findUserById(String id) throws SQLException, ConnectionPoolException ;
+    int getUserId(String login) throws ConnectionPoolException, SQLException;
 }

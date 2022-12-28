@@ -14,6 +14,6 @@ public interface IUserDAO {
     String getRole(int id) throws ConnectionPoolException, SQLException;
     User getUser(String user) throws ConnectionPoolException, SQLException;
     List<User> findAllUser() throws ConnectionPoolException, SQLException;
-    User findUserById(String id);
+    User findUserById(String id) throws SQLException, ConnectionPoolException;
 
 }

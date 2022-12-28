@@ -7,6 +7,7 @@
 			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 			<script src="./script/jquery.min.js"></script>
 			<script type="text/javascript" src="./script/script.js"></script>
+			<script src="https://www.google.com/recaptcha/enterprise.js?render=6Ldn_KMjAAAAAOwa5s3MK4ax_NqNXt5rwa_9LTch"></script>
 			<link rel="stylesheet" type="text/css" href="./css/style.css">
 
 		</head>
@@ -15,12 +16,14 @@
 			<div class="header">
 				<c:import url="/WEB-INF/pages/tiles/header.jsp" />
 			</div>
+
+
 			<div class="first-page">
 				<h1>News Blog</h1>
 			</div>
 			<div class="content">
 				<div class="base-layout-wrapper">
-
+					
 					<div class="menu">
 						<c:if test="${not (sessionScope.user eq 'active')}">
 							Welcome!!!!!
@@ -32,67 +35,21 @@
 
 					</div>
 					<div class="content_news">
-
-
+						<c:if test="${not (sessionScope.user eq 'active')}">
+							<c:import url="/WEB-INF/jsp/login.jsp"/>
+							<c:import url="/WEB-INF/jsp/register.jsp"/>
+						</c:if>
 
 						<c:import url="/WEB-INF/pages/tiles/body.jsp"/>
-
-
-
+						
 					</div>
 				</div>
 
 			</div>
+
+
 			<div class="footer">
 				<c:import url="/WEB-INF/pages/tiles/footer.jsp" />
-			</div>
-
-
-
-			<div class="popup">
-				<form action="controller" method="post" id="js-modal" class="modal">
-					<input type="hidden" name="command" value="do_signin" />
-					<c:if test="${not (requestScope.AuthenticationError eq null)}">
-						<font color="red">
-							<c:out value="${requestScope.AuthenticationError}" />
-						</font>
-					</c:if>
-					<div id="js-close-button" class="modal__close">
-						<div id="" title="" class="icon ">
-							<svg viewBox="0 0 32 32">
-								<use xlink:href="#close-icon"></use>
-							</svg>
-						</div>
-					</div>
-					<div class="modal__header">Log In</div>
-					<div class="modal__description">Enter your login and password</div>
-					<div class="modal__section">
-						<div class="input-with-label">
-							<input id="name" name="login" type="text" value="" class="input-with-label__input">
-							<label for="name" class="input-with-label__label">login
-								<div class="input-with-label__label__corner"></div>
-							</label>
-						</div>
-					</div>
-					<div class="modal__section">
-						<div class="input-with-label">
-							<input id="password" name="password" type="password" value=""
-								class="input-with-label__input">
-							<label for="password" class="input-with-label__label">password
-								<div class="input-with-label__label__corner"></div>
-							</label>
-						</div>
-					</div>
-					<div class="modal__section grid grid--sliced grid--gutter-x2">
-						<div class="grid-bit grid-bit--14-20">
-							<input type="submit" value="log in" class="button"></input>
-						</div>
-						<div class="grid-bit grid-bit--6-20">
-							<button class="button--grey">cancel</button>
-						</div>
-						<a href="">Registration</a> <input type="submit" value="Sign In" />
-					</div>
-				</form>
 			</div>
 		</body>
 

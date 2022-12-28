@@ -16,7 +16,6 @@ public class ConnectionDAO implements IConnectionDAO{
         
         poolConnection.initPoolData();
         Connection con = poolConnection.takeConnection();
-
         return con;
     }
 

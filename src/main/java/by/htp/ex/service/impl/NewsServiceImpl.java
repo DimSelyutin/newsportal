@@ -48,9 +48,9 @@ public class NewsServiceImpl implements INewsService{
     }
 
     @Override
-    public News findById(int id) throws ServiceException {
-        // TODO Auto-generated method stub
-        return null;
+    public News findById(int id) throws ServiceException, ConnectionPoolException, SQLException {
+        News news = newsDAO.getNews(id);
+        return news;
     }
 
 }

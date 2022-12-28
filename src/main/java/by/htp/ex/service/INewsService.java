@@ -13,6 +13,6 @@ public interface INewsService {
     
     List<News> latestList(int count)  throws ServiceException, ConnectionPoolException, SQLException;
     List<News> list()  throws ServiceException, ConnectionPoolException, SQLException;
-    News findById(int id) throws ServiceException;	
+    News findById(int id) throws ServiceException, ConnectionPoolException, SQLException;	
 	
 }

@@ -2,19 +2,26 @@ package by.htp.ex.bean;
 
 
 public class News {
+    
+
     private static final long serialVersionUID = 1L;
 
     private int id;
     private String title;
     private String text;
     private String postDate;
+    private int userId;
 
-    public News(int id,String title, String text, String postDate) {
+
+
+    public News(int id, String title, String text, String postDate, int userId) {
         this.id = id;
         this.title = title;
         this.text = text;
         this.postDate = postDate;
+        this.userId = userId;
     }
+
 
     public News() {
     }
@@ -52,6 +59,16 @@ public class News {
         this.postDate = postDate;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -60,6 +77,7 @@ public class News {
         result = prime * result + ((title == null) ? 0 : title.hashCode());
         result = prime * result + ((text == null) ? 0 : text.hashCode());
         result = prime * result + ((postDate == null) ? 0 : postDate.hashCode());
+        result = prime * result + userId;
         return result;
     }
 
@@ -89,12 +107,15 @@ public class News {
                 return false;
         } else if (!postDate.equals(other.postDate))
             return false;
+        if (userId != other.userId)
+            return false;
         return true;
     }
 
     @Override
     public String toString() {
-        return "News [id=" + id + ", title=" + title + ", text=" + text + ", postDate=" + postDate + "]";
+        return "News [id=" + id + ", title=" + title + ", text=" + text + ", postDate=" + postDate + ", userId="
+                + userId + "]";
     }
 }
     

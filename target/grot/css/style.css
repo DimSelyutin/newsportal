@@ -46,7 +46,7 @@ body {
   border-radius: 5px;
   border: 1px solid;
   padding: 15px;
-  line-height: 3vh;
+  line-height: 100%;
 }
 
 .user-icon {
@@ -65,7 +65,12 @@ body {
   align-items: center;
 }
 
-.h_right {
+.header_button>button {
+  margin: 0 10px;
+  padding: 0 15px;
+}
+
+.header_button .h_right {
   display: grid;
 }
 
@@ -89,6 +94,7 @@ body {
 
 .first-page>h1 {
   background-image: url(../images/newspaper.jpg);
+  background-size: 20%;
   background-position: 50% 50%;
   font-size: 12vw;
   font-weight: 900;
@@ -113,6 +119,7 @@ body {
 .small {
   background-color: #fafafa;
   color: #000;
+  z-index: 99;
 }
 
 .language {
@@ -151,6 +158,7 @@ body {
   width: -webkit-fill-available;
   padding: 15px;
 }
+
 .no-news {
   text-align: center;
 }
@@ -290,6 +298,7 @@ body {
   z-index: 99;
   position: fixed;
   top: 0;
+  left: 0;
   display: none;
   height: 100%;
   width: 100%;
@@ -495,4 +504,78 @@ button:hover,
   top: 0;
   left: 0;
   position: absolute;
+}
+
+.menu-icons {
+  display: flex;
+  justify-content: space-between;
+  float: right;
+  gap: 0.5vw;
+  right: 15px;
+
+}
+.like-svg {
+  fill: #fff;
+  stroke: #000;
+  stroke-width: 3px;
+  stroke-linejoin: round;
+}
+
+.setting-svg,
+.like-svg {
+  display: block;
+  cursor: pointer;
+  position: relative;
+}
+
+.setting-svg>svg:hover,
+.like-svg>svg:hover {
+  fill: #ff8805;
+  stroke: none;
+}
+
+.hidden_menu {
+  position: absolute;
+  background-color: #fafafa;
+  top: 100%;
+  right: 0;
+  width: max-content;
+  display: grid;
+  justify-items: center;
+  border: 1px solid #cacaca;
+  border-radius: 5px;
+  z-index: 3;
+
+
+}
+
+.hidden_menu>span {
+  padding: 0.5em;
+  width: 100%;
+  text-align: center;
+  
+}
+.hidden_menu>span>a {
+  text-decoration: none;
+    color: #000;
+}
+
+.hidden_menu>span:hover {
+  background-color: rgba(0, 0, 0, 0.192);
+}
+
+.single-news-wrapper {
+  position: relative;
+}
+
+
+.news_list {
+  display: grid;
+  gap: 5vh;
+}
+
+.single-news-wrapper {
+  padding: 10px;
+    box-shadow: 0px 0px 5px #000;
+    border-radius: 3px;
 }
