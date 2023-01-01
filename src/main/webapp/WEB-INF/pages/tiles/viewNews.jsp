@@ -1,27 +1,36 @@
-<form action="command.do?method=delete" method="post">
-	viewNews
-	<c:forEach var="news" items="${requestScope.newsList}">
-		<div class="single-news-wrapper">
-			<div class="single-news-header-wrapper">
-				<div class="news-title">
-					<c:out value="${news.title}" />
-				</div>
-				<div class="news-date">
-					<c:out value="${news.postDate}" />
-				</div>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <div class="edit_news">
+        <div class="h_right">
+            <div class="user-name edit-form">
+                <c:out value="${sessionScope.login}" />
+            </div>
+            <div class="user-role edit-form">
+                <c:out value="${sessionScope.role}" />
 
-				<div class="news-content">
-					<c:out value="${news.text}" />
-				</div>
-			</div>
-		</div>
+            </div>
 
-	</c:forEach>
+        </div>
+            <input type="hidden" name="command" value="go_view_news" />
+            <div class="form_edit_news">
+                <div class="news-title-edit">
+                <c:out value=" ${post.title}" />
+                    
+                </div>
+                <div class="news-content">
+                    <c:out value="${post.text}"/>
+       
+                </div>
+                <div class="news-date">
+                    <c:out value="${post.postDate}" />
+                </div>
+                <div>
+                    like
+                </div>
+                <div class="post_img">
+                    <img src="
+                <c:out value=" ${post.imageDir}" />
+                    " alt="Photo">
 
-	<div class="no-news">
-		<c:if test="${requestScope.news eq null}">
-        No news.
-	</c:if>
-	</div>
-
-</form>
+                </div>
+            </div>
+    </div>

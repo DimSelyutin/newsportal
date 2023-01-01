@@ -19,6 +19,15 @@ public class User {
 
     
 
+    public User(String login, String phone, String email, String password) {
+        
+        this.login = login;
+        this.phone = phone;
+        this.email = email;
+        this.password = password;
+        this.dateRegister = onCreate();
+    }
+
     public User(int id, String login, String phone, String email, String password, String regDate) {
         this.id = id;
         this.login = login;
@@ -30,7 +39,7 @@ public class User {
 
     public String onCreate() {
     
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDateTime dateTime = LocalDateTime.of(LocalDate.now(), LocalTime.now());
         String formattedDateTime = dateTime.format(formatter);
         return formattedDateTime;

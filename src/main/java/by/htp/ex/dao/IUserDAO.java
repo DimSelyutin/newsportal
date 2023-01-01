@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import by.htp.ex.bean.User;
-import by.htp.ex.dao.connection.ConnectionPoolException;
+import by.htp.ex.dao.connectionPool.ConnectionPoolException;
 
 public interface IUserDAO {
     void register(User newUser) throws DaoException, ConnectionPoolException, SQLException;

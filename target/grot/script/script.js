@@ -1,8 +1,8 @@
 jQuery(document).ready(function () {
   
-  var btn_close = $('#js-close-button');
-  var btn_login = $('#signin');
-  var btn_register = $('#signup');
+  var btn_close = $('.js-close-button');
+  var btn_login = $('.signin');
+  var btn_register = $('.signup');
   var form_register = $('.popup-register');
   var form_login = $('.popup-login');
 

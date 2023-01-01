@@ -1,8 +1,9 @@
 package by.htp.ex.dao;
 
-import by.htp.ex.dao.impl.ConnectionDAO;
 import by.htp.ex.dao.impl.NewsDAO;
 import by.htp.ex.dao.impl.UserDAO;
+import by.htp.ex.repository.ConnectionDAO;
+import by.htp.ex.repository.IConnectionDAO;
 
 public final class DaoProvider {
     

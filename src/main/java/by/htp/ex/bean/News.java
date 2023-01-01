@@ -1,31 +1,85 @@
 package by.htp.ex.bean;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class News {
     
 
+    
     private static final long serialVersionUID = 1L;
-
+    
     private int id;
     private String title;
     private String text;
     private String postDate;
+    private String imageDir;
+    private String category;
     private int userId;
 
 
-
-    public News(int id, String title, String text, String postDate, int userId) {
-        this.id = id;
+    public News(String title, String text, String imageDir, String category, int userId) {
         this.title = title;
         this.text = text;
-        this.postDate = postDate;
+        this.postDate = onCreate();
+        this.imageDir = imageDir;
+        this.category = category;
         this.userId = userId;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    
+    
+    
+    
+    public News(int id, String title, String text, String imageDir, String category,int userId) {       //for old
+        this.id = id;
+        this.title = title;
+        this.text = text;
+        this.imageDir = imageDir;
+        this.category = category;
+        this.userId = userId;
+    }
+
+    public News(int id, String title, String text, String postDate, String imageDir, String category, int userId) {      //for new
+        this.id = id;
+        this.title = title;
+        this.text = text;
+        this.postDate = onCreate();
+        this.imageDir = imageDir;
+        this.category = category;
+        this.userId = userId;
+    }
+    
+    public String onCreate() {
+    
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime dateTime = LocalDateTime.of(LocalDate.now(), LocalTime.now());
+        String formattedDateTime = dateTime.format(formatter);
+        return formattedDateTime;
+    
+    }
 
     public News() {
     }
 
+    public String getImageDir() {
+        return imageDir;
+    }
+
+
+    public void setImageDir(String imageDir) {
+        this.imageDir = imageDir;
+    }
 
     public Integer getId() {
         return id;

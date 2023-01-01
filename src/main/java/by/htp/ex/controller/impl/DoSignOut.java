@@ -15,7 +15,7 @@ public class DoSignOut implements Command{
         
         HttpSession session = request.getSession();
         session.invalidate();
-        request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
+        response.sendRedirect("controller?command=go_to_main_page");
         
     }
     

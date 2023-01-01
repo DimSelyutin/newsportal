@@ -6,7 +6,7 @@ import by.htp.ex.bean.User;
 import by.htp.ex.dao.DaoException;
 import by.htp.ex.dao.DaoProvider;
 import by.htp.ex.dao.IUserDAO;
-import by.htp.ex.dao.connection.ConnectionPoolException;
+import by.htp.ex.dao.connectionPool.ConnectionPoolException;
 import by.htp.ex.service.IUserService;
 
 public class UserServiceImpl implements IUserService{
@@ -15,16 +15,19 @@ public class UserServiceImpl implements IUserService{
     
     
     @Override
-    public boolean registration(User newUser) {
-        // TODO Auto-generated method stub
-        return false;
+    public boolean registration(User newUser) throws DaoException, ConnectionPoolException, SQLException {
+        userDAO.register(newUser);
+        return true;
     }
 
     @Override
     public String signin(String login, String password) throws DaoException, ConnectionPoolException, SQLException {
         String role;
+        int _id = getUserId(login);
+        System.out.println(_id);
         if (userDAO.signIn(login, password)) {
-            return role = userDAO.getRole(1);
+            System.out.println(userDAO.getRole(_id));
+            return role = userDAO.getRole(_id);
         } else {
             return role = "guest";
         }
@@ -39,8 +42,8 @@ public class UserServiceImpl implements IUserService{
     @Override
     public int getUserId(String login) throws ConnectionPoolException, SQLException {
         User user = userDAO.getUser(login);
-        System.out.println(user.getLogin());
         int id = user.getId();
+        System.out.println(id+":"+login);
         return id;
     }
 

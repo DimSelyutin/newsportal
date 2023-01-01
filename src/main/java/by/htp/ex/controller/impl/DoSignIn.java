@@ -2,11 +2,13 @@ package by.htp.ex.controller.impl;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
+import by.htp.ex.bean.Category;
 import by.htp.ex.controller.Command;
 import by.htp.ex.dao.DaoException;
-
-import by.htp.ex.dao.connection.ConnectionPoolException;
+import by.htp.ex.dao.connectionPool.ConnectionPoolException;
+import by.htp.ex.service.INewsService;
 import by.htp.ex.service.IUserService;
 import by.htp.ex.service.ServiceProvider;
 
@@ -17,7 +19,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class DoSignIn implements Command {
 
-    private final IUserService service = ServiceProvider.getInstance().getUserService();
+    private final IUserService userService = ServiceProvider.getInstance().getUserService();
+    private final INewsService newsService = ServiceProvider.getInstance().getNewsService();
     private static final String JSP_LOGIN_PARAM = "login";
     private static final String JSP_PASSWORD_PARAM = "password";
 
@@ -26,8 +29,9 @@ public class DoSignIn implements Command {
             throws ServletException, IOException, DaoException, ConnectionPoolException, SQLException {
         String login = request.getParameter(JSP_LOGIN_PARAM);
         String passsword = request.getParameter(JSP_PASSWORD_PARAM);
-        String role = service.signin(login, passsword);
-        int idUser = service.getUserId(login);
+        String role = userService.signin(login, passsword);
+        int idUser = userService.getUserId(login);
+        List<Category> listCategory = newsService.findAllCategoryes();
 
         if (!role.equals("guest")) {
 
@@ -35,6 +39,9 @@ public class DoSignIn implements Command {
             request.getSession(true).setAttribute("role", role);
             request.getSession(true).setAttribute("idUser", idUser);
             request.getSession(true).setAttribute("login", login);
+            request.getSession().setAttribute("listCategory", listCategory);
+            // request.setAttribute("listCategory", listCategory);
+
             response.sendRedirect("controller?command=go_to_news");
 
         } else {

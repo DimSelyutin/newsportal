@@ -26,8 +26,7 @@
 					
 					<div class="menu">
 						<c:if test="${not (sessionScope.user eq 'active')}">
-							Welcome!!!!!
-							
+							Log in or register for read news.					
 						</c:if>
 						<c:if test="${sessionScope.user eq 'active'}">
 							<c:import url="/WEB-INF/pages/tiles/menu.jsp" />

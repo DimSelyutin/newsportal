@@ -7,15 +7,12 @@ import by.htp.ex.bean.User;
 import by.htp.ex.dao.DaoException;
 import by.htp.ex.dao.DaoProvider;
 import by.htp.ex.dao.IUserDAO;
+import by.htp.ex.dao.connectionPool.ConnectionPoolException;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.Format;
-import java.sql.Connection;
-
-
-import by.htp.ex.dao.connection.ConnectionPoolException;
 
 public class UserDAO implements IUserDAO{
     
@@ -23,9 +20,10 @@ public class UserDAO implements IUserDAO{
     @Override
     public void register(User newUser) throws DaoException, ConnectionPoolException, SQLException{
         Connection con = DaoProvider.getInstance().getConnectionDAO().getConnection();
-        String sqlUser = "INSERT INTO `vibestretch`.`user` (`login`, `phone`, `email`, `date_register`) VALUES ("+newUser.getLogin()+", "+newUser.getPhone()+", "+newUser.getEmail()+", "+newUser.onCreate()+"";
+        String sqlUser = String.format("INSERT INTO `user` (`login`, `password`, `phone`, `email`,`date_register`) VALUES ('%s','%s','%s','%s','%s');", newUser.getLogin(), newUser.getPassword(),newUser.getPhone(),newUser.getEmail(),newUser.getDateRegister());
+        System.out.println(sqlUser);
 
-        ResultSet rs = con.prepareStatement(sqlUser).executeQuery();
+        con.prepareStatement(sqlUser).execute();
         
     }
 
@@ -81,7 +79,6 @@ public class UserDAO implements IUserDAO{
             String sqlUserRole = "SELECT * FROM role WHERE `id`='"+role_id+"'";                     
             rs = null;
             rs = con.prepareStatement(sqlUserRole).executeQuery();
-
             while (rs.next()) {
 
                 if (rs.getInt(1) == role_id){
@@ -91,9 +88,9 @@ public class UserDAO implements IUserDAO{
             }
         }
             return role;
-
-
     }
+
+    
     
     @Override
     public List<User> findAllUser() throws ConnectionPoolException, SQLException {

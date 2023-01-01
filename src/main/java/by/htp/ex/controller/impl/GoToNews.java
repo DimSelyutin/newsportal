@@ -5,9 +5,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import by.htp.ex.bean.Category;
 import by.htp.ex.bean.News;
 import by.htp.ex.controller.Command;
-import by.htp.ex.dao.connection.ConnectionPoolException;
+import by.htp.ex.dao.DaoException;
+import by.htp.ex.dao.connectionPool.ConnectionPoolException;
 import by.htp.ex.service.INewsService;
 import by.htp.ex.service.ServiceException;
 import by.htp.ex.service.ServiceProvider;
@@ -22,13 +24,16 @@ public class GoToNews implements Command{
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<News> newsList;
+        
         try {
+            // List<Category> listCategory = newsService.findAllCategoryes();
             request.setAttribute("presentation", "userInfo");
-            newsList = newsService.latestList(6);
+            newsList = newsService.list();
             request.setAttribute("news", newsList);
+            // request.setAttribute("listCategory", listCategory);
 
                 
-            } catch (ServiceException e) {
+            } catch (DaoException | ServiceException e) {
                 e.printStackTrace();
                 
             } catch (ConnectionPoolException | SQLException e) {
@@ -37,7 +42,7 @@ public class GoToNews implements Command{
             }
             
             
-            request.getRequestDispatcher("WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
     }
     
 }

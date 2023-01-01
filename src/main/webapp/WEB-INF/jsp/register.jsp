@@ -7,7 +7,7 @@
                     <c:out value="${requestScope.AuthenticationError}" />
                 </font>
             </c:if>
-            <div id="js-close-button" class="modal__close">
+            <div class="modal__close js-close-button">
                 <div id="" title="" class="icon ">
                     <svg viewBox="0 0 32 32">
                         <use xlink:href="#close-icon"></use>
@@ -38,6 +38,15 @@
 
             <div class="modal__section">
                 <div class="input-with-label">
+                    <input id="email" name="email" type="email" value="" class="input-with-label__input">
+                    <label for="email" class="input-with-label__label">email
+                        <div class="input-with-label__label__corner"></div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="modal__section">
+                <div class="input-with-label">
                     <input id="password" name="password" type="password" value="" class="input-with-label__input">
                     <label for="password" class="input-with-label__label">password
                         <div class="input-with-label__label__corner"></div>
@@ -52,8 +61,6 @@
                     </label>
                 </div>
             </div>
-            <div class="g-recaptcha" data-sitekey="6Ldn_KMjAAAAAOwa5s3MK4ax_NqNXt5rwa_9LTch" style="margin-bottom:1em"
-                ;></div>
             <div class="modal__section grid grid--sliced grid--gutter-x2">
                 <div class="grid-bit grid-bit--14-20">
                     <input type="submit" value="log in" class="button"></input>
@@ -61,7 +68,7 @@
                 <div class="grid-bit grid-bit--6-20">
                     <button class="button--grey">cancel</button>
                 </div>
-                <a href="">Registration</a> <input type="submit" value="Sign In" />
+                <a href="">Registration</a>
             </div>
         </form>
     </div>
