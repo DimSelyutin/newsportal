@@ -18,21 +18,18 @@ public class DoAddNews implements Command{
     private final INewsService service = ServiceProvider.getInstance().getNewsService();
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException,
-            DaoException, ConnectionPoolException, SQLException, ServiceException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
                 String idCategory = request.getParameter("category");
-                System.out.println("id Category: "+idCategory);
                 String title = request.getParameter("title");
                 String text = request.getParameter("postText");
                 String imageDir = "https://i.pinimg.com/originals/1e/51/34/1e51340e734aa32aeb8f14712dae043d.jpg";
-                String category = request.getParameter("category");
         
                 int userId = (int) request.getSession().getAttribute("idUser");
                 
-                News editedNews = new News(title, text, imageDir,idCategory, userId);
+                News editedNews = new News(title, text, imageDir, idCategory, userId);
+                System.out.println(idCategory);
         
                 service.save(editedNews);
-                System.out.println(editedNews);
                 response.sendRedirect("controller?command=go_to_main_page");
         
     }

@@ -9,28 +9,18 @@
 		</div>
 
 		<div class="list-menu-invisible-wrapper">
-			<div class="list-menu-wrapper" style="float: right;">
-				<ul style="list-style-image: url(images/img.jpg); text-align: left;">
+			<div class="list-menu-wrapper">
+				<ul class="list-menu">
 					<c:forEach var="category" items="${sessionScope.listCategory}">
-						<li style="padding-left: 15px;">
+						<li class="list-menu-зщште">
 							<a href="">
 								<c:out value="${category.nameCategory}"/>
 							</a>
 						</li>
 					</c:forEach>
-
-						<c:if test="${sessionScope.role eq 'admin'}">
-							<li style="padding-left: 15px;">
-
-								<a href="">add news </a>
-
-								
-							</li>
-						</c:if>
 				</ul>
 			</div>
 			<div class="clear"></div>
 		</div>
 		<!--  grey free space at the bottom of menu -->
-		<div style="height: 25px;"></div>
 	</div>

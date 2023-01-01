@@ -20,8 +20,7 @@ public class DoEditNews implements Command {
     private final INewsService service = ServiceProvider.getInstance().getNewsService();
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException,
-            DaoException, ConnectionPoolException, SQLException, ServiceException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String idNews = request.getParameter("idNews");
         String title = request.getParameter("title");
@@ -33,8 +32,12 @@ public class DoEditNews implements Command {
         
         News editedNews = new News((Integer.parseInt(idNews)), title, text, imageDir,category, userId);
 
-        service.update(editedNews);
-        System.out.println(editedNews);
+        try {
+            service.update(editedNews);
+        } catch (SQLException | ConnectionPoolException e) {
+            
+            e.printStackTrace();
+        }
         response.sendRedirect("controller?command=go_to_main_page");
 
     }

@@ -28,7 +28,9 @@ body {
   height: 80px;
 }
 
-
+.clear {
+  clear: both;
+}
 
 .header_button {
   width: 100px;
@@ -554,6 +556,15 @@ button:hover,
   right: 15px;
 
 }
+
+.list-menu {
+
+}
+.list-menu-point {
+
+}
+
+
 .menu-svg {
   float: right;
 }

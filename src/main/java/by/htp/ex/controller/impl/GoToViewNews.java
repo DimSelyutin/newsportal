@@ -16,29 +16,27 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-
 public class GoToViewNews extends HttpServlet implements Command {
-    
+
     private final INewsService newsService = ServiceProvider.getInstance().getNewsService();
     private final IUserService userService = ServiceProvider.getInstance().getUserService();
-    
+
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, DaoException, ConnectionPoolException, SQLException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String idNews = request.getParameter("idNews");
-        System.out.println("sdasd");
+        String userLogin = null;
         News post = null;
         try {
             post = newsService.findById(idNews);
-        } catch (ServiceException e) {
+            userLogin = userService.findUserById(post.getUserId() + "").getLogin();
+
+        } catch (ConnectionPoolException | SQLException | DaoException | ServiceException e) {
             request.setAttribute("somthingWrong", "The post didn't found!");
             response.sendRedirect("controller?command=go_to_news");
             e.printStackTrace();
         }
-        String userLogin = userService.findUserById(post.getUserId() + "").getLogin();
         request.setAttribute("presentation", "viewNews");
         request.setAttribute("post", post);
-
 
         request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
 

@@ -22,23 +22,18 @@ public class MainController extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
 
-        try {
             String commandStr = req.getParameter("command");
             System.out.println("Command: "+commandStr);
             Command command = commandProvider.getCommand(commandStr); // ComandProvider return Comand in
                                                                       // method(getCommand)from String
             command.execute(req, resp);
-        } catch (DaoException | ConnectionPoolException | SQLException | ServiceException e) {
-            
-            e.printStackTrace();
-        }
 
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         doGet(req, resp);
     }
 

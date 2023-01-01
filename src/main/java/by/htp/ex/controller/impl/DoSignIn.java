@@ -25,13 +25,19 @@ public class DoSignIn implements Command {
     private static final String JSP_PASSWORD_PARAM = "password";
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, DaoException, ConnectionPoolException, SQLException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String login = request.getParameter(JSP_LOGIN_PARAM);
         String passsword = request.getParameter(JSP_PASSWORD_PARAM);
-        String role = userService.signin(login, passsword);
-        int idUser = userService.getUserId(login);
-        List<Category> listCategory = newsService.findAllCategoryes();
+        String role = "guest";
+        int idUser = 0;
+        List<Category> listCategory = null;
+        try {
+            role = userService.signin(login, passsword);
+            idUser = userService.getUserId(login);
+            listCategory = newsService.findAllCategoryes();
+        } catch (DaoException | ConnectionPoolException | SQLException e) {
+            e.printStackTrace();
+        }
 
         if (!role.equals("guest")) {
 
@@ -40,7 +46,6 @@ public class DoSignIn implements Command {
             request.getSession(true).setAttribute("idUser", idUser);
             request.getSession(true).setAttribute("login", login);
             request.getSession().setAttribute("listCategory", listCategory);
-            // request.setAttribute("listCategory", listCategory);
 
             response.sendRedirect("controller?command=go_to_news");
 

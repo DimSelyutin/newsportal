@@ -21,7 +21,6 @@ public class UserDAO implements IUserDAO{
     public void register(User newUser) throws DaoException, ConnectionPoolException, SQLException{
         Connection con = DaoProvider.getInstance().getConnectionDAO().getConnection();
         String sqlUser = String.format("INSERT INTO `user` (`login`, `password`, `phone`, `email`,`date_register`) VALUES ('%s','%s','%s','%s','%s');", newUser.getLogin(), newUser.getPassword(),newUser.getPhone(),newUser.getEmail(),newUser.getDateRegister());
-        System.out.println(sqlUser);
 
         con.prepareStatement(sqlUser).execute();
         
@@ -31,7 +30,6 @@ public class UserDAO implements IUserDAO{
     public boolean signIn(String login, String password) throws DaoException, ConnectionPoolException, SQLException  {
         Connection con = DaoProvider.getInstance().getConnectionDAO().getConnection();
         String sqlUser = String.format("SELECT * FROM user WHERE (`login`, `password`) = ('%s','%s')", login, password);
-        System.out.println(sqlUser);
         boolean ret = false;
         PreparedStatement preparedStatement = con.prepareStatement(sqlUser);
         ResultSet rs = preparedStatement.executeQuery();

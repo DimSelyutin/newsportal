@@ -2,10 +2,9 @@ package by.htp.ex.controller.impl;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
+
 import java.util.List;
 
-import by.htp.ex.bean.Category;
 import by.htp.ex.bean.News;
 import by.htp.ex.controller.Command;
 import by.htp.ex.dao.DaoException;
@@ -22,15 +21,13 @@ public class GoToNews implements Command{
     private final INewsService newsService = ServiceProvider.getInstance().getNewsService();
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
         List<News> newsList;
         
         try {
-            // List<Category> listCategory = newsService.findAllCategoryes();
             request.setAttribute("presentation", "userInfo");
             newsList = newsService.list();
             request.setAttribute("news", newsList);
-            // request.setAttribute("listCategory", listCategory);
 
                 
             } catch (DaoException | ServiceException e) {

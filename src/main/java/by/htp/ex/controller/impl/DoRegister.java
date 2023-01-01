@@ -25,7 +25,7 @@ public class DoRegister implements Command{
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        System.out.println("!!!!!!!");
+
         String login = request.getParameter(JSP_LOGIN_PARAM);
         String passsword = request.getParameter(JSP_PASSWORD_PARAM);
         String confirmPasssword = request.getParameter(JSP_CONFIRM_PASSWORD_PARAM);
@@ -34,11 +34,9 @@ public class DoRegister implements Command{
 
         User newUser;
         newUser = new User(login, phone, email, passsword);
-        System.out.println(newUser);
         try {
             service.registration(newUser);
         } catch (DaoException | ConnectionPoolException | SQLException e) {
-            System.out.println("Error register"+e);
             e.printStackTrace();
         }
 

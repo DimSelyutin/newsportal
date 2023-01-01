@@ -21,12 +21,18 @@ public class GoToEditNews implements Command {
     private final IUserService userService = ServiceProvider.getInstance().getUserService();
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, DaoException, ConnectionPoolException, SQLException, ServiceException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String idNews = request.getParameter("idNews");
-        News post = newsService.findById(idNews); 
-        String userLogin = userService.findUserById(post.getUserId()+"").getLogin();
+        News post = null;
+        String userLogin = "null";
+        try {
+            post = newsService.findById(idNews);
+            userLogin = userService.findUserById(post.getUserId()+"").getLogin();
+        } catch (ServiceException | ConnectionPoolException | SQLException | DaoException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } 
         
         if (request.getSession().getAttribute("role").equals("admin") || request.getSession().getAttribute("login").equals(userLogin)) {
             request.setAttribute("presentation", "postId");

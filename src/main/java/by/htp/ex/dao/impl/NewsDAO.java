@@ -36,7 +36,6 @@ public class NewsDAO implements INewsDAO {
         + news.getPostDate() + "', `user_id` = '" 
         + news.getUserId()+ "' WHERE (`id` = '" 
         + news.getId() + "')";
-        System.out.println(sqlAllNews);
         PreparedStatement prepStatement = con.prepareStatement(sqlAllNews);
         prepStatement.executeUpdate();
 

@@ -26,7 +26,6 @@ by\htp\ex\repository\IConnectionDAO.class
 by\htp\ex\dao\connectionPool\DBResourceManager.class
 by\htp\ex\dao\IUserDAO.class
 by\htp\ex\util\validation\ObjBuilder.class
-by\htp\ex\controller\impl\GoToRegistrationPageCommand.class
 by\htp\ex\dao\connectionPool\PoolConnection.class
 by\htp\ex\controller\impl\DoEditNews.class
 by\htp\ex\dao\connectionPool\ConnectionPoolException.class

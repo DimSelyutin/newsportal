@@ -14,8 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class GoToAddNews implements Command{
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException,
-            DaoException, ConnectionPoolException, SQLException, ServiceException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
                 if (request.getSession().getAttribute("role").equals("user") || request.getSession().getAttribute("role").equals("admin") ) {
                     request.setAttribute("presentation", "addNews");
                     request.setAttribute("link", "/WEB-INF/pages/tiles/addNews.jsp");
