@@ -195,6 +195,12 @@ body {
   width: 60%;
 }
 
+.form-edit-news {
+  display: grid;
+  gap: 15px;
+  margin: 10px 0;
+}
+
 .news-title-edit {
   font-weight: 800;
   font-size: 1.7vw;
@@ -225,12 +231,14 @@ body {
 .no-news {
   text-align: center;
 }
+
 .post-img {
   display: block;
   overflow: hidden;
   width: 50%;
   height: 50%;
 }
+
 .post-img>img {
   width: 100%;
   height: auto;
