@@ -7,7 +7,6 @@ import java.util.List;
 import by.htp.ex.bean.News;
 import by.htp.ex.controller.Command;
 import by.htp.ex.dao.DaoException;
-import by.htp.ex.dao.INewsDAO;
 import by.htp.ex.dao.connectionPool.ConnectionPoolException;
 import by.htp.ex.service.INewsService;
 import by.htp.ex.service.ServiceException;

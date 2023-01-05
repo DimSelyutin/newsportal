@@ -10,27 +10,32 @@
             </div>
 
         </div>
-            <input type="hidden" name="command" value="go_view_news" />
-            <div class="form_edit_news">
-                <div class="news-title-edit">
+        <input type="hidden" name="command" value="go_view_news" />
+        <div class="form_edit_news">
+            <div class="news-title-edit">
                 <c:out value=" ${post.title}" />
-                    
-                </div>
-                <div class="news-content">
-                    <c:out value="${post.text}"/>
-       
-                </div>
-                <div class="news-date">
-                    <c:out value="${post.postDate}" />
-                </div>
-                <div>
-                    like
-                </div>
-                <div class="post_img">
-                    <img src="
-                <c:out value=" ${post.imageDir}" />
-                    " alt="Photo">
-
-                </div>
             </div>
+            <div class="post-img">
+                <img src="
+            <c:out value=" ${post.imageDir}" />
+                " alt="Photo">
+
+            </div>
+            <div class="news-content">
+                <c:out value="${post.text}" />
+
+            </div>
+            <div class="news-date">
+                <c:out value="${post.postDate}" />
+            </div>
+            <div>
+                like
+            </div>
+
+        </div>
+        <c:if test="${sessionScope.user eq 'active'}">
+            <c:import url="/WEB-INF/pages/tiles/viewComment.jsp" />
+            <c:import url="/WEB-INF/pages/tiles/postEditor.jsp" />
+
+        </c:if>
     </div>

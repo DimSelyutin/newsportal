@@ -31,11 +31,14 @@ public class DoSignIn implements Command {
         String role = "guest";
         int idUser = 0;
         List<Category> listCategory = null;
+
+        
         try {
             role = userService.signin(login, passsword);
             idUser = userService.getUserId(login);
             listCategory = newsService.findAllCategoryes();
         } catch (DaoException | ConnectionPoolException | SQLException e) {
+            
             e.printStackTrace();
         }
 

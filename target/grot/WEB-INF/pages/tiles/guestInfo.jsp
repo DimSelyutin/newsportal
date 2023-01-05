@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-	guestInfo
+	newsList
 	<div class="body-title">
 		<a href="">News</a> News List
 
@@ -28,14 +28,19 @@
 						</div>
 
 						<div class="news-title">
+							
 							<c:out value="${news.title}" />
 						</div>
 						<div class="news-date">
+							<div class="news_category">
+								<a>Category: </a>
+								<c:out value="${news.category}"/>
+							</div>
 							<c:out value="${news.postDate}" />
 						</div>
 
 						<div class="news-content">
-							<p></p><c:out value="${news.text}" /></p>
+							<p><c:out value="${news.text}" /></p>
 						</div>
 					</div>
 

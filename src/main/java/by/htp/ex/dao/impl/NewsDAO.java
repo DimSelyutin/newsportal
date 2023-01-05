@@ -30,9 +30,7 @@ public class NewsDAO implements INewsDAO {
     public void update(News news) throws SQLException, ConnectionPoolException {
         con = DaoProvider.getInstance().getConnectionDAO().getConnection();
         news.setPostDate(news.onCreate());
-        String sqlAllNews = "UPDATE `posts` SET `title` = '" 
-        + news.getTitle() + "', `text` = '" 
-        + news.getText()+ "', `date_post` = '" 
+        String sqlAllNews = "UPDATE `posts` SET `title` = '"+ news.getTitle() + "', `text` = '"+ news.getText()+ "', `image` = '"+ news.getImageDir()+ "', `date_post` = '" 
         + news.getPostDate() + "', `user_id` = '" 
         + news.getUserId()+ "' WHERE (`id` = '" 
         + news.getId() + "')";

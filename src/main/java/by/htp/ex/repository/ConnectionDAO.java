@@ -12,11 +12,16 @@ public class ConnectionDAO implements IConnectionDAO{
     private Connection connection;
 
     
+    public PoolConnection getPoolConnection(){
+        return poolConnection;
+    }
+
     
     public ConnectionDAO() {
         this.poolConnection = new PoolConnection();
         try {
             initConnection();
+            
         } catch (ConnectionPoolException | SQLException e) {
             e.printStackTrace();
         }
@@ -30,7 +35,8 @@ public class ConnectionDAO implements IConnectionDAO{
     public void initConnection() throws ConnectionPoolException, SQLException {
         poolConnection.initPoolData();
         connection = poolConnection.takeConnection();
-        System.out.println("CreatConnect");
+        
+
 
     }
 

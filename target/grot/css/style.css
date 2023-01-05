@@ -28,7 +28,9 @@ body {
   height: 80px;
 }
 
-
+.clear {
+  clear: both;
+}
 
 .header_button {
   width: 100px;
@@ -46,9 +48,11 @@ body {
 .button_write:hover {
   color: rgba(117, 117, 117, 1);
 }
+
 .a_dec {
   text-decoration: none;
 }
+
 .user-info {
   height: 3rem;
   display: flex;
@@ -123,7 +127,8 @@ body {
 }
 
 .base-layout-wrapper {
-  display: block;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 
@@ -153,6 +158,7 @@ body {
 .news-date {
   font-size: 0.7vw;
 }
+
 .news-content {
   font-size: 1vw;
 }
@@ -177,24 +183,41 @@ body {
 
 .menu {
   display: block;
-  width: 20%;
+  width: 30%;
   box-shadow: 1px 0px 30px -21px;
   padding: 15px;
 }
 
 .content_news {
   display: block;
-  width: -webkit-fill-available;
+  /* width: -webkit-fill-available; */
   padding: 15px;
+  width: 60%;
 }
 
 .news-title-edit {
   font-weight: 800;
   font-size: 1.7vw;
 }
+
 .edit-form {
   line-height: 100%;
 }
+
+.form-edit-news {
+  display: grid;
+  gap: 1rem;
+}
+
+#img-display {
+  display: block;
+  height: 100px;
+  width: 100px;
+  background: url(../images/upload.svg) no-repeat;
+  background-size: cover;
+  cursor: pointer;
+}
+
 .news-title-edit>input {
   width: 100%;
 }
@@ -202,7 +225,16 @@ body {
 .no-news {
   text-align: center;
 }
-
+.post-img {
+  display: block;
+  overflow: hidden;
+  width: 50%;
+  height: 50%;
+}
+.post-img>img {
+  width: 100%;
+  height: auto;
+}
 
 
 
@@ -545,6 +577,11 @@ button:hover,
   position: absolute;
 }
 
+
+.tm-comments_tree {
+  margin: 10px 0;
+}
+
 .menu-icons {
   display: flex;
   justify-content: space-between;
@@ -555,12 +592,68 @@ button:hover,
 
 }
 
-.list-menu {
+.comment-wraper {
+  display: grid;
+  margin-top: 1vw;
+}
+
+
+.comments-wrapper_inner {
+  padding: 0.555rem;
+  border: 1px solid #cacaca;
+  margin: 1rem 0;
+  border-radius: 5px;
+  box-shadow: 0px 0px 14px -10px
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.comment-body {
+  display: block;
+  min-height: 125px;
+  box-shadow: inset 0px 0px 10px -9px #000;
+  border-radius: 5px;
+  padding: 3px 9px;
+}
+
+.comment-footer {
+  display: flex;
+  width: 100%;
+  height: 2rem;
+  justify-content: end;
+}
+
+.c-user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  line-height: 100%;
+}
+
+.c-user-title {
+  font-weight: 600;
+}
+
+.comment-svg {
+  cursor: pointer;
+}
+
+.comment-svg>svg {
+  fill: #000;
+}
+
+.comment-svg>svg:hover {
+  fill: grey;
 
 }
-.list-menu-point {
-  
-}
+
+.list-menu {}
+
+.list-menu-point {}
 
 
 .menu-svg {
@@ -568,23 +661,21 @@ button:hover,
 }
 
 .like-svg {
+  cursor: pointer;
   fill: #fff;
   stroke: #000;
   stroke-width: 3px;
   stroke-linejoin: round;
 }
 
-.setting-svg,
-.like-svg {
+.setting-svg {
   display: block;
   cursor: pointer;
   position: relative;
 }
 
-.setting-svg>svg:hover,
 .like-svg>svg:hover {
-  fill: #ff8805;
-  stroke: none;
+  stroke: grey;
 }
 
 .hidden_menu {
@@ -629,7 +720,86 @@ button:hover,
 }
 
 .single-news-wrapper {
-  padding: 10px;
+  padding: 10px 1.55vw;
   box-shadow: 0px 0px 5px #000;
   border-radius: 3px;
+}
+
+
+
+
+
+
+
+.wmd-button {
+  cursor: pointer;
+}
+
+.wmd-container {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.textarea.wmd-input,
+textarea#wmd-input {
+  padding: 10px;
+  margin: -1px 0 0;
+  height: 200px;
+  line-height: 1.3;
+  width: 100%;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+
+}
+
+.wmd-button-row {
+  padding: 10px 10px;
+  margin: 0;
+  display: flex;
+  list-style: none;
+  flex-wrap: wrap;
+  justify-content: start;
+  height: 44px;
+  border-bottom: 1px solid #000;
+}
+
+.wmd-button-bar {
+  clear: both;
+  background-color: transparent;
+  margin: 10px 0 0 0;
+  padding: 0;
+  width: 100%;
+  border: 1px solid #000;
+  border-bottom: 0;
+  min-height: 44px;
+  overflow: hidden;
+  z-index: 2;
+  position: relative;
+}
+
+.wmd-button>span {
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  background-image: url(../images/static-img.svg);
+  background-size: initial !important;
+}
+
+.wmd-button:hover {}
+
+.wmd-spacer-max {
+  max-width: none;
+}
+
+.wmd-spacer {
+  height: 44px;
+  flex: 1 0 4px;
+  max-width: 27px;
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  position: relative;
+  left: 4px;
 }

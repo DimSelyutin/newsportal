@@ -29,22 +29,23 @@ public class GoToEditNews implements Command {
         try {
             post = newsService.findById(idNews);
             userLogin = userService.findUserById(post.getUserId()+"").getLogin();
-        } catch (ServiceException | ConnectionPoolException | SQLException | DaoException e) {
-            // TODO Auto-generated catch block
+            if (request.getSession().getAttribute("role").equals("admin") || request.getSession().getAttribute("login").equals(userLogin)) {
+                request.setAttribute("presentation", "postId");
+                request.setAttribute("link", "/WEB-INF/pages/tiles/editNews.jsp");
+                request.setAttribute("post", post);
+                request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
+    
+            } else {
+                
+                response.sendRedirect("controller?command=go_to_news");
+    
+            }
+        } catch (NullPointerException | ServiceException | ConnectionPoolException | SQLException | DaoException e) {
+            response.sendRedirect("controller?command=go_to_news");
             e.printStackTrace();
         } 
         
-        if (request.getSession().getAttribute("role").equals("admin") || request.getSession().getAttribute("login").equals(userLogin)) {
-            request.setAttribute("presentation", "postId");
-            request.setAttribute("link", "/WEB-INF/pages/tiles/editNews.jsp");
-            request.setAttribute("post", post);
-            request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
-
-        } else {
-            
-            response.sendRedirect("controller?command=go_to_news");
-
-        }
+        
     }
 
 }
