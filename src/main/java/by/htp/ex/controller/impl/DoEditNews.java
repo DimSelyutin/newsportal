@@ -3,6 +3,7 @@ package by.htp.ex.controller.impl;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
@@ -51,34 +52,38 @@ public class DoEditNews implements Command {
         String contentType = request.getContentType();
         if ((contentType != null) && contentType.startsWith("multipart/form-data")) {
             ServletContext servletContext = request.getServletContext();
-            String path = "E:/Tomcat/apache-tomcat-10.0.27/webapps/upload/";
             
-         
+            // String path = "E:/Tomcat/apache-tomcat-10.0.27/webapps/upload/";
+            String path = null;
+            try {
+                path = new File(DoEditNews.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getPath();
+                path = path.substring(0,path.indexOf("\\grot"))+"\\upload\\";
+                
+            } catch (URISyntaxException e) {
+                System.out.println("Exception!!!!!!");
+                e.printStackTrace();
+            }
 
-            ServletOutputStream os = response.getOutputStream();
-
-            
-            
 
             Part filePart = request.getPart("file");
 
             String fileName = filePart.getSubmittedFileName();
+
             imageDir = path+login+fileName;
             
+            
             InputStream is = filePart.getInputStream();
-            Files.copy(is, Paths.get(path+fileName),
+            Files.copy(is, Paths.get(imageDir + fileName),
                     StandardCopyOption.REPLACE_EXISTING);
-
-            System.out.println("Ok");
         }
-        String newImageDir = imageDir.substring(imageDir.indexOf("/upload"), imageDir.length());
-
+        String newImageDir = imageDir.substring(imageDir.indexOf("\\upload"), imageDir.length());
+        System.out.println(newImageDir);
         //////////////////////////////////////////////////////////////////
 
         int userId = (int) request.getSession().getAttribute("idUser");
 
 
-            News editedNews = new News((Integer.parseInt(idNews)), title, text, newImageDir, category, userId);
+            News editedNews = new News((Integer.parseInt(idNews)), title, text, newImageDir.replaceAll("\\\\", "/"), category, userId);
             service.update(editedNews);
             response.sendRedirect("controller?command=go_to_main_page");
         } catch (SQLException | ConnectionPoolException e) {
