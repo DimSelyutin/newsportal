@@ -43,7 +43,7 @@ public class DoEditNews implements Command {
         String title = request.getParameter("title");
         String category = request.getParameter("category");
         String text = request.getParameter("postText");
-        String imageDir = "E:/Tomcat/apache-tomcat-10.0.27/webapps/upload/emptypost.jpg";
+        String imageDir = "";
         ////////////////////////////////////////////////////////////////////////////////
         String login = request.getSession().getAttribute("login")+"";
         
@@ -57,7 +57,7 @@ public class DoEditNews implements Command {
             String path = null;
             try {
                 path = new File(DoEditNews.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getPath();
-                path = path.substring(0,path.indexOf("\\grot"))+"\\upload\\";
+                path = path.substring(0,path.indexOf("grot"))+"\\upload\\";
                 
             } catch (URISyntaxException e) {
                 System.out.println("Exception!!!!!!");
@@ -73,17 +73,18 @@ public class DoEditNews implements Command {
             
             
             InputStream is = filePart.getInputStream();
-            Files.copy(is, Paths.get(imageDir + fileName),
+            Files.copy(is, Paths.get(imageDir),
                     StandardCopyOption.REPLACE_EXISTING);
         }
-        String newImageDir = imageDir.substring(imageDir.indexOf("\\upload"), imageDir.length());
+        String newImageDir = imageDir.substring(imageDir.indexOf("\\upload"), imageDir.length()).replaceAll("\\\\", "/");
         System.out.println(newImageDir);
         //////////////////////////////////////////////////////////////////
 
         int userId = (int) request.getSession().getAttribute("idUser");
 
 
-            News editedNews = new News((Integer.parseInt(idNews)), title, text, newImageDir.replaceAll("\\\\", "/"), category, userId);
+            News editedNews = new News((Integer.parseInt(idNews)), title, text, newImageDir, category, userId);
+
             service.update(editedNews);
             response.sendRedirect("controller?command=go_to_main_page");
         } catch (SQLException | ConnectionPoolException e) {
