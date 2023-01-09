@@ -68,7 +68,7 @@ public class DoEditNews implements Command {
             }
             String newImageDir = imageDir.substring(imageDir.indexOf("\\upload"), imageDir.length()).replaceAll("\\\\",
                     "/");
-            System.out.println(newImageDir);
+           
             //////////////////////////////////////////////////////////////////
 
             int userId = (int) request.getSession().getAttribute("idUser");

@@ -21,11 +21,11 @@ public class DoAddLike implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         String newsId = request.getParameter("likeCount");
-        System.out.println("Id news" +newsId);
+        
         try {
             newsService.addLike(3+"");
         } catch (SQLException e) {
-            System.out.println("Inject-boring");
+            
             
             e.printStackTrace();
         }

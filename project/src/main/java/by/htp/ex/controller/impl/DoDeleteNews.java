@@ -21,9 +21,9 @@ public class DoDeleteNews implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String idNews = request.getParameter("idNews");
-            System.out.println(idNews);
+           
             String idUser = request.getSession().getAttribute("idUser").toString();
-            System.out.println(idUser);
+            
             News news = service.findById(idNews);
             if ((news.getUserId()+"").equals(idUser)) {
                 service.delete(idNews); 

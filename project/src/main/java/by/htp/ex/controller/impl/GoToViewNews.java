@@ -33,8 +33,7 @@ public class GoToViewNews extends HttpServlet implements Command {
         try {
 
             List<Comment> comments = commentService.findCommentOfPost(idNews);
-            System.out.println(comments.toString());
-
+            
             post = newsService.findById(idNews);
 
             if (post == null) {

@@ -17,19 +17,19 @@ public class DoAddComment implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // int idNews = Integer.parseInt(request.getParameter("idNews"));
-        // String postText = request.getParameter("post-text");
-        // int idUser = (int)request.getSession().getAttribute("idUser");
+        int idNews = Integer.parseInt(request.getParameter("idNews"));
+        String postText = request.getParameter("post-text");
+        int idUser = (int)request.getSession().getAttribute("idUser");
 
         
-        // try {
-        //     service.addComment(new Comment(idNews, idUser, postText));
-        //     response.sendRedirect("controller?command=go_to_main_page");
-        // } catch (SQLException e) {
-        //     request.setAttribute("exception", "Error to adding a comment! ");
-        //     e.printStackTrace();
-        //     response.sendRedirect("controller?command=go_to_main_page");
-        // }
+        try {
+            service.addComment(new Comment(idNews, idUser, postText));
+            response.sendRedirect("controller?command=go_to_main_page");
+        } catch (SQLException e) {
+            request.setAttribute("exception", "Error to adding a comment! ");
+            e.printStackTrace();
+            response.sendRedirect("controller?command=go_to_main_page");
+        }
     }
     
 }
