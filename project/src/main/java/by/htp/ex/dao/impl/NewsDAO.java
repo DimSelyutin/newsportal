@@ -94,7 +94,7 @@ public class NewsDAO implements INewsDAO {
             News news = null;
             while (rs.next()) {
                 news = new News(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(5), rs.getString(4),
-                        rs.getString(9), rs.getInt(6));
+                        rs.getString(10), rs.getInt(6));
             }
             return news;
         } catch (SQLException e) {
@@ -110,12 +110,11 @@ public class NewsDAO implements INewsDAO {
             con = DaoProvider.getInstance().getConnectionDAO().getConnection();
 
             List<News> listok2 = new ArrayList<>();
-            String sqlByCategory = String.format(
-                S_POSTS_CATEGPRY_CNAME, category);
+            String sqlByCategory = String.format(S_POSTS_CATEGPRY_CNAME, category);
             rs = con.createStatement().executeQuery(sqlByCategory);
             while (rs.next()) {
                 listok2.add(new News(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(5), rs.getString(4),
-                        rs.getString(9), rs.getInt(6)));
+                        rs.getString(10), rs.getInt(6)));
             }
             return listok2;
         } catch (SQLException e) {
@@ -133,7 +132,7 @@ public class NewsDAO implements INewsDAO {
             rs = con.createStatement().executeQuery(S_POSTS_CATEGORY);
             while (rs.next()) {
                 listok.add(new News(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(5), rs.getString(4),
-                        rs.getString(9), rs.getInt(6)));
+                        rs.getString(10), rs.getInt(6)));
             }
             return listok;
         } catch (SQLException e) {

@@ -28,7 +28,6 @@ public class GoToMainPage implements Command {
             if (request.getSession().getAttribute("user") == null) {
 
                 request.setAttribute("presentation", "guestInfo");
-                request.setAttribute("access", "Lj,hj gj;fkjdfnm!");
 
                 request.setAttribute("news", newsService.latestList(COUNT_NEWS));
 
@@ -39,7 +38,7 @@ public class GoToMainPage implements Command {
 
 
         } catch (ServiceException e) {
-            request.setAttribute("ServerError", "Some problems whith server functional.");
+            request.setAttribute("exception", "Some problems whith server functional.");
             request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
         }
 

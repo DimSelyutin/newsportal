@@ -34,7 +34,7 @@ public class UserDAO implements IUserDAO {
                     newUser.getPhone(),
                     newUser.getEmail(),
                     newUser.getDateRegister());
-
+                    
             return con.prepareStatement(formatSqlInsert).execute();
         } catch (SQLException e) {
             throw new DaoException(ERR_MSG, e);

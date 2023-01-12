@@ -16,7 +16,6 @@ E:\GitHub\newproject\project\src\main\java\by\htp\ex\service\ServiceProvider.jav
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\controller\impl\ChangeLocale.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\controller\CommandName.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\dao\ICommentDAO.java
-E:\GitHub\newproject\project\src\main\java\by\htp\ex\repository\ConnectionDAO.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\service\impl\NewsServiceImpl.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\service\ServiceException.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\service\INewsService.java
@@ -26,6 +25,7 @@ E:\GitHub\newproject\project\src\main\java\by\htp\ex\controller\impl\DoAddLike.j
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\controller\impl\DoAddNews.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\bean\News.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\dao\connectionPool\ConnectionPoolException.java
+E:\GitHub\newproject\project\src\main\java\by\htp\ex\dao\impl\IConnectionDAO.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\dao\connectionPool\DBResourceManager.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\controller\impl\DoRegister.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\controller\impl\DoSignOut.java
@@ -36,11 +36,12 @@ E:\GitHub\newproject\project\src\main\java\by\htp\ex\dao\impl\UserDAO.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\controller\impl\GoToViewNews.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\service\impl\CommentServiceImpl.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\controller\impl\DoEditNews.java
+E:\GitHub\newproject\project\src\main\java\by\htp\ex\dao\impl\ConnectionDAO.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\controller\impl\DoAddComment.java
-E:\GitHub\newproject\project\src\main\java\by\htp\ex\repository\IConnectionDAO.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\service\IUserService.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\controller\impl\GoTo404.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\bean\Category.java
+E:\GitHub\newproject\project\src\main\java\by\htp\ex\dao\NewsDAOException.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\dao\DaoException.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\dao\impl\CommentDAO.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\controller\impl\GoToEditNews.java

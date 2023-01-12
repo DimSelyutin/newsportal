@@ -77,8 +77,7 @@ public class DoEditNews implements Command {
                 Files.copy(is, Paths.get(imageDir),
                         StandardCopyOption.REPLACE_EXISTING);
             }
-            String newImageDir = imageDir.substring(imageDir.indexOf("\\upload"), imageDir.length()).replaceAll("\\\\",
-                    "/");
+                 String newImageDir = imageDir.substring(imageDir.indexOf("\\upload"), imageDir.length()).replaceAll("\\\\","/");
            
             //////////////////////////////////////////////////////////////////
 
