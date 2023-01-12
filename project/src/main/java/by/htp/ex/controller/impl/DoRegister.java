@@ -8,6 +8,7 @@ import by.htp.ex.controller.Command;
 import by.htp.ex.dao.DaoException;
 import by.htp.ex.dao.connectionPool.ConnectionPoolException;
 import by.htp.ex.service.IUserService;
+import by.htp.ex.service.ServiceException;
 import by.htp.ex.service.ServiceProvider;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,7 +37,7 @@ public class DoRegister implements Command {
             User newUser;
             newUser = new User(login, phone, email, passsword);
             service.registration(newUser);
-        } catch (DaoException | ConnectionPoolException | SQLException e) {
+        } catch (ServiceException e) {
             request.setAttribute("AuthenticationError", "Error server, pls try again later");
             request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
 

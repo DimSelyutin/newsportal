@@ -19,17 +19,18 @@ import jakarta.servlet.http.HttpServletResponse;
 public class GoToMainPage implements Command {
 
     private final INewsService newsService = ServiceProvider.getInstance().getNewsService();
+    private final int COUNT_NEWS = 4;
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-
             
             if (request.getSession().getAttribute("user") == null) {
 
                 request.setAttribute("presentation", "guestInfo");
+                request.setAttribute("access", "Lj,hj gj;fkjdfnm!");
 
-                request.setAttribute("news", newsService.latestList(2));
+                request.setAttribute("news", newsService.latestList(COUNT_NEWS));
 
                 request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
             } else {
@@ -37,17 +38,8 @@ public class GoToMainPage implements Command {
             }
 
 
-        } catch (ConnectionPoolException | SQLException | DaoException e) {
-            // Logger.writeLog(e.getMessage());
-            request.setAttribute("ServerError", "Error to database connection.");
-            request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
         } catch (ServiceException e) {
-            // Logger.writeLog(e.getMessage());
             request.setAttribute("ServerError", "Some problems whith server functional.");
-            request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
-        } catch (ServletException | IOException e) {
-            // Logger.writeLog(e.getMessage());
-            request.setAttribute("ServerError", "Some problems whith server. Try again later pls.");
             request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
         }
 

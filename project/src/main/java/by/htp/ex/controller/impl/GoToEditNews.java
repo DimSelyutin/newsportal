@@ -20,17 +20,19 @@ public class GoToEditNews implements Command {
 
     private final INewsService newsService = ServiceProvider.getInstance().getNewsService();
     private final IUserService userService = ServiceProvider.getInstance().getUserService();
+    private final String IDNEWS = "idNews";
+    private static final String JSP_LOGIN_PARAM = "login";
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String idNews = request.getParameter("idNews");
+        String idNews = request.getParameter(IDNEWS);
         News post = null;
         String userLogin = "null";
         try {
             post = newsService.findById(idNews);
             userLogin = userService.findUserById(post.getUserId() + "").getLogin();
-            if (request.getSession().getAttribute("role").equals("admin") || request.getSession().getAttribute("login").equals(userLogin)) {
+            if (request.getSession().getAttribute("role").equals("admin") || request.getSession().getAttribute(JSP_LOGIN_PARAM).equals(userLogin)) {
                 request.setAttribute("presentation", "postId");
                 request.setAttribute("link", "/WEB-INF/pages/tiles/editNews.jsp");
                 request.setAttribute("post", post);
@@ -41,7 +43,7 @@ public class GoToEditNews implements Command {
                 response.sendRedirect("controller?command=go_to_news");
 
             }
-        } catch (NullPointerException | ServiceException | ConnectionPoolException | SQLException | DaoException e) {
+        } catch (NullPointerException | ServiceException e) {
             response.sendRedirect("controller?command=go_to_news");
             // Logger.writeLog(e.getStackTrace().toString());
         }

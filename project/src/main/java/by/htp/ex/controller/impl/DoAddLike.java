@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import by.htp.ex.controller.Command;
 import by.htp.ex.service.INewsService;
+import by.htp.ex.service.ServiceException;
 import by.htp.ex.service.ServiceProvider;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,7 +25,7 @@ public class DoAddLike implements Command {
         
         try {
             newsService.addLike(3+"");
-        } catch (SQLException e) {
+        } catch (ServiceException e) {
             
             
             e.printStackTrace();

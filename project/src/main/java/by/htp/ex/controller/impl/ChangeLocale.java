@@ -8,16 +8,18 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class ChangeLocale implements Command{
+    private final String LOCALE = "local";
+    private final String LINK = "link";
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        if (request.getSession().getAttribute("local") == null) {
-            request.getSession().setAttribute("local", request.getLocale());
+        if (request.getSession().getAttribute(LOCALE) == null) {
+            request.getSession().setAttribute(LOCALE, request.getLocale());
         } else {
-            request.getSession().setAttribute("local", request.getParameter("local"));
+            request.getSession().setAttribute(LOCALE, request.getParameter(LOCALE));
         }
-        String str = (String)request.getSession().getAttribute("link");
+        String str = (String)request.getSession().getAttribute(LINK);
         
         response.sendRedirect(str);
         

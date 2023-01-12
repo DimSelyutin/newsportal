@@ -10,6 +10,7 @@ import by.htp.ex.dao.DaoException;
 import by.htp.ex.dao.connectionPool.ConnectionPoolException;
 import by.htp.ex.service.INewsService;
 import by.htp.ex.service.IUserService;
+import by.htp.ex.service.ServiceException;
 import by.htp.ex.service.ServiceProvider;
 
 import jakarta.servlet.ServletException;
@@ -22,35 +23,39 @@ public class DoSignIn implements Command {
     private final INewsService newsService = ServiceProvider.getInstance().getNewsService();
     private static final String JSP_LOGIN_PARAM = "login";
     private static final String JSP_PASSWORD_PARAM = "password";
+    private static final String ROLE_GUEST = "guest";
+    private final String ACCESS = "access";
+
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String login = request.getParameter(JSP_LOGIN_PARAM);
             String passsword = request.getParameter(JSP_PASSWORD_PARAM);
-            String role = "guest";
+            String role = ROLE_GUEST;
             int idUser = 0;
             List<Category> listCategory = null;
 
             role = userService.signin(login, passsword);
             idUser = userService.getUserId(login);
             listCategory = newsService.findAllCategoryes();
-            if (!role.equals("guest")) {
+            if (!role.equals(ROLE_GUEST)) {
 
                 request.getSession(true).setAttribute("user", "active");
-                request.getSession(true).setAttribute("role", role);
-                request.getSession(true).setAttribute("idUser", idUser);
-                request.getSession(true).setAttribute("login", login);
+                request.getSession().setAttribute("role", role);
+                request.getSession().setAttribute("idUser", idUser);
+                request.getSession().setAttribute("login", login);
                 request.getSession().setAttribute("listCategory", listCategory);
+                request.getSession().setAttribute(ACCESS, "Добро пожаловать "+request.getSession().getAttribute(JSP_LOGIN_PARAM));
                 
-                response.sendRedirect("controller?command=go_to_news");
+                response.sendRedirect("controller?command=go_to_main_page");
 
             } else {
                 request.getSession(true).setAttribute("user", "not active");
                 request.setAttribute("AuthenticationError", "wrong login or password");
                 request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
             }
-        } catch (ConnectionPoolException | SQLException | DaoException  e) {
+        } catch (ServiceException e) {
             request.setAttribute("AuthenticationError", "Error server, pls try again later");
             request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
             e.printStackTrace();

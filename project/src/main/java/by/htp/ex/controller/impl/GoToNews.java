@@ -19,13 +19,19 @@ import jakarta.servlet.http.HttpServletResponse;
 public class GoToNews implements Command {
 
     private final INewsService newsService = ServiceProvider.getInstance().getNewsService();
+    private final String ACCESS = "access";
+    private final String LOGIN = "login";
+    private final String PRESENTATION = "news";
+    private final String CATEGORY = "category";
+
+
     
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String category = null;
         List<News> newsList;
         try {
-            category = request.getParameter("category");
+            category = request.getParameter(CATEGORY);
             request.setAttribute("presentation", "userInfo");
 
             if (category == null) {
@@ -33,20 +39,11 @@ public class GoToNews implements Command {
             } else {
                 newsList = newsService.sortByCategory(category);
             }
-            request.setAttribute("news", newsList);
-            request.setAttribute("acces", "Добро пожаловать "+request.getSession().getAttribute("login"));
-            
+            request.setAttribute(PRESENTATION, newsList);
 
-            
-
-        } catch (DaoException | ServiceException e) {
-            e.printStackTrace();
-
-        } catch (ConnectionPoolException | SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        } catch (ServiceException e) {
+            request.setAttribute(ACCESS, e.getMessage());
         }
-
         request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
     }
 

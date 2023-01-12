@@ -41,7 +41,6 @@ E:\GitHub\newproject\project\src\main\java\by\htp\ex\repository\IConnectionDAO.j
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\service\IUserService.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\controller\impl\GoTo404.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\bean\Category.java
-E:\GitHub\newproject\project\src\main\java\by\htp\ex\dao\NewsDAOException.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\dao\DaoException.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\dao\impl\CommentDAO.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\controller\impl\GoToEditNews.java

@@ -629,7 +629,9 @@ button:hover,
   right: 15px;
 
 }
-
+.menu-wraper {
+  padding: 15px;
+}
 .comment-wraper {
   display: grid;
   margin-top: 1vw;

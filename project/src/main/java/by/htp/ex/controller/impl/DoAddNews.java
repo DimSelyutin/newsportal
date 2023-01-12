@@ -12,15 +12,21 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class DoAddNews implements Command {
     private final INewsService service = ServiceProvider.getInstance().getNewsService();
+    private final String CATEGORY = "category";
+    private final String TITLE = "title";
+    private final String POSTTEXT = "postText";
+    private final String IMAGEDIR = "imageDir";
+    private final String IDUSER = "idUser";
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String idCategory = request.getParameter("category");
-        String title = request.getParameter("title");
-        String text = request.getParameter("postText");
+        String idCategory = request.getParameter(CATEGORY);
+        String title = request.getParameter(TITLE);
+        String text = request.getParameter(POSTTEXT);
+        String imageDir2 = request.getParameter(IMAGEDIR);
         String imageDir = "https://i.pinimg.com/originals/1e/51/34/1e51340e734aa32aeb8f14712dae043d.jpg";
 
-        int userId = (int) request.getSession().getAttribute("idUser");
+        int userId = (int) request.getSession().getAttribute(IDUSER);
 
         News editedNews = new News(title, text, imageDir, idCategory, userId);
 

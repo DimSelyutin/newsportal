@@ -4,7 +4,6 @@ by\htp\ex\controller\impl\GoToViewNews.class
 by\htp\ex\dao\DaoException.class
 by\htp\ex\service\impl\NewsServiceImpl.class
 by\htp\ex\util\validation\Validation$1.class
-by\htp\ex\dao\NewsDAOException.class
 by\htp\ex\service\IUserService.class
 by\htp\ex\bean\Category.class
 by\htp\ex\service\impl\CommentServiceImpl.class
@@ -33,7 +32,6 @@ by\htp\ex\dao\connectionPool\DBParameter.class
 by\htp\ex\bean\User.class
 by\htp\ex\dao\impl\UserDAO.class
 by\htp\ex\util\validation\ValidException.class
-by\htp\ex\controller\impl\DoRegister.class
 by\htp\ex\dao\INewsDAO.class
 by\htp\ex\dao\connectionPool\Logger.class
 by\htp\ex\dao\impl\NewsDAO.class
@@ -47,7 +45,6 @@ by\htp\ex\controller\impl\DoDeleteNews.class
 by\htp\ex\dao\ICommentDAO.class
 by\htp\ex\controller\impl\DoAddNews.class
 by\htp\ex\dao\impl\CommentDAO.class
-by\htp\ex\controller\impl\DoSignIn.class
 by\htp\ex\controller\impl\DoAddLike.class
 by\htp\ex\controller\impl\ChangeLocale.class
 by\htp\ex\dao\connectionPool\PoolConnection$PooledConnection.class

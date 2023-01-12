@@ -15,31 +15,30 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class DoDeleteNews implements Command {
+
     private final INewsService service = ServiceProvider.getInstance().getNewsService();
+    private final String IDUSER = "idUser";
+    private final String EXCEPTION = "exception";
+    private final String ACCESS = "access";
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            String idNews = request.getParameter("idNews");
-           
-            String idUser = request.getSession().getAttribute("idUser").toString();
-            
+            String idNews = request.getParameter(IDUSER);
+
+            String idUser = request.getSession().getAttribute(IDUSER).toString();
+
             News news = service.findById(idNews);
-            if ((news.getUserId()+"").equals(idUser)) {
-                service.delete(idNews); 
+            if ((news.getUserId() + "").equals(idUser)) {
+                service.delete(idNews);
             } else {
-                request.setAttribute("ServerError", "This post does not belong to you!");
+                request.setAttribute(EXCEPTION, "This post does not belong to you!");
             }
-            request.setAttribute("access", "Post was deleted!");
+            request.setAttribute(ACCESS, "Post was deleted!");
 
             response.sendRedirect("controller?command=go_to_main_page");
-        } catch (ServiceException | ConnectionPoolException | DaoException e) {
-            request.setAttribute("ServerError", "Failed to delete post, service exception");
-            e.printStackTrace();
-            request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
-
-        } catch (SQLException e) {
-            request.setAttribute("ServerError", "Failed to delete post");
+        } catch (ServiceException e) {
+            request.setAttribute(EXCEPTION, "Failed to delete post, service exception");
             e.printStackTrace();
             request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
 

@@ -1,11 +1,12 @@
 package by.htp.ex.bean;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public class News {
+public class News implements Serializable{
     
 
     

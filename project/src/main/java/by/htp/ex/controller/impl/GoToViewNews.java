@@ -7,8 +7,6 @@ import java.util.List;
 import by.htp.ex.bean.Comment;
 import by.htp.ex.bean.News;
 import by.htp.ex.controller.Command;
-import by.htp.ex.dao.DaoException;
-import by.htp.ex.dao.connectionPool.ConnectionPoolException;
 import by.htp.ex.service.ICommentService;
 import by.htp.ex.service.INewsService;
 import by.htp.ex.service.IUserService;
@@ -24,10 +22,11 @@ public class GoToViewNews extends HttpServlet implements Command {
     private final INewsService newsService = ServiceProvider.getInstance().getNewsService();
     private final IUserService userService = ServiceProvider.getInstance().getUserService();
     private final ICommentService commentService = ServiceProvider.getInstance().getCommentService();
+    private final String IDNEWS = "idNews";
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String idNews = request.getParameter("idNews");
+        String idNews = request.getParameter(IDNEWS);
         String userLogin = null;
         News post = null;
         try {
@@ -46,7 +45,7 @@ public class GoToViewNews extends HttpServlet implements Command {
             request.setAttribute("post", post);
     
             request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
-        } catch (ConnectionPoolException | SQLException | DaoException | ServiceException e) {
+        } catch (ServiceException e) {
             response.sendRedirect("controller?command=go_to_404");
             e.printStackTrace();
         }

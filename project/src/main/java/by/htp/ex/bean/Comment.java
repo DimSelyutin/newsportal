@@ -1,11 +1,12 @@
 package by.htp.ex.bean;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public class Comment {
+public class Comment implements Serializable{
     private static final long serialVersionUID = 1L;
     
     private int postId;
@@ -85,6 +86,55 @@ public class Comment {
         LocalDateTime dateTime = LocalDateTime.of(LocalDate.now(), LocalTime.now());
         String formattedDateTime = dateTime.format(formatter);
         return formattedDateTime;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + postId;
+        result = prime * result + userId;
+        result = prime * result + ((userName == null) ? 0 : userName.hashCode());
+        result = prime * result + ((commentText == null) ? 0 : commentText.hashCode());
+        result = prime * result + ((commentDate == null) ? 0 : commentDate.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Comment other = (Comment) obj;
+        if (postId != other.postId)
+            return false;
+        if (userId != other.userId)
+            return false;
+        if (userName == null) {
+            if (other.userName != null)
+                return false;
+        } else if (!userName.equals(other.userName))
+            return false;
+        if (commentText == null) {
+            if (other.commentText != null)
+                return false;
+        } else if (!commentText.equals(other.commentText))
+            return false;
+        if (commentDate == null) {
+            if (other.commentDate != null)
+                return false;
+        } else if (!commentDate.equals(other.commentDate))
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment [postId=" + postId + ", userId=" + userId + ", userName=" + userName + ", commentText="
+                + commentText + ", commentDate=" + commentDate + "]";
     }
 
     

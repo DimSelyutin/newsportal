@@ -14,6 +14,7 @@ import by.htp.ex.controller.Command;
 
 import by.htp.ex.dao.connectionPool.ConnectionPoolException;
 import by.htp.ex.service.INewsService;
+import by.htp.ex.service.ServiceException;
 import by.htp.ex.service.ServiceProvider;
 
 import jakarta.servlet.ServletContext;
@@ -29,16 +30,26 @@ import jakarta.servlet.http.Part;
 public class DoEditNews implements Command {
 
     private final INewsService service = ServiceProvider.getInstance().getNewsService();
+    private final String CATEGORY = "category";
+    private final String TITLE = "title";
+    private final String POSTTEXT = "postText";
+    private final String IMAGEDIR = "imageDir";
+    private final String IDUSER = "idUser";
+    private final String IDNEWS = "idUser";
+    private final String EXCEPTION = "exception";
+    private static final String JSP_LOGIN_PARAM = "login";
 
+    
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String idNews = request.getParameter("idNews");
-        String title = request.getParameter("title");
-        String category = request.getParameter("category");
-        String text = request.getParameter("postText");
+        String idNews = request.getParameter(IDNEWS);
+        String title = request.getParameter(TITLE);
+        String category = request.getParameter(CATEGORY);
+        String text = request.getParameter(POSTTEXT);
+        
         String imageDir = "";
         ////////////////////////////////////////////////////////////////////////////////
-        String login = request.getSession().getAttribute("login") + "";
+        String login = request.getSession().getAttribute(JSP_LOGIN_PARAM) + "";
 
         try {
             String contentType = request.getContentType();
@@ -71,14 +82,14 @@ public class DoEditNews implements Command {
            
             //////////////////////////////////////////////////////////////////
 
-            int userId = (int) request.getSession().getAttribute("idUser");
+            int userId = (int) request.getSession().getAttribute(IDUSER);
 
             News editedNews = new News((Integer.parseInt(idNews)), title, text, newImageDir, category, userId);
 
             service.update(editedNews);
             response.sendRedirect("controller?command=go_to_main_page");
-        } catch (SQLException | ConnectionPoolException e) {
-            request.setAttribute("ServerError", "Error server, pls try again later");
+        } catch (ServiceException e) {
+            request.setAttribute(EXCEPTION, "Error server, pls try again later");
             request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
         }
 

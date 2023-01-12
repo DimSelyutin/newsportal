@@ -11,7 +11,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class MainController extends HttpServlet {
+    private final String COMMAND = "command";
+    private final String EXCEPTION = "exception";
 
+
+    
+
+    
     private static final long serialVersionUID = 1L;
 
     private final CommandProvider commandProvider = new CommandProvider();
@@ -22,42 +28,51 @@ public class MainController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
+        doAction(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doAction(req, resp);
+    }
+
+    private void doAction(HttpServletRequest req, HttpServletResponse resp){
         Command command = null;
         
-        String commandStr = req.getParameter("command");
+        String commandStr = req.getParameter(COMMAND);
         if(commandStr == null){
-            commandStr = "GO_TO_MAIN_PAGE";
+            commandStr = CommandName.GO_TO_MAIN_PAGE.toString();
         }
 
 
         try {
             
-            System.out.println("Command: " + commandStr);
+            System.out.println(CommandName.GO_TO_MAIN_PAGE.toString()+": " + commandStr);
             try {
             
-            if (!commandStr.toUpperCase().equals("CHANGE_LOCAL")) {
+            if (!commandStr.toUpperCase().equals(CommandName.CHANGE_LOCAL.toString())) {
                 req.getSession(true).setAttribute("link", "controller?" + req.getQueryString());
             } 
             
                 command = commandProvider.getCommand(commandStr);
             } catch (ServiceException e) {
                 command = new GoToMainPage();
-                req.getSession().setAttribute("exception", "Page not found. Chek your data.");
+                req.getSession(true).setAttribute(EXCEPTION, "Page not found. Chek your data.");
             }
 
             command.execute(req, resp);
 
+        } catch(RuntimeException runEx) {
+            try {
+                resp.sendRedirect("/WEB-INF/pages/layouts/404.html");
+            } catch (IOException e) {
+                //IO EXx
+                e.printStackTrace();
+            }
         } catch (ServletException | IOException e) {
             e.printStackTrace();
-            
-
-        }
-
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doGet(req, resp);
+            //IO Ex
+        } 
     }
 
 }
