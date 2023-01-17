@@ -15,6 +15,7 @@ by\htp\ex\controller\impl\GoToEditNews.class
 by\htp\ex\security\jwt\JWTTokenProvider.class
 by\htp\ex\util\validation\Validation$ValidationBuilder.class
 by\htp\ex\controller\impl\DoSignOut.class
+by\htp\ex\security\AuthenticationFilter.class
 by\htp\ex\service\ServiceProvider.class
 by\htp\ex\bean\Comment.class
 by\htp\ex\controller\CommandProvider.class
