@@ -7,12 +7,11 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.sql.SQLException;
+
 
 import by.htp.ex.bean.News;
 import by.htp.ex.controller.Command;
 
-import by.htp.ex.dao.connectionPool.ConnectionPoolException;
 import by.htp.ex.service.INewsService;
 import by.htp.ex.service.ServiceException;
 import by.htp.ex.service.ServiceProvider;
@@ -35,7 +34,7 @@ public class DoEditNews implements Command {
     private final String POSTTEXT = "postText";
     private final String IMAGEDIR = "imageDir";
     private final String IDUSER = "idUser";
-    private final String IDNEWS = "idUser";
+    private final String IDNEWS = "idNews";
     private final String EXCEPTION = "exception";
     private static final String JSP_LOGIN_PARAM = "login";
 
@@ -56,7 +55,6 @@ public class DoEditNews implements Command {
             if ((contentType != null) && contentType.startsWith("multipart/form-data")) {
                 ServletContext servletContext = request.getServletContext();
 
-                // String path = "E:/Tomcat/apache-tomcat-10.0.27/webapps/upload/";
                 String path = null;
                 try {
                     path = new File(DoEditNews.class.getProtectionDomain().getCodeSource().getLocation().toURI())
@@ -88,6 +86,7 @@ public class DoEditNews implements Command {
             service.update(editedNews);
             response.sendRedirect("controller?command=go_to_main_page");
         } catch (ServiceException e) {
+            e.printStackTrace();
             request.setAttribute(EXCEPTION, "Error server, pls try again later");
             request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
         }

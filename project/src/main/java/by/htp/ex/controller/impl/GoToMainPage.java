@@ -3,12 +3,10 @@ package by.htp.ex.controller.impl;
 import java.io.IOException;
 import java.sql.SQLException;
 
-
-
 import by.htp.ex.controller.Command;
 import by.htp.ex.dao.DaoException;
-import by.htp.ex.dao.connectionPool.ConnectionPoolException;
-import by.htp.ex.dao.connectionPool.Logger;
+import by.htp.ex.dao.connectionpool.ConnectionPoolException;
+import by.htp.ex.dao.connectionpool.Logger;
 import by.htp.ex.service.INewsService;
 import by.htp.ex.service.ServiceException;
 import by.htp.ex.service.ServiceProvider;
@@ -24,18 +22,13 @@ public class GoToMainPage implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            
-            if (request.getSession().getAttribute("user") == null) {
+            if (request.getSession().getAttribute("local") == null) {
+                request.getSession().setAttribute("local", request.getLocale());
 
-                request.setAttribute("presentation", "guestInfo");
-
-                request.setAttribute("news", newsService.latestList(COUNT_NEWS));
-
-                request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
-            } else {
-                response.sendRedirect("controller?command=go_to_news");
             }
+            request.setAttribute("news", newsService.latestList(COUNT_NEWS));
 
+            request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
 
         } catch (ServiceException e) {
             request.setAttribute("exception", "Some problems whith server functional.");

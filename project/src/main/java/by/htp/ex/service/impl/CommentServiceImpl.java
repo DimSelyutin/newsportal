@@ -36,4 +36,36 @@ public class CommentServiceImpl implements ICommentService {
         }
 
     }
+
+    @Override
+    public void chageComment(Comment comment, String userId) throws ServiceException {
+        try {
+            commentDao.changeComment(comment);
+        } catch(DaoException e) {
+            throw new ServiceException(e);
+        }
+        
+    }
+
+    @Override
+    public boolean deleteComment(String commentId) throws ServiceException {
+        try {
+           return commentDao.deleteComment(commentId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    
+        
+    }
+
+    @Override
+    public Comment findCommentById(String commentId) throws ServiceException {
+        Comment comment = null;
+        try {
+            comment = commentDao.findCommentById(commentId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return comment;
+    }
 }

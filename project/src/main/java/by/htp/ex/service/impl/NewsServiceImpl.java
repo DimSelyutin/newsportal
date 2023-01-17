@@ -1,6 +1,9 @@
 package by.htp.ex.service.impl;
 
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import by.htp.ex.bean.Category;
@@ -17,9 +20,9 @@ public class NewsServiceImpl implements INewsService {
     private final String MSG_ERR = "Somthing went wrong!";
 
     @Override
-    public void save(News news) throws ServiceException {
+    public boolean save(News news) throws ServiceException {
         try {
-            newsDAO.addNews(news);
+            return newsDAO.addNews(news);
         } catch (DaoException e) {
 
             throw new ServiceException(MSG_ERR, e);
@@ -37,10 +40,13 @@ public class NewsServiceImpl implements INewsService {
     }
 
     @Override
-    public void delete(String idNews) throws ServiceException {
+    public boolean delete(String idNews) throws ServiceException {
         try {
-            newsDAO.deleteNews(idNews);
+            
+            return newsDAO.deleteNews(idNews);
+        
         } catch (DaoException e) {
+            e.printStackTrace();
             throw new ServiceException(MSG_ERR, e);
         }
 
@@ -58,10 +64,10 @@ public class NewsServiceImpl implements INewsService {
     }
 
     @Override
-    public void update(News news) throws ServiceException {
+    public boolean update(News news) throws ServiceException {
 
         try {
-            newsDAO.update(news);
+            return newsDAO.update(news);
         } catch (DaoException e) {
             throw new ServiceException(e);
 
@@ -119,6 +125,22 @@ public class NewsServiceImpl implements INewsService {
             throw new ServiceException(e);
         }
 
+    }
+
+    @Override
+    public List<News> sortByDate() throws ServiceException {
+        try {
+            List<News> allNews = newsDAO.getAllNews();
+            Collections.sort(allNews, new Comparator<News>() {
+                @Override
+                public int compare(News o1, News o2) {
+                    return o1.getPostDate().compareTo(o2.getPostDate());
+                }
+            });
+            return allNews;
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
     }
 
 }

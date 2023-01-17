@@ -1,4 +1,4 @@
-package by.htp.ex.dao.connectionPool;
+package by.htp.ex.dao.connectionpool;
 
 
 import java.lang.System.Logger.Level;

@@ -36,6 +36,10 @@
         <c:if test="${sessionScope.user eq 'active'}">
             <c:import url="/WEB-INF/pages/tiles/viewComment.jsp" />
             <c:import url="/WEB-INF/pages/tiles/postEditor.jsp" />
-
+        </c:if>
+        <c:if test="${not (sessionScope.user eq 'active')}">
+            <div>
+                To view and add comments, log in or register!
+            </div>
         </c:if>
     </div>

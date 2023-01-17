@@ -27,14 +27,14 @@ public class GoToViewNews extends HttpServlet implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String idNews = request.getParameter(IDNEWS);
-        String userLogin = null;
+        String userLogin;
         News post = null;
         try {
 
             List<Comment> comments = commentService.findCommentOfPost(idNews);
             
             post = newsService.findById(idNews);
-
+            
             if (post == null) {
                 throw new ServiceException("Post is null");
             } else {

@@ -7,17 +7,29 @@ import by.htp.ex.dao.DaoException;
 import by.htp.ex.dao.DaoProvider;
 import by.htp.ex.dao.IUserDAO;
 import by.htp.ex.service.ServiceException;
-import by.htp.ex.dao.connectionPool.ConnectionPoolException;
+import by.htp.ex.util.validation.Validation;
+import by.htp.ex.util.validation.Validation.ValidationBuilder;
 import by.htp.ex.service.IUserService;
 
 public class UserServiceImpl implements IUserService {
 
     private final IUserDAO userDAO = DaoProvider.getInstance().getUserDAO();
     private final String ROLE_GUEST = "guest";
+    private Validation.ValidationBuilder valid;
 
     @Override
     public boolean registration(User newUser) throws ServiceException {
         try {
+
+            if (userDAO.getUser(newUser.getLogin()) != null) {
+                throw new ServiceException("User is already registered!");
+            }
+
+            valid = new ValidationBuilder(newUser);
+            valid.validEmail().validLogin().validPassword().validPhone();
+            if (!valid.uncorrectFieldName.isEmpty()) {
+                throw new ServiceException(valid.uncorrectFieldName.toString());
+            }
             return userDAO.register(newUser);
         } catch (DaoException e) {
             throw new ServiceException(e);
@@ -28,16 +40,15 @@ public class UserServiceImpl implements IUserService {
     @Override
     public String signin(String login, String password) throws ServiceException {
         try {
-            String role;
+            String role = ROLE_GUEST;
             int _id = getUserId(login);
-            System.out.println(_id);
+
             if (userDAO.signIn(login, password)) {
-                System.out.println(userDAO.getRole(_id));
                 return role = userDAO.getRole(_id);
-            } else {
-                return role = ROLE_GUEST;
             }
-        } catch (ConnectionPoolException | SQLException | DaoException e) {
+
+            return role;
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
 
@@ -48,16 +59,19 @@ public class UserServiceImpl implements IUserService {
         User user;
         try {
             return user = userDAO.findUserById(id);
-        } catch (ConnectionPoolException | SQLException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
 
     @Override
     public int getUserId(String login) throws ServiceException {
+        User user = null;
         try {
-            User user;
             user = userDAO.getUser(login);
+            if (user == null) {
+                throw new ServiceException("User not found!");
+            }
             return user.getId();
         } catch (DaoException e) {
             throw new ServiceException(e);

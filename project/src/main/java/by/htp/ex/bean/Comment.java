@@ -6,32 +6,51 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public class Comment implements Serializable{
+public class Comment implements Serializable {
     private static final long serialVersionUID = 1L;
-    
+
+    private int commentId;
+
     private int postId;
     private int userId;
     private String userName;
     private String commentText;
     private String commentDate;
 
-
-    public Comment(){
+    public Comment() {
 
     }
 
-    public Comment(int userId, String userName, String commentText, String commentDate) {
+    // edit
+    public Comment(int commentId, int postId, int userId, String commentText, String commentDate) {
+        this.commentId = commentId;
+        this.postId = postId;
+        this.userId = userId;
+        this.commentText = commentText;
+        this.commentDate = commentDate;
+    }
+    //create
+    public Comment(int commentId,int userId, String userName, String commentText, String commentDate) {
+        this.commentId = commentId;
         this.userId = userId;
         this.userName = userName;
         this.commentText = commentText;
         this.commentDate = commentDate;
     }
-
+    //screate
     public Comment(int postId, int userId, String commentText) {
         this.postId = postId;
         this.userId = userId;
         this.commentText = commentText;
         this.commentDate = onCreate();
+    }
+
+    public int getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(int commentId) {
+        this.commentId = commentId;
     }
 
     public int getPostId() {
@@ -41,7 +60,6 @@ public class Comment implements Serializable{
     public void setPostId(int postId) {
         this.postId = postId;
     }
-
 
     public int getUserId() {
         return userId;
@@ -75,13 +93,8 @@ public class Comment implements Serializable{
         this.commentDate = commentDate;
     }
 
-   
-
-   
-    
-
     public String onCreate() {
-    
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss");
         LocalDateTime dateTime = LocalDateTime.of(LocalDate.now(), LocalTime.now());
         String formattedDateTime = dateTime.format(formatter);
@@ -137,5 +150,4 @@ public class Comment implements Serializable{
                 + commentText + ", commentDate=" + commentDate + "]";
     }
 
-    
 }

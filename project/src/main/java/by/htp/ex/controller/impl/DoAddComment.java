@@ -24,15 +24,19 @@ public class DoAddComment implements Command {
         String postText = request.getParameter(POSTTEXT);
         int idUser = (int)request.getSession().getAttribute(IDUSER);
 
-        
-        try {
-            service.addComment(new Comment(idNews, idUser, postText));
-            response.sendRedirect("controller?command=go_to_main_page");
-        } catch (ServiceException e) {
-            request.setAttribute(EXCEPTION, "Error to adding a comment! ");
-            e.printStackTrace();
-            response.sendRedirect("controller?command=go_to_main_page");
+        if(postText.trim().equals("")){
+            request.setAttribute(EXCEPTION, "Text of post is null!");
+        } else {
+
+            try {
+                service.addComment(new Comment(idNews, idUser, postText));
+            } catch (ServiceException e) {
+                request.setAttribute(EXCEPTION, "Error to adding a comment! ");
+                e.printStackTrace();
+                response.sendRedirect("controller?command=go_to_main_page");
+            }
         }
+        response.sendRedirect("controller?command=go_to_main_page");
     }
     
 }

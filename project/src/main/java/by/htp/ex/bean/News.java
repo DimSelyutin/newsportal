@@ -6,12 +6,10 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public class News implements Serializable{
-    
+public class News implements Serializable {
 
-    
     private static final long serialVersionUID = 1L;
-    
+
     private int id;
     private String title;
     private String text;
@@ -19,7 +17,6 @@ public class News implements Serializable{
     private String imageDir;
     private String category;
     private int userId;
-
 
     public News(String title, String text, String imageDir, String category, int userId) {
         this.title = title;
@@ -30,6 +27,35 @@ public class News implements Serializable{
         this.userId = userId;
     }
 
+    public News(int id, String title, String text, String imageDir, String category, int userId) { // for old
+        this.id = id;
+        this.title = title;
+        this.text = text;
+        this.imageDir = imageDir;
+        this.category = category;
+        this.userId = userId;
+    }
+
+    public News(int id, String title, String text, String postDate, String imageDir, String category, int userId) { // for
+                                                                                                                    // new
+        this.id = id;
+        this.title = title;
+        this.text = text;
+        this.postDate = postDate;
+        this.imageDir = imageDir;
+        this.category = category;
+        this.userId = userId;
+    }
+
+    public String onCreate() {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime dateTime = LocalDateTime.of(LocalDate.now(), LocalTime.now());
+        String formattedDateTime = dateTime.format(formatter);
+        return formattedDateTime;
+
+    }
+
     public String getCategory() {
         return category;
     }
@@ -38,45 +64,12 @@ public class News implements Serializable{
         this.category = category;
     }
 
-    
-    
-    
-    
-    public News(int id, String title, String text, String imageDir, String category,int userId) {       //for old
-        this.id = id;
-        this.title = title;
-        this.text = text;
-        this.imageDir = imageDir;
-        this.category = category;
-        this.userId = userId;
-    }
-
-    public News(int id, String title, String text, String postDate, String imageDir, String category, int userId) {      //for new
-        this.id = id;
-        this.title = title;
-        this.text = text;
-        this.postDate = onCreate();
-        this.imageDir = imageDir;
-        this.category = category;
-        this.userId = userId;
-    }
-    
-    public String onCreate() {
-    
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDateTime dateTime = LocalDateTime.of(LocalDate.now(), LocalTime.now());
-        String formattedDateTime = dateTime.format(formatter);
-        return formattedDateTime;
-    
-    }
-
     public News() {
     }
 
     public String getImageDir() {
         return imageDir;
     }
-
 
     public void setImageDir(String imageDir) {
         this.imageDir = imageDir;
@@ -121,8 +114,6 @@ public class News implements Serializable{
     public void setUserId(int userId) {
         this.userId = userId;
     }
-
-
 
     @Override
     public int hashCode() {
@@ -173,4 +164,3 @@ public class News implements Serializable{
                 + userId + "]";
     }
 }
-    

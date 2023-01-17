@@ -9,9 +9,9 @@ import by.htp.ex.bean.News;
 
 
 public interface INewsDAO {
-    void addNews(News news) throws DaoException;
-    void update(News news) throws DaoException;
-    void deleteNews(String idNews) throws DaoException;
+    boolean addNews(News news) throws DaoException;
+    boolean update(News news) throws DaoException;
+    boolean deleteNews(String idNews) throws DaoException;
     void writeLike(String idNews) throws DaoException;
     News getNews(String id) throws DaoException;
     List<Category> findAllCategory()  throws  DaoException;

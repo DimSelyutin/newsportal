@@ -18,6 +18,9 @@
 							</a>
 						</li>
 					</c:forEach>
+					<li>
+						<a href="controller?command=go_to_news&category=sortbydate">Sort by date</a>
+					</li>
 				</ul>
 			</div>
 			<div class="clear"></div>

@@ -50,9 +50,6 @@ public class User implements Serializable{
     public User() {
     }
 
-    public static long getSerialversionuid() {
-        return serialVersionUID;
-    }
 
     public int getId() {
         return id;

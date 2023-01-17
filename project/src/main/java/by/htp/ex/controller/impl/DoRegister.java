@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import by.htp.ex.bean.User;
 import by.htp.ex.controller.Command;
 import by.htp.ex.dao.DaoException;
-import by.htp.ex.dao.connectionPool.ConnectionPoolException;
+import by.htp.ex.dao.connectionpool.ConnectionPoolException;
 import by.htp.ex.service.IUserService;
 import by.htp.ex.service.ServiceException;
 import by.htp.ex.service.ServiceProvider;
@@ -21,7 +21,7 @@ public class DoRegister implements Command {
     private static final String JSP_PASSWORD_PARAM = "password";
     private static final String JSP_EMAIL_PARAM = "email";
     private static final String JSP_PHONE_PARAM = "phone";
-    private static final String JSP_CONFIRM_PASSWORD_PARAM = "confirm_phone";
+    private static final String JSP_CONFIRM_PASSWORD_PARAM = "password2";
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,17 +33,23 @@ public class DoRegister implements Command {
             String confirmPasssword = request.getParameter(JSP_CONFIRM_PASSWORD_PARAM);
             String phone = request.getParameter(JSP_PHONE_PARAM);
             String email = request.getParameter(JSP_EMAIL_PARAM);
+            
 
-            User newUser;
-            newUser = new User(login, phone, email, passsword);
-            service.registration(newUser);
-        } catch (ServiceException e) {
-            request.setAttribute("AuthenticationError", "Error server, pls try again later");
+            if (passsword.equals(confirmPasssword)) {
+                User newUser;
+                newUser = new User(login, phone, email, passsword);
+                if (service.registration(newUser)) {
+                    request.setAttribute("access", "Register succes!");
+                } 
+            } else {
+                request.setAttribute("exception", "Passwords doesn't match");
+            }
             request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
-
+        } catch (ServiceException e) {
+            request.setAttribute("exception", e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
         }
 
-        request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
 
     }
 

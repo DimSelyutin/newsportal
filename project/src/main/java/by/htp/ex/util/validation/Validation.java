@@ -34,8 +34,8 @@ public class Validation{
             newUser = _newUser;
         }
         
-        public ValidationBuilder validLogin(String login){
-            if (!valid(login, ExpressionEnum.LOGIN_EXPRESSION.getRegexStr())) {
+        public ValidationBuilder validLogin(){
+            if (!valid(newUser.getLogin(), ExpressionEnum.LOGIN_EXPRESSION.getRegexStr())) {
                 uncorrectFieldName.add("Uncorrect Login");    
             }
             return this;

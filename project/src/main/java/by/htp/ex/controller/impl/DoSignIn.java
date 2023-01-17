@@ -6,8 +6,7 @@ import java.util.List;
 
 import by.htp.ex.bean.Category;
 import by.htp.ex.controller.Command;
-import by.htp.ex.dao.DaoException;
-import by.htp.ex.dao.connectionPool.ConnectionPoolException;
+
 import by.htp.ex.service.INewsService;
 import by.htp.ex.service.IUserService;
 import by.htp.ex.service.ServiceException;
@@ -40,25 +39,23 @@ public class DoSignIn implements Command {
             idUser = userService.getUserId(login);
             listCategory = newsService.findAllCategoryes();
             if (!role.equals(ROLE_GUEST)) {
-
                 request.getSession(true).setAttribute("user", "active");
                 request.getSession().setAttribute("role", role);
                 request.getSession().setAttribute("idUser", idUser);
                 request.getSession().setAttribute("login", login);
                 request.getSession().setAttribute("listCategory", listCategory);
-                request.getSession().setAttribute(ACCESS, "Добро пожаловать "+request.getSession().getAttribute(JSP_LOGIN_PARAM));
+                request.setAttribute(ACCESS, "Welcome "+request.getSession().getAttribute(JSP_LOGIN_PARAM));
                 
                 response.sendRedirect("controller?command=go_to_main_page");
 
             } else {
                 request.getSession(true).setAttribute("user", "not active");
-                request.setAttribute("AuthenticationError", "wrong login or password");
+                request.setAttribute("exception", "Wrong login or password");
                 request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
             }
         } catch (ServiceException e) {
-            request.setAttribute("AuthenticationError", "Error server, pls try again later");
+            request.setAttribute("exception", "Error server, pls try again later");
             request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
-            e.printStackTrace();
         }
 
         response.getWriter().println("<h2>Do logination</h2>");

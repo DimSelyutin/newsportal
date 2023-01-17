@@ -1,20 +1,19 @@
 package by.htp.ex.dao.impl;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
-import by.htp.ex.dao.connectionPool.ConnectionPoolException;
-import by.htp.ex.dao.connectionPool.PoolConnection;
+import by.htp.ex.dao.IConnectionDAO;
+import by.htp.ex.dao.connectionpool.ConnectionPoolException;
+import by.htp.ex.dao.connectionpool.PoolConnection;
 
 public class ConnectionDAO implements IConnectionDAO{
 
     private PoolConnection poolConnection;
     private Connection connection;
 
-    
-    public PoolConnection getPoolConnection(){
-        return poolConnection;
-    }
 
     
     public ConnectionDAO() {
@@ -28,24 +27,49 @@ public class ConnectionDAO implements IConnectionDAO{
     }
     
     public Connection getConnection() {
+        try {
+            connection = poolConnection.takeConnection();
+        } catch (ConnectionPoolException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         return connection;
     }
 
     @Override
-    public void initConnection() throws ConnectionPoolException, SQLException {
+    public void initConnection() throws SQLException, ConnectionPoolException {
         poolConnection.initPoolData();
-        connection = poolConnection.takeConnection();
-        
-
-
     }
 
 
     @Override
-    public void closeConnection() {
-        System.out.println("CloseConnect");
-        poolConnection.dispose();
+    public void closeConnection(Connection con, Statement st, ResultSet rs) {
+        
+            poolConnection.closeConnection(connection, st, rs);
+        
+       
         
     }
+    
+
+    
+
+    @Override
+    public void closeConnection() {
+        
+        
+    }
+
+    @Override
+    public void closeConnection(Connection con, Statement st) {
+        poolConnection.closeConnection(con, st);
+        
+    }
+
+    
+
+
+
+    
     
 }

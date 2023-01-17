@@ -2,7 +2,7 @@ package by.htp.ex.dao;
 
 import by.htp.ex.dao.impl.CommentDAO;
 import by.htp.ex.dao.impl.ConnectionDAO;
-import by.htp.ex.dao.impl.IConnectionDAO;
+
 import by.htp.ex.dao.impl.NewsDAO;
 import by.htp.ex.dao.impl.UserDAO;
 
@@ -23,7 +23,6 @@ public final class DaoProvider {
 
 
     private DaoProvider(){
-        System.out.println("DAO");
     }
 
     public IUserDAO getUserDAO() {

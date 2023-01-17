@@ -13,16 +13,12 @@ public class ChangeLocale implements Command{
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        request.getSession().setAttribute(LOCALE, request.getParameter(LOCALE));
         
-        if (request.getSession().getAttribute(LOCALE) == null) {
-            request.getSession().setAttribute(LOCALE, request.getLocale());
-        } else {
-            request.getSession().setAttribute(LOCALE, request.getParameter(LOCALE));
-        }
         String str = (String)request.getSession().getAttribute(LINK);
-        
         response.sendRedirect(str);
-        
+
     }
     
 }

@@ -30,7 +30,9 @@ public class DoAddNews implements Command {
         try {
             int userId = (int) request.getSession().getAttribute(IDUSER);
             News editedNews = new News(title, text, imageDir, idCategory, userId);
-            service.save(editedNews);
+            if(!service.save(editedNews)) {
+                throw new ServiceException("Error save post!");
+            }
             response.sendRedirect("controller?command=go_to_main_page");
         } catch (ServiceException e) {
             request.setAttribute(EXCEPTION, "Error to add news!");

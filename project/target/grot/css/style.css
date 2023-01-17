@@ -857,7 +857,7 @@ textarea#wmd-input {
 
 .msg_container {
   position: fixed;
-
+  display: block;
   right: 15px;
   width: 270px;
 
