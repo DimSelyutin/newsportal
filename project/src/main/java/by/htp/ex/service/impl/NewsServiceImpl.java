@@ -79,7 +79,10 @@ public class NewsServiceImpl implements INewsService {
     public List<News> latestList(int count) throws ServiceException {
         List<News> listNews;
         try {
-            listNews = newsDAO.getAllNews().subList(0, count);
+            listNews = newsDAO.getAllNews();
+            if (listNews.size()<count) {
+                return listNews;
+            }
             return listNews;
         } catch (DaoException e) {
             throw new ServiceException(e);

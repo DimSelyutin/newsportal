@@ -45,8 +45,7 @@ public class UserDAO implements IUserDAO {
             return false;
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            throw new DaoException(ERR_MSG, e);
+            throw new DaoException("Error to register new user!", e);
 
         } finally {
             DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st);
@@ -56,7 +55,6 @@ public class UserDAO implements IUserDAO {
 
     private boolean setRole(String id) throws DaoException {
         Connection con = null;
-        ResultSet rs = null;
         Statement st = null;
         con = DaoProvider.getInstance().getConnectionDAO().getConnection();
         try {
@@ -67,8 +65,8 @@ public class UserDAO implements IUserDAO {
             }
             return false;
         } catch (SQLException e) {
-            e.printStackTrace();
-            throw new DaoException(ERR_MSG, e);
+            
+            throw new DaoException("Error to set new role! Whrite to admin!", e);
 
         } finally {
             DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st);
@@ -94,7 +92,7 @@ public class UserDAO implements IUserDAO {
             }
             return ret;
         } catch (SQLException e) {
-            throw new DaoException(ERR_MSG, e);
+            throw new DaoException("Error to signin!", e);
 
         } finally {
             DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st, rs);
@@ -125,7 +123,7 @@ public class UserDAO implements IUserDAO {
             }
             return user;
         } catch (SQLException e) {
-            throw new DaoException(ERR_MSG, e);
+            throw new DaoException("Error get user", e);
 
         } finally {
             DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st, rs);
@@ -149,7 +147,7 @@ public class UserDAO implements IUserDAO {
             }
             return role;
         } catch (SQLException e) {
-            throw new DaoException(ERR_MSG, e);
+            throw new DaoException("Error to get role!", e);
         } finally {
             DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st, rs);
         }
@@ -171,7 +169,7 @@ public class UserDAO implements IUserDAO {
             }
             return users;
         } catch (SQLException e) {
-            throw new DaoException(ERR_MSG, e);
+            throw new DaoException("Error to find all users!", e);
         } finally {
             DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st, rs);
         }
@@ -195,7 +193,7 @@ public class UserDAO implements IUserDAO {
             }
             return user;
         } catch (SQLException e) {
-            throw new DaoException("Exception find user!", e);
+            throw new DaoException("Error find user!", e);
         } finally {
             DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st, rs);
         }

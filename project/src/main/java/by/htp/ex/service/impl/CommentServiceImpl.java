@@ -1,10 +1,6 @@
 package by.htp.ex.service.impl;
 
-import java.sql.SQLException;
 import java.util.List;
-
-import org.w3c.dom.DOMException;
-
 import by.htp.ex.bean.Comment;
 import by.htp.ex.dao.DaoException;
 import by.htp.ex.dao.DaoProvider;
@@ -41,21 +37,20 @@ public class CommentServiceImpl implements ICommentService {
     public void chageComment(Comment comment, String userId) throws ServiceException {
         try {
             commentDao.changeComment(comment);
-        } catch(DaoException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        
+
     }
 
     @Override
     public boolean deleteComment(String commentId) throws ServiceException {
         try {
-           return commentDao.deleteComment(commentId);
+            return commentDao.deleteComment(commentId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-    
-        
+
     }
 
     @Override

@@ -105,6 +105,7 @@ public class Comment implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + commentId;
         result = prime * result + postId;
         result = prime * result + userId;
         result = prime * result + ((userName == null) ? 0 : userName.hashCode());
@@ -122,6 +123,8 @@ public class Comment implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         Comment other = (Comment) obj;
+        if (commentId != other.commentId)
+            return false;
         if (postId != other.postId)
             return false;
         if (userId != other.userId)
@@ -146,8 +149,10 @@ public class Comment implements Serializable {
 
     @Override
     public String toString() {
-        return "Comment [postId=" + postId + ", userId=" + userId + ", userName=" + userName + ", commentText="
-                + commentText + ", commentDate=" + commentDate + "]";
+        return "Comment [commentId=" + commentId + ", postId=" + postId + ", userId=" + userId + ", userName="
+                + userName + ", commentText=" + commentText + ", commentDate=" + commentDate + "]";
     }
+
+   
 
 }

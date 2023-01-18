@@ -3,7 +3,6 @@ package by.htp.ex.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -17,7 +16,6 @@ import java.sql.ResultSet;
 
 public class NewsDAO implements INewsDAO {
 
-    private final String MSG_ERR = "Some problems whith database";
     private final String INSERT_NEWS = "INSERT INTO `posts` (`title`, `text`, `image`, `date_post`, `user_id`, `idCategory`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')";
     private final String UPDATE_NEWS = "UPDATE `posts` SET `title` = '%s', `text` = '%s', `image` = '%s', `user_id` = '%s' WHERE (`id` = '%s')";
     private final String DELETE_NEWS = "DELETE FROM `posts` WHERE (`id` = '%s')";
@@ -44,7 +42,7 @@ public class NewsDAO implements INewsDAO {
             }
             return exec;
         } catch (SQLException e) {
-            throw new DaoException(MSG_ERR, e);
+            throw new DaoException("Error to add news!", e);
         } finally {
             DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st);
         }
@@ -67,7 +65,7 @@ public class NewsDAO implements INewsDAO {
 
             return exec;
         } catch (SQLException e) {
-            throw new DaoException(MSG_ERR, e);
+            throw new DaoException("Error to update news!", e);
         } finally {
             DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st);
         }
@@ -88,7 +86,7 @@ public class NewsDAO implements INewsDAO {
             return exec;
 
         } catch (SQLException e) {
-            throw new DaoException(MSG_ERR, e);
+            throw new DaoException("Error to delete news!", e);
         } finally {
             DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st);
         }
@@ -109,7 +107,7 @@ public class NewsDAO implements INewsDAO {
             }
             return categoryList;
         } catch (SQLException e) {
-            throw new DaoException(MSG_ERR, e);
+            throw new DaoException("Error to find category news!", e);
 
         } finally {
             DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st, rs);
@@ -135,7 +133,7 @@ public class NewsDAO implements INewsDAO {
             }
             return news;
         } catch (SQLException e) {
-            throw new DaoException(MSG_ERR, e);
+            throw new DaoException("Error to find news!", e);
 
         } finally {
             DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st, rs);
@@ -160,7 +158,7 @@ public class NewsDAO implements INewsDAO {
             }
             return listok2;
         } catch (SQLException e) {
-            throw new DaoException(MSG_ERR, e);
+            throw new DaoException("Error to find by category!", e);
         } finally {
             DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st, rs);
         }
@@ -183,7 +181,7 @@ public class NewsDAO implements INewsDAO {
             }
             return listok;
         } catch (SQLException e) {
-            throw new DaoException(MSG_ERR, e);
+            throw new DaoException("Error to get all news!", e);
         } finally {
             DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st, rs);
         }
@@ -205,7 +203,7 @@ public class NewsDAO implements INewsDAO {
             String sqlLike = String.format("UPDATE `posts` SET `likeCount` = '%s' WHERE (`id` = '%s');",
                     ++likeCount, idNews);
         } catch (SQLException e) {
-            throw new DaoException(MSG_ERR, e);
+            throw new DaoException("Error to add like for news!", e);
         } finally {
             DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st, rs);
         }

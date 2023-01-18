@@ -31,7 +31,11 @@
                 </div>
 
                 <div class="post_img">
-                    <img src="" alt="Photo">
+                    <input type="file" name="file" id="img-download" size="50" multiple
+                        accept="image/*,image/jpeg,image/png" />
+                    <img id="img-display" src="#" alt="" />
+
+
 
                 </div>
             </div>

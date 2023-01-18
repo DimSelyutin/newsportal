@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import by.htp.ex.dao.DaoException;
 import by.htp.ex.dao.IConnectionDAO;
 import by.htp.ex.dao.connectionpool.ConnectionPoolException;
 import by.htp.ex.dao.connectionpool.PoolConnection;
@@ -19,26 +20,22 @@ public class ConnectionDAO implements IConnectionDAO{
     public ConnectionDAO() {
         this.poolConnection = new PoolConnection();
         try {
-            initConnection();
+            poolConnection.initPoolData();
             
-        } catch (ConnectionPoolException | SQLException e) {
+        } catch (ConnectionPoolException e) {
+
             e.printStackTrace();
+            
         }
     }
     
-    public Connection getConnection() {
+    public Connection getConnection() throws DaoException {
         try {
             connection = poolConnection.takeConnection();
         } catch (ConnectionPoolException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw new DaoException("");
         }
         return connection;
-    }
-
-    @Override
-    public void initConnection() throws SQLException, ConnectionPoolException {
-        poolConnection.initPoolData();
     }
 
 
@@ -48,15 +45,6 @@ public class ConnectionDAO implements IConnectionDAO{
             poolConnection.closeConnection(connection, st, rs);
         
        
-        
-    }
-    
-
-    
-
-    @Override
-    public void closeConnection() {
-        
         
     }
 

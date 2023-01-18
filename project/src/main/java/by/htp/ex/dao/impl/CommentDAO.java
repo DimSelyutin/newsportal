@@ -13,7 +13,7 @@ import by.htp.ex.dao.DaoProvider;
 import by.htp.ex.dao.ICommentDAO;
 
 public class CommentDAO implements ICommentDAO {
-    private final String MSG_ERR = "Error whith comments!";
+
     private final String SQL_SELECT_ID_USER = "SELECT * FROM comments_post `user_id`, user `id` where `user_id` = `id` and `id_comment` = '%s'";
     private final String SQL_SELECT_COMMENT = "SELECT * FROM comments_post `user_id`, user `id` where `user_id` = `id` and `post_id` = '%s'";
     private final String UPDATE_COMMENT = "UPDATE `vibestretch`.`comments_post` SET `comment_text` = '%s' WHERE (`id_comment` = '%s')";
@@ -35,7 +35,7 @@ public class CommentDAO implements ICommentDAO {
             }
             return comment;
         } catch (SQLException e) {
-            throw new DaoException(MSG_ERR, e);
+            throw new DaoException("Error to find comments!", e);
         }finally {
             DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st,rs);
         }
@@ -58,7 +58,7 @@ public class CommentDAO implements ICommentDAO {
             }
             return listComment;
         } catch (SQLException e) {
-            throw new DaoException(MSG_ERR, e);
+            throw new DaoException("Error to find comments!", e);
         }finally {
             DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st,rs);
         }
@@ -66,7 +66,6 @@ public class CommentDAO implements ICommentDAO {
 
     @Override
     public Comment getComment() {
-        Connection con = DaoProvider.getInstance().getConnectionDAO().getConnection();
 
         return null;
     }
@@ -83,7 +82,7 @@ public class CommentDAO implements ICommentDAO {
             st = con.prepareStatement(sqlCreateComment);
             st.executeUpdate(sqlCreateComment);
         } catch (SQLException e) {
-            throw new DaoException(MSG_ERR, e);
+            throw new DaoException("Error to create comments!", e);
         }finally {
             DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st);
         }
@@ -101,7 +100,7 @@ public class CommentDAO implements ICommentDAO {
             st = con.prepareStatement(sqlCreateComment);
             st.executeUpdate(sqlCreateComment);
         } catch (SQLException e) {
-            throw new DaoException(MSG_ERR, e);
+            throw new DaoException("Error change comment", e);
         }finally {
             DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st);
         }
@@ -124,7 +123,7 @@ public class CommentDAO implements ICommentDAO {
             return exec;
 
         } catch (SQLException e) {
-            throw new DaoException(MSG_ERR, e);
+            throw new DaoException("Error delete comment", e);
         } finally {
             DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st);
         }

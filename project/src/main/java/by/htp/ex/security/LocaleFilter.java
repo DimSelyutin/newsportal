@@ -20,7 +20,7 @@ public class LocaleFilter implements Filter {
             throws IOException, ServletException {
         httpRequest = (HttpServletRequest) request;
 
-        String path = httpRequest.getRequestURI().substring(httpRequest.getContextPath().length());
+        String path = httpRequest.getRequestURI()+""+httpRequest.getQueryString();
 
         System.out.println(httpRequest.getQueryString());
         if (!path.contains("change_local")) {

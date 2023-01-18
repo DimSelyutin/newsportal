@@ -18,6 +18,9 @@ public class News implements Serializable {
     private String category;
     private int userId;
 
+    public News() {
+    }
+    //create
     public News(String title, String text, String imageDir, String category, int userId) {
         this.title = title;
         this.text = text;
@@ -27,7 +30,8 @@ public class News implements Serializable {
         this.userId = userId;
     }
 
-    public News(int id, String title, String text, String imageDir, String category, int userId) { // for old
+    //read
+    public News(int id, String title, String text, String imageDir, String category, int userId) { 
         this.id = id;
         this.title = title;
         this.text = text;
@@ -35,9 +39,8 @@ public class News implements Serializable {
         this.category = category;
         this.userId = userId;
     }
-
-    public News(int id, String title, String text, String postDate, String imageDir, String category, int userId) { // for
-                                                                                                                    // new
+    //edit
+    public News(int id, String title, String text, String postDate, String imageDir, String category, int userId) { 
         this.id = id;
         this.title = title;
         this.text = text;
@@ -64,8 +67,7 @@ public class News implements Serializable {
         this.category = category;
     }
 
-    public News() {
-    }
+   
 
     public String getImageDir() {
         return imageDir;
@@ -114,7 +116,6 @@ public class News implements Serializable {
     public void setUserId(int userId) {
         this.userId = userId;
     }
-
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -123,10 +124,11 @@ public class News implements Serializable {
         result = prime * result + ((title == null) ? 0 : title.hashCode());
         result = prime * result + ((text == null) ? 0 : text.hashCode());
         result = prime * result + ((postDate == null) ? 0 : postDate.hashCode());
+        result = prime * result + ((imageDir == null) ? 0 : imageDir.hashCode());
+        result = prime * result + ((category == null) ? 0 : category.hashCode());
         result = prime * result + userId;
         return result;
     }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -153,14 +155,25 @@ public class News implements Serializable {
                 return false;
         } else if (!postDate.equals(other.postDate))
             return false;
+        if (imageDir == null) {
+            if (other.imageDir != null)
+                return false;
+        } else if (!imageDir.equals(other.imageDir))
+            return false;
+        if (category == null) {
+            if (other.category != null)
+                return false;
+        } else if (!category.equals(other.category))
+            return false;
         if (userId != other.userId)
             return false;
         return true;
     }
-
     @Override
     public String toString() {
-        return "News [id=" + id + ", title=" + title + ", text=" + text + ", postDate=" + postDate + ", userId="
-                + userId + "]";
+        return "News [id=" + id + ", title=" + title + ", text=" + text + ", postDate=" + postDate + ", imageDir="
+                + imageDir + ", category=" + category + ", userId=" + userId + "]";
     }
+
+    
 }

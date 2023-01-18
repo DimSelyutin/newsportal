@@ -1,7 +1,5 @@
 package by.htp.ex.service.impl;
 
-import java.sql.SQLException;
-
 import by.htp.ex.bean.User;
 import by.htp.ex.dao.DaoException;
 import by.htp.ex.dao.DaoProvider;
@@ -56,9 +54,9 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User findUserById(String id) throws ServiceException {
-        User user;
+    
         try {
-            return user = userDAO.findUserById(id);
+            return userDAO.findUserById(id);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

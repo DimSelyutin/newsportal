@@ -2,6 +2,9 @@ package by.htp.ex.bean;
 
 public class Category {
     
+    
+
+    
     private static final long serialVersionUID = 1L;
     
     private int idCategory;
@@ -36,6 +39,7 @@ public class Category {
     public void setCountPosts(int countPosts) {
         this.countPosts = countPosts;
     }
+    
 
     @Override
     public int hashCode() {
@@ -46,6 +50,8 @@ public class Category {
         result = prime * result + countPosts;
         return result;
     }
+
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -66,7 +72,7 @@ public class Category {
             return false;
         return true;
     }
-    
+
     @Override
     public String toString() {
         return "Category [idCategory=" + idCategory + ", nameCategory=" + nameCategory + ", countPosts=" + countPosts

@@ -30,16 +30,20 @@ public class AuthenticationFilter implements Filter {
         httpRequest = (HttpServletRequest) request;
         HttpSession session = httpRequest.getSession();
 
-        changeLocale();
-
         boolean isLoggedIn = (session != null && session.getAttribute("user") != null);
-        String path = httpRequest.getRequestURI().substring(httpRequest.getContextPath().length());
+        
+        System.out.println();
         if (isLoggedIn) {
             httpRequest.setAttribute("presentation", "userInfo");
-            httpRequest.getRequestDispatcher(path).forward(request, response);
+            
+            chain.doFilter(request, response);
+
         } else if (!isLoggedIn && isLoginRequired()) {
+            httpRequest.setAttribute("presentation", "guestInfo");
             httpRequest.setAttribute("exception", "LogIn or Register!");
-            httpRequest.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
+
+
         } else {
             httpRequest.setAttribute("presentation", "guestInfo");
             chain.doFilter(request, response);
@@ -60,22 +64,4 @@ public class AuthenticationFilter implements Filter {
         return false;
     }
 
-    private boolean changeLocale() {
-        if (httpRequest.getQueryString() != null) {
-            String link = httpRequest.getRequestURI();
-            System.out.println(link);
-
-            if (!httpRequest.getQueryString().contains("change_local")) {
-
-                // просто записываем линк, если должна выполниться ЛЮБАЯ(из любого места)
-                // команда кроме change_local
-                link = httpRequest.getRequestURI() +"?"+ httpRequest.getQueryString();
-                System.out.println(link);
-                httpRequest.getSession(true).setAttribute("link", link);
-
-            }
-
-        }
-        return false;
-    }
 }

@@ -8,7 +8,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-
 import by.htp.ex.bean.News;
 import by.htp.ex.controller.Command;
 
@@ -38,14 +37,12 @@ public class DoEditNews implements Command {
     private final String EXCEPTION = "exception";
     private static final String JSP_LOGIN_PARAM = "login";
 
-    
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String idNews = request.getParameter(IDNEWS);
         String title = request.getParameter(TITLE);
         String category = request.getParameter(CATEGORY);
         String text = request.getParameter(POSTTEXT);
-        
         String imageDir = "";
         ////////////////////////////////////////////////////////////////////////////////
         String login = request.getSession().getAttribute(JSP_LOGIN_PARAM) + "";
@@ -53,35 +50,26 @@ public class DoEditNews implements Command {
         try {
             String contentType = request.getContentType();
             if ((contentType != null) && contentType.startsWith("multipart/form-data")) {
-                ServletContext servletContext = request.getServletContext();
 
-                String path = null;
-                try {
-                    path = new File(DoEditNews.class.getProtectionDomain().getCodeSource().getLocation().toURI())
-                            .getPath();
-                    path = path.substring(0, path.indexOf("grot") - 1) + "\\upload\\";
+                String path = "/opt/tomcat/webapps/upload";
 
-                } catch (URISyntaxException e) {
-                    e.printStackTrace();
-                }
+                File file = new File(path);
 
                 Part filePart = request.getPart("file");
 
                 String fileName = filePart.getSubmittedFileName();
 
-                imageDir = path + login + fileName;
+                imageDir = "/upload/" + login + fileName;
 
                 InputStream is = filePart.getInputStream();
-                Files.copy(is, Paths.get(imageDir),
+
+                Files.copy(is, Paths.get(file.getAbsolutePath() + "/" + login + fileName),
                         StandardCopyOption.REPLACE_EXISTING);
             }
-                 String newImageDir = imageDir.substring(imageDir.indexOf("\\upload"), imageDir.length()).replaceAll("\\\\","/");
-           
-            //////////////////////////////////////////////////////////////////
 
             int userId = (int) request.getSession().getAttribute(IDUSER);
 
-            News editedNews = new News((Integer.parseInt(idNews)), title, text, newImageDir, category, userId);
+            News editedNews = new News((Integer.parseInt(idNews)), title, text, imageDir, category, userId);
 
             service.update(editedNews);
             response.sendRedirect("controller?command=go_to_main_page");
