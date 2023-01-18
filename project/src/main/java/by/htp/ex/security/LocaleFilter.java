@@ -20,12 +20,10 @@ public class LocaleFilter implements Filter {
             throws IOException, ServletException {
         httpRequest = (HttpServletRequest) request;
 
-        String path = httpRequest.getRequestURI()+""+httpRequest.getQueryString();
+        String path = httpRequest.getRequestURI()+"/"+httpRequest.getQueryString();
 
-        System.out.println(httpRequest.getQueryString());
         if (!path.contains("change_local")) {
-            // просто записываем линк, если должна выполниться ЛЮБАЯ(из любого места)
-            // команда кроме change_local
+            // sett last command in session if not change local
             link = "controller?" + httpRequest.getQueryString();
             httpRequest.getSession(true).setAttribute("link", link);
         }

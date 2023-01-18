@@ -43,9 +43,11 @@ public class GoToEditNews implements Command {
                 response.sendRedirect("controller?command=go_to_news");
 
             }
-        } catch (NullPointerException | ServiceException e) {
-            response.sendRedirect("controller?command=go_to_news");
-            // Logger.writeLog(e.getStackTrace().toString());
+        } catch (ServiceException e) {
+
+            request.setAttribute("exception", e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
+
         }
 
     }

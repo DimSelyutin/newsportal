@@ -14,8 +14,6 @@ public class GoToAddNews implements Command {
        
                 
             request.setAttribute("presentation", "addNews");
-            request.setAttribute("link", "/WEB-INF/pages/tiles/addNews.jsp");
-
             request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
 
     }

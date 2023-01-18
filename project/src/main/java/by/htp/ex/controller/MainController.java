@@ -41,7 +41,6 @@ public class MainController extends HttpServlet {
             command = commandProvider.getCommand(commandStr);
             command.execute(req, resp);
         } catch ( RuntimeException | ServiceException | ServletException | IOException e) {
-            e.printStackTrace();
             req.setAttribute(EXCEPTION, "Page not found. Pls chek you link!");
 
         } 

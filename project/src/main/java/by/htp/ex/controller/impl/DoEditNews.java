@@ -70,11 +70,14 @@ public class DoEditNews implements Command {
             int userId = (int) request.getSession().getAttribute(IDUSER);
 
             News editedNews = new News((Integer.parseInt(idNews)), title, text, imageDir, category, userId);
+            if (service.update(editedNews)) {
+                request.setAttribute("access", "Post saved!");
+            }
+            
+    
 
-            service.update(editedNews);
-            response.sendRedirect("controller?command=go_to_main_page");
+            request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
         } catch (ServiceException e) {
-            e.printStackTrace();
             request.setAttribute(EXCEPTION, "Error server, pls try again later");
             request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
         }

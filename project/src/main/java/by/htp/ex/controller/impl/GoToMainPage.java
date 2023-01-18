@@ -27,9 +27,9 @@ public class GoToMainPage implements Command {
 
             }
             request.setAttribute("news", newsService.latestList(COUNT_NEWS));
-
+            request.setAttribute("presentation", "userInfo");
+            
             request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
-
         } catch (ServiceException e) {
             request.setAttribute("exception", "Some problems whith server functional.");
             request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);

@@ -35,7 +35,7 @@ public class DoDeleteComment implements Command {
 
             request.setAttribute(ACCESS, "Post was deleted!");
 
-            response.sendRedirect("controller?command=go_to_main_page");
+            request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
         } catch (ServiceException e) {
             request.setAttribute(EXCEPTION, "Failed to delete post, service exception");
            

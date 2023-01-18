@@ -1,7 +1,6 @@
 package by.htp.ex.controller.impl;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 import by.htp.ex.bean.Category;
@@ -32,7 +31,7 @@ public class DoSignIn implements Command {
             String login = request.getParameter(JSP_LOGIN_PARAM);
             String passsword = request.getParameter(JSP_PASSWORD_PARAM);
             String role = ROLE_GUEST;
-            int idUser = 0;
+            int idUser;
             List<Category> listCategory = null;
 
             role = userService.signin(login, passsword);
@@ -46,7 +45,7 @@ public class DoSignIn implements Command {
                 request.getSession().setAttribute("listCategory", listCategory);
                 request.setAttribute(ACCESS, "Welcome "+request.getSession().getAttribute(JSP_LOGIN_PARAM));
                 
-                response.sendRedirect("controller?command=go_to_main_page");
+                request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
 
             } else {
                 request.getSession(true).setAttribute("user", "not active");

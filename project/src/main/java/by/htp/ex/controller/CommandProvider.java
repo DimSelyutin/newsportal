@@ -53,15 +53,14 @@ public class CommandProvider {
             commandInput = CommandName.GO_TO_MAIN_PAGE.toString();
         }
 
-      
         try {
-            commandName = CommandName.valueOf(commandInput.toUpperCase()); // transform command from string in Enum
+            commandName = CommandName.valueOf(commandInput.toUpperCase()); 
         } catch (IllegalArgumentException e) {
-            throw new ServiceException("Page not found!"); // get linkpage instead enum(variable)
+            throw new ServiceException("Page not found!"); 
         }
 
         
-        command = commandProvider.get(commandName); // get linkpage instead enum(variable)
+        command = commandProvider.get(commandName); 
         return command;
 
     }

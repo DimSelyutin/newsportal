@@ -1,12 +1,9 @@
 package by.htp.ex.controller.impl;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import by.htp.ex.bean.User;
 import by.htp.ex.controller.Command;
-import by.htp.ex.dao.DaoException;
-import by.htp.ex.dao.connectionpool.ConnectionPoolException;
 import by.htp.ex.service.IUserService;
 import by.htp.ex.service.ServiceException;
 import by.htp.ex.service.ServiceProvider;
@@ -33,14 +30,13 @@ public class DoRegister implements Command {
             String confirmPasssword = request.getParameter(JSP_CONFIRM_PASSWORD_PARAM);
             String phone = request.getParameter(JSP_PHONE_PARAM);
             String email = request.getParameter(JSP_EMAIL_PARAM);
-            
 
             if (passsword.equals(confirmPasssword)) {
                 User newUser;
                 newUser = new User(login, phone, email, passsword);
                 if (service.registration(newUser)) {
                     request.setAttribute("access", "Register succes!");
-                } 
+                }
             } else {
                 request.setAttribute("exception", "Passwords doesn't match");
             }
@@ -49,7 +45,6 @@ public class DoRegister implements Command {
             request.setAttribute("exception", e.getMessage());
             request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
         }
-
 
     }
 

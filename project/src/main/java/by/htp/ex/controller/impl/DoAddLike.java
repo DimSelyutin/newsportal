@@ -24,11 +24,9 @@ public class DoAddLike implements Command {
         String newsId = request.getParameter("likeCount");
         
         try {
-            newsService.addLike(3+"");
+            newsService.addLike("1");
         } catch (ServiceException e) {
-            
-            
-            e.printStackTrace();
+            request.setAttribute("exception", "Error to add like for news!");
         }
     }
 

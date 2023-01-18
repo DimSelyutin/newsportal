@@ -32,22 +32,23 @@ public class AuthenticationFilter implements Filter {
 
         boolean isLoggedIn = (session != null && session.getAttribute("user") != null);
         
-        System.out.println();
         if (isLoggedIn) {
             httpRequest.setAttribute("presentation", "userInfo");
             
             chain.doFilter(request, response);
+            
+            
 
         } else if (!isLoggedIn && isLoginRequired()) {
             httpRequest.setAttribute("presentation", "guestInfo");
             httpRequest.setAttribute("exception", "LogIn or Register!");
             request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
-
-
+            
         } else {
             httpRequest.setAttribute("presentation", "guestInfo");
             chain.doFilter(request, response);
         }
+        
 
     }
 
@@ -56,7 +57,6 @@ public class AuthenticationFilter implements Filter {
 
         for (String loginRequiredURL : loginRequiredURLs) {
             if (requestURL.contains(loginRequiredURL)) {
-                System.out.println(loginRequiredURL);
                 return true;
             }
         }
