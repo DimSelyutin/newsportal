@@ -94,8 +94,9 @@ jQuery(document).ready(function () {
     });
 
   });
-  $(".answer-comment").click(function(){
-    $('.wmd-input').val($('.wmd-input').val() + 'Дмитрий, ');
+  
+  $('.answer_comment').click(function(){
+    $('#wmd-input').val($('#wmd-input').val() + 'more text');
   });
 });
 

@@ -17,6 +17,9 @@ import java.sql.ResultSet;
 public class NewsDAO implements INewsDAO {
 
     private final String INSERT_NEWS = "INSERT INTO `posts` (`title`, `text`, `image`, `date_post`, `user_id`, `idCategory`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')";
+    
+
+
     private final String UPDATE_NEWS = "UPDATE `posts` SET `title` = '%s', `text` = '%s', `image` = '%s', `user_id` = '%s' WHERE (`id` = '%s')";
     private final String DELETE_NEWS = "DELETE FROM `posts` WHERE (`id` = '%s')";
     private final String SELECT_CATEGORY = "SELECT * FROM category";
