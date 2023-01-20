@@ -33,7 +33,7 @@ public class DoSignIn implements Command {
             String role = ROLE_GUEST;
             int idUser;
             List<Category> listCategory = null;
-
+            
             role = userService.signin(login, passsword);
             idUser = userService.getUserId(login);
             listCategory = newsService.findAllCategoryes();
@@ -45,7 +45,7 @@ public class DoSignIn implements Command {
                 request.getSession().setAttribute("listCategory", listCategory);
                 request.setAttribute(ACCESS, "Welcome "+request.getSession().getAttribute(JSP_LOGIN_PARAM));
                 
-                request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
+                response.sendRedirect("controller?command=go_to_news");
 
             } else {
                 request.getSession(true).setAttribute("user", "not active");

@@ -23,6 +23,8 @@ public class GoToViewNews extends HttpServlet implements Command {
     private final IUserService userService = ServiceProvider.getInstance().getUserService();
     private final ICommentService commentService = ServiceProvider.getInstance().getCommentService();
     private final String IDNEWS = "idNews";
+    private final String ACCESS = "access";
+
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -46,8 +48,9 @@ public class GoToViewNews extends HttpServlet implements Command {
     
             request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
         } catch (ServiceException e) {
+            request.setAttribute(ACCESS, e.getMessage());
+
             response.sendRedirect("controller?command=go_to_404");
-            e.printStackTrace();
         }
 
     }

@@ -22,6 +22,10 @@ public class GoToMainPage implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+
+            // request.getSession().getAttribute("acess");
+            // request.getSession().setAttribute("accessCount", );
+
             if (request.getSession().getAttribute("local") == null) {
                 request.getSession().setAttribute("local", request.getLocale());
 
@@ -32,7 +36,7 @@ public class GoToMainPage implements Command {
             request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
         } catch (ServiceException e) {
             request.setAttribute("exception", "Some problems whith server functional.");
-            request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
+            response.sendRedirect("controller?command=go_to_news");
         }
 
     }

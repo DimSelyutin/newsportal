@@ -41,10 +41,11 @@ public class GoToNews implements Command {
 
             request.setAttribute(PRESENTATION, newsList);
 
+            request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
         } catch (ServiceException e) {
             request.setAttribute(ACCESS, e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
         }
-        request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
     }
 
 }

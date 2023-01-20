@@ -33,6 +33,7 @@ public class DoAddNews implements Command {
         String title = request.getParameter(TITLE);
         String text = request.getParameter(POSTTEXT);
         String category = request.getParameter(CATEGORY);
+        String imageDir = "";
 
         String login = request.getSession().getAttribute(JSP_LOGIN_PARAM).toString();
 
@@ -48,21 +49,22 @@ public class DoAddNews implements Command {
 
                 String fileName = filePart.getSubmittedFileName();
 
-                String imageDir = "/upload/" + login + fileName;
-
+                
                 InputStream is = filePart.getInputStream();
-
+                
+                imageDir = "/upload/" + login + fileName;
                 Files.copy(is, Paths.get(file.getAbsolutePath() + "/" + login + fileName),
                         StandardCopyOption.REPLACE_EXISTING);
-                int userId = (int) request.getSession().getAttribute(IDUSER);
-
-                News editedNews = new News(title, text, imageDir, category, userId);
-
-                service.update(editedNews);
-                if (!service.save(editedNews)) {
-                    throw new ServiceException("Error save post!");
-                }
             }
+
+            int userId = (int) request.getSession().getAttribute(IDUSER);
+            News editedNews = new News(title, text, imageDir, category, userId);
+
+            service.update(editedNews);
+            if (!service.save(editedNews)) {
+                throw new ServiceException("Error save post!");
+            }
+            request.getSession().setAttribute("access", "Post was added!");
             response.sendRedirect("controller?command=go_to_main_page");
         } catch (ServiceException e) {
             request.setAttribute(EXCEPTION, "Error to add news!");
