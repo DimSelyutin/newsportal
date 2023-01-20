@@ -69,7 +69,7 @@
 
                 <div class="comment-footer">
                     <div class="menu-icons">
-                        <div>
+                        <div class="answer_comment">
                             <a href="">answer</a>
                         </div>
                         <c:import url="/WEB-INF/pages/tiles/icons/like.jsp" />

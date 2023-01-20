@@ -17,9 +17,30 @@ public class News implements Serializable {
     private String imageDir;
     private String category;
     private int userId;
+    private String local;
 
     public News() {
     }
+    // 
+    public News(String title, String text, String imageDir, String category, int userId, String local) {
+        this.title = title;
+        this.text = text;
+        this.postDate = onCreate();
+        this.imageDir = imageDir;
+        this.category = category;
+        this.userId = userId;
+        this.local = local;
+    }
+    public News(int id, String title, String text, String imageDir, String category, int userId, String local) { 
+        this.id = id;
+        this.title = title;
+        this.text = text;
+        this.imageDir = imageDir;
+        this.category = category;
+        this.userId = userId;
+        this.local = local;
+    }
+    // 
     //create
     public News(String title, String text, String imageDir, String category, int userId) {
         this.title = title;

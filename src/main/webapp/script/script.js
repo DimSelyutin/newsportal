@@ -94,6 +94,9 @@ jQuery(document).ready(function () {
     });
 
   });
+  $(".answer-comment").click(function(){
+    $('.wmd-input').val($('.wmd-input').val() + 'Дмитрий, ');
+  });
 });
 
 function popup(form_any) {

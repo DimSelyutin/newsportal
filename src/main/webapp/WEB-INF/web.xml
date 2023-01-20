@@ -40,14 +40,5 @@
   </error-page>
 
 
-  <!-- <filter>
-    <file-name>Filter</name>
-    <filter-class>by.htp.ex.controller.filter.Filter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>Filter</filter-name>
-    <url-pattern>
-      /controller
-    <url-pattern>
-  </filter-mapping> -->
+ 
 </web-app>
