@@ -10,6 +10,7 @@ by\htp\ex\util\validation\Validation$1.class
 by\htp\ex\dao\NewsDAOException.class
 by\htp\ex\service\IUserService.class
 by\htp\ex\bean\Category.class
+by\htp\ex\controller\impl\DoAddTranslate.class
 by\htp\ex\service\impl\CommentServiceImpl.class
 by\htp\ex\controller\impl\GoToEditNews.class
 by\htp\ex\util\validation\Validation$ValidationBuilder.class

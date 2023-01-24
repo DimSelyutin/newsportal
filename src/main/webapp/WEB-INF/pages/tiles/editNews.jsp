@@ -6,7 +6,6 @@
             </div>
             <div class="user-role edit-form">
                 <c:out value="${sessionScope.role}" />
-
             </div>
 
         </div>
@@ -16,6 +15,7 @@
                     <div class="hidden_menu" style="display: none;">
                         <c:if test="${requestScope.post.userId == sessionScope.idUser}">
                             <span><a href="controller?command=do_delete_news&idNews=${post.id}">Delete news</a></span>
+                            <span><a href="controller?command=do_add_translate&idNews=${post.id}">Add translate</a></span>
                         </c:if>
 
                     </div>

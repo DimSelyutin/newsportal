@@ -12,9 +12,9 @@ public interface INewsDAO {
     boolean addNews(News news) throws DaoException;
     boolean update(News news) throws DaoException;
     boolean deleteNews(String idNews) throws DaoException;
-    void writeLike(String idNews) throws DaoException;
-    News getNews(String id) throws DaoException;
+    void writeLike(String idUser, String idNews) throws DaoException;
+    News getNews(String local, String id) throws DaoException;
     List<Category> findAllCategory()  throws  DaoException;
     List<News> findByCategory(String category) throws DaoException;
-    List<News> getAllNews() throws DaoException;
+    List<News> getAllNews(String local) throws DaoException;
 }

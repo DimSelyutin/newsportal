@@ -74,21 +74,23 @@ jQuery(document).ready(function () {
   });
 
 
-  $(".like-svg").bind("click", function () {
+  $(".like-svg-container").bind("click", function () {
     var link = $(this);
     var id = link.data('idNews');
-
+    var nam = link.val();
+    console.log(id);
+    console.log(nam);
     $.ajax({
       url: "controller?command=do_add_like",
-      type: "POST",
-      data: { id: id }, // Передаем ID нашей статьи
+      type: "GET",
+      data: {id : link.val()}, // Передаем ID нашей статьи
       dataType: "json",
       success: function (result) {
         if (!result.error) { //если на сервере не произойло ошибки то обновляем количество лайков на странице
           link.addClass('like-svg-active'); // помечаем лайк как "понравившийся"
           $('.counter', link).html(result.count);
         } else {
-          alert(result.message);
+          console.log(result.message);
         }
       }
     });

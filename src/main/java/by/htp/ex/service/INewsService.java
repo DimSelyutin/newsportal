@@ -13,13 +13,13 @@ public interface INewsService {
     void find(int idNews) throws ServiceException;
     boolean update(News news) throws ServiceException;
     boolean delete(String idNews) throws ServiceException;
-    void addLike(String newsId) throws ServiceException;	
+    void addLike(String idUser, String idNews) throws ServiceException;	
     
     List<News> sortByCategory(String category) throws ServiceException;
-    List<News> sortByDate() throws ServiceException;
+    List<News> sortByDate(String local) throws ServiceException;
     List<Category> findAllCategoryes() throws ServiceException;
-    List<News> latestList(int count)  throws ServiceException;
-    List<News> list()  throws ServiceException;
-    News findById(String id) throws ServiceException;
+    List<News> latestList(String local, int count)  throws ServiceException;
+    List<News> list(String local)  throws ServiceException;
+    News findById(String local, String id) throws ServiceException;
 	
 }

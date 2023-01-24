@@ -75,24 +75,26 @@ public class NewsServiceImpl implements INewsService {
     }
 
     @Override
-    public List<News> latestList(int count) throws ServiceException {
+    public List<News> latestList(String local, int count) throws ServiceException {
         List<News> listNews;
         try {
-            listNews = newsDAO.getAllNews();
+            listNews = newsDAO.getAllNews(local);
+  
             if (listNews.size()<count) {
                 return listNews;
             }
             return listNews;
         } catch (DaoException e) {
+            e.printStackTrace();
             throw new ServiceException(e);
         }
     }
 
     @Override
-    public List<News> list() throws ServiceException {
+    public List<News> list(String local) throws ServiceException {
         List<News> listNews;
         try {
-            listNews = newsDAO.getAllNews();
+            listNews = newsDAO.getAllNews(local);
             return listNews;
         } catch (DaoException e) {
             throw new ServiceException(e);
@@ -100,9 +102,9 @@ public class NewsServiceImpl implements INewsService {
     }
 
     @Override
-    public News findById(String id) throws ServiceException {
+    public News findById(String local, String id) throws ServiceException {
         try {
-            News news = newsDAO.getNews(id);
+            News news = newsDAO.getNews(local, id);
             return news;
         } catch (DaoException e) {
             throw new ServiceException(e);
@@ -120,9 +122,9 @@ public class NewsServiceImpl implements INewsService {
     }
 
     @Override
-    public void addLike(String newsId) throws ServiceException {
+    public void addLike(String idUser, String newsId) throws ServiceException {
         try {
-            newsDAO.writeLike(newsId);
+            newsDAO.writeLike(idUser, newsId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -130,9 +132,9 @@ public class NewsServiceImpl implements INewsService {
     }
 
     @Override
-    public List<News> sortByDate() throws ServiceException {
+    public List<News> sortByDate(String local) throws ServiceException {
         try {
-            List<News> allNews = newsDAO.getAllNews();
+            List<News> allNews = newsDAO.getAllNews(local);
             Collections.sort(allNews, new Comparator<News>() {
                 @Override
                 public int compare(News o1, News o2) {

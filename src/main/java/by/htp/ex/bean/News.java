@@ -19,6 +19,7 @@ public class News implements Serializable {
     private int userId;
     private String local;
 
+    
     public News() {
     }
     // 
@@ -136,6 +137,14 @@ public class News implements Serializable {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+
+    public String getLocal() {
+        return local;
+    }
+    public void setLocal(String local) {
+        this.local = local;
     }
     @Override
     public int hashCode() {

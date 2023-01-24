@@ -26,19 +26,19 @@ public class GoToNews implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String local = request.getSession().getAttribute("local").toString();
+
         String category = null;
         List<News> newsList;
         try {
             category = request.getParameter(CATEGORY);
-
             if (category == null) {
-                newsList = newsService.list();
+                newsList = newsService.list(local);
             } else if (category.equals("sortbydate")) {
-                newsList = newsService.sortByDate();
+                newsList = newsService.sortByDate(local);
             } else {
                 newsList = newsService.sortByCategory(category);
             }
-
             request.setAttribute(PRESENTATION, newsList);
 
             request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);

@@ -32,10 +32,11 @@ public class GoToViewNews extends HttpServlet implements Command {
         String userLogin;
         News post = null;
         try {
+            String local = request.getSession().getAttribute("local").toString();
 
             List<Comment> comments = commentService.findCommentOfPost(idNews);
             
-            post = newsService.findById(idNews);
+            post = newsService.findById(local, idNews);
             
             if (post == null) {
                 throw new ServiceException("Post is null");

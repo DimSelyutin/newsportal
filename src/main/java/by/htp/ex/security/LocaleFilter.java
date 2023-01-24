@@ -19,7 +19,11 @@ public class LocaleFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
         httpRequest = (HttpServletRequest) request;
-
+        
+        if (httpRequest.getSession().getAttribute("local") == null) {
+            httpRequest.getSession().setAttribute("local", request.getLocale());
+            
+        }
         String path = httpRequest.getRequestURI()+"/"+httpRequest.getQueryString();
 
         if (!path.contains("change_local")) {

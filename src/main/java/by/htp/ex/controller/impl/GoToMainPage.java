@@ -21,18 +21,18 @@ public class GoToMainPage implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
         try {
-
+            
             // request.getSession().getAttribute("acess");
             // request.getSession().setAttribute("accessCount", );
-
-            if (request.getSession().getAttribute("local") == null) {
-                request.getSession().setAttribute("local", request.getLocale());
-
-            }
-            request.setAttribute("news", newsService.latestList(COUNT_NEWS));
-            request.setAttribute("presentation", "userInfo");
             
+
+            String local = request.getSession().getAttribute("local").toString();
+
+            
+            request.setAttribute("news", newsService.latestList(local, COUNT_NEWS));
+            request.setAttribute("presentation", "userInfo");
             request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
         } catch (ServiceException e) {
             request.setAttribute("exception", "Some problems whith server functional.");

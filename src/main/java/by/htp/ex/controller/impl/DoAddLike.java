@@ -16,15 +16,18 @@ import jakarta.servlet.http.HttpServletResponse;
 public class DoAddLike implements Command {
 
     private final INewsService newsService = ServiceProvider.getInstance().getNewsService();
+    private final String IDUSER = "idUser";
+    private final String IDNEWS = "idNews";
 
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        String newsId = request.getParameter("likeCount");
-        
+        String idNews = request.getParameter(IDNEWS);
+        System.out.println(idNews);
+        String idUser = request.getSession().getAttribute(IDUSER).toString();
         try {
-            newsService.addLike("1");
+            newsService.addLike(idUser, idNews);
         } catch (ServiceException e) {
             request.setAttribute("exception", "Error to add like for news!");
         }

@@ -25,10 +25,12 @@ public class DoDeleteNews implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+            String local = request.getSession().getAttribute("local").toString();
+
             String idNews = request.getParameter(IDNEWS);
             boolean execRes = false;
             String idUser = request.getSession().getAttribute(IDUSER).toString();
-            News news = service.findById(idNews);
+            News news = service.findById(local, idNews);
             if ((news.getUserId() + "").equals(idUser)) {
                 
                 execRes = service.delete(idNews);

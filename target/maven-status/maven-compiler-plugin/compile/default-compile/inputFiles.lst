@@ -14,6 +14,7 @@ E:\GitHub\newproject\project\src\main\java\by\htp\ex\util\validation\ObjBuilder.
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\dao\IConnectionDAO.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\controller\impl\GoToNews.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\service\ServiceProvider.java
+E:\GitHub\newproject\project\src\main\java\by\htp\ex\controller\impl\DoAddTranslate.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\controller\impl\ChangeLocale.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\controller\CommandName.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\dao\ICommentDAO.java

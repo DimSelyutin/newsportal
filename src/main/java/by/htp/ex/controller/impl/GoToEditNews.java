@@ -30,7 +30,9 @@ public class GoToEditNews implements Command {
         News post = null;
         String userLogin = "null";
         try {
-            post = newsService.findById(idNews);
+            String local = request.getSession().getAttribute("local").toString();
+
+            post = newsService.findById(local, idNews);
             userLogin = userService.findUserById(post.getUserId() + "").getLogin();
             if (request.getSession().getAttribute("role").equals("admin") || request.getSession().getAttribute(JSP_LOGIN_PARAM).equals(userLogin)) {
                 request.setAttribute("presentation", "postId");

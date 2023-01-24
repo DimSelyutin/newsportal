@@ -17,14 +17,15 @@ import java.sql.ResultSet;
 public class NewsDAO implements INewsDAO {
 
     private final String INSERT_NEWS = "INSERT INTO `posts` (`title`, `text`, `image`, `date_post`, `user_id`, `idCategory`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')";
-    
 
+    private final String INSERT_LOCAL = "INSERT INTO `vibestretch`.`posts_%s` (`title`, `text`) VALUES ('%s', '%s')";
 
-    private final String UPDATE_NEWS = "UPDATE `posts` SET `title` = '%s', `text` = '%s', `image` = '%s', `user_id` = '%s' WHERE (`id` = '%s')";
+    private final String UPDATE_NEWS = "UPDATE `posts_%s` SET `title` = '%s', `text` = '%s', `image` = '%s', `user_id` = '%s' WHERE (`id` = '%s')";
     private final String DELETE_NEWS = "DELETE FROM `posts` WHERE (`id` = '%s')";
     private final String SELECT_CATEGORY = "SELECT * FROM category";
     private final String SELECT_POST_ID = "SELECT * FROM posts where `id`= '%s'";
-    private final String S_POSTS_CATEGORY = "SELECT * FROM posts, category where `idCategory`= category.id";
+    private final String S_POSTS_CATEGORY = "SELECT * FROM posts_%s, category where `idCategory`= category.id";
+    private final String S_POSTS_CATEGORYS = "SELECT posts_%s.*, posts.date_post,  posts.image, category.category_name, posts.user_id FROM posts_%s LEFT JOIN posts ON posts.id = posts_%s.posts_id LEFT JOIN category ON category.id = posts.idCategory";
     private final String S_POSTS_CATEGORY_ID = "SELECT * FROM posts, category where posts.idCategory=category.id and posts.id = '%s'";
     private final String S_POSTS_CATEGPRY_CNAME = "SELECT * FROM posts, category where `idCategory`= category.id and category_name ='%s'";
 
@@ -35,14 +36,22 @@ public class NewsDAO implements INewsDAO {
         Statement st = null;
         con = DaoProvider.getInstance().getConnectionDAO().getConnection();
         try {
+            int st2;
+                String sqlQueryLocal = String.format("CREATE DEFINER = CURRENT_USER TRIGGER `vibestretch`.`posts_AFTER_INSERT` AFTER INSERT ON `posts` FOR EACH ROW BEGIN INSERT INTO posts_%s (posts_id, title, text) VALUES (NEW.id, NEW.title, NEW.text); END", news.getLocal());
+        
+                st2 = con.prepareStatement(sqlQueryLocal).executeUpdate();
+
             String sqlQuery = String.format(
                     INSERT_NEWS,
                     news.getTitle(), news.getText(), news.getImageDir(), news.getPostDate(), news.getUserId(),
                     news.getCategory());
             st = con.prepareStatement(sqlQuery);
             if (st.executeUpdate(sqlQuery) == 1) {
+                String sq = "DROP TRIGGER IF EXISTS `vibestretch`.`posts_AFTER_INSERT`";
+                con.prepareStatement(sq).executeUpdate();
                 exec = true;
             }
+
             return exec;
         } catch (SQLException e) {
             throw new DaoException("Error to add news!", e);
@@ -59,7 +68,7 @@ public class NewsDAO implements INewsDAO {
 
         con = DaoProvider.getInstance().getConnectionDAO().getConnection();
         try {
-            String sqlAllNews = String.format(UPDATE_NEWS, news.getTitle(), news.getText(), news.getImageDir(),
+            String sqlAllNews = String.format(UPDATE_NEWS,news.getLocal(),  news.getTitle(), news.getText(), news.getImageDir(),
                     news.getUserId(), news.getId());
             st = con.prepareStatement(sqlAllNews);
             if (st.executeUpdate(sqlAllNews) == 1) {
@@ -119,20 +128,20 @@ public class NewsDAO implements INewsDAO {
     }
 
     @Override
-    public News getNews(String idPost) throws DaoException {
+    public News getNews(String local, String idPost) throws DaoException {
         Connection con = null;
         ResultSet rs = null;
         Statement st = null;
         try {
             con = DaoProvider.getInstance().getConnectionDAO().getConnection();
-            String sqlAllNews = String.format(S_POSTS_CATEGORY_ID, idPost);
-
+            String sqlAllNews = String.format(S_POSTS_CATEGORYS+" WHERE posts_%s.posts_id = '%s'", local,local, local,local, idPost);
+            System.out.println(sqlAllNews);
             st = con.createStatement();
             rs = st.executeQuery(sqlAllNews);
             News news = null;
             while (rs.next()) {
-                news = new News(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(5), rs.getString(4),
-                        rs.getString(10), rs.getInt(6));
+                news = new News(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
+                        rs.getString(6), rs.getInt(7));
             }
             return news;
         } catch (SQLException e) {
@@ -167,23 +176,25 @@ public class NewsDAO implements INewsDAO {
         }
     }
 
-    public List<News> getAllNews() throws DaoException {
+    public List<News> getAllNews(String local) throws DaoException {
         Connection con = null;
         ResultSet rs = null;
         Statement st = null;
+
         try {
             con = DaoProvider.getInstance().getConnectionDAO().getConnection();
-
             List<News> listok = new ArrayList<>();
+            String getAllNewsLocal = String.format(S_POSTS_CATEGORYS, local,local,local);
 
             st = con.createStatement();
-            rs = st.executeQuery(S_POSTS_CATEGORY);
+            rs = st.executeQuery(getAllNewsLocal);
             while (rs.next()) {
-                listok.add(new News(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(5), rs.getString(4),
-                        rs.getString(10), rs.getInt(6)));
+                listok.add(new News(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
+                        rs.getString(6), rs.getInt(7)));
             }
             return listok;
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new DaoException("Error to get all news!", e);
         } finally {
             DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st, rs);
@@ -191,20 +202,16 @@ public class NewsDAO implements INewsDAO {
     }
 
     @Override
-    public void writeLike(String idNews) throws DaoException {
+    public void writeLike(String idUser, String idNews) throws DaoException {
         Connection con = null;
         ResultSet rs = null;
         Statement st = null;
         con = DaoProvider.getInstance().getConnectionDAO().getConnection();
         try {
-            String sqlgetLike = String.format(SELECT_POST_ID, idNews);
+            String sqlgetLike = String.format(
+                    "INSERT INTO `vibestretch`.`user_post_likes` (`user`, `post`) VALUES ('%s', '%s')", idUser, idNews);
             rs = con.createStatement().executeQuery(sqlgetLike);
-            int likeCount = 0;
-            if (rs.next()) {
-                likeCount = rs.getInt(8);
-            }
-            String sqlLike = String.format("UPDATE `posts` SET `likeCount` = '%s' WHERE (`id` = '%s');",
-                    ++likeCount, idNews);
+
         } catch (SQLException e) {
             throw new DaoException("Error to add like for news!", e);
         } finally {

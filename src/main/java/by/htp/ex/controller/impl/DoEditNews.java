@@ -59,11 +59,10 @@ public class DoEditNews implements Command {
                 imageDir = "/upload/" + login + fileName;
 
                 InputStream is = filePart.getInputStream();
-                System.out.println(imageDir);
 
                 Files.copy(is, Paths.get(file.getAbsolutePath() + "/" + login + fileName),
                         StandardCopyOption.REPLACE_EXISTING);
-                        System.out.println(fileName);
+
             }
 
             int userId = (int) request.getSession().getAttribute(IDUSER);
