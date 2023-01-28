@@ -21,12 +21,13 @@ public class LocaleFilter implements Filter {
         httpRequest = (HttpServletRequest) request;
         
         if (httpRequest.getSession().getAttribute("local") == null) {
-            httpRequest.getSession().setAttribute("local", request.getLocale());
+            
+            httpRequest.getSession().setAttribute("local", "en");
             
         }
         String path = httpRequest.getRequestURI()+"/"+httpRequest.getQueryString();
 
-        if (!path.contains("change_local")) {
+        if (!path.contains("change_local") && !path.contains("do_add_like")) {
             // sett last command in session if not change local
             link = "controller?" + httpRequest.getQueryString();
             httpRequest.getSession(true).setAttribute("link", link);

@@ -31,13 +31,10 @@ public class AuthenticationFilter implements Filter {
         HttpSession session = httpRequest.getSession();
 
         boolean isLoggedIn = (session != null && session.getAttribute("user") != null);
-        
         if (isLoggedIn) {
             httpRequest.setAttribute("presentation", "userInfo");
             
             chain.doFilter(request, response);
-            
-            
 
         } else if (!isLoggedIn && isLoginRequired()) {
             httpRequest.setAttribute("presentation", "guestInfo");

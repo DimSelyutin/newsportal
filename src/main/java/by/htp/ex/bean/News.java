@@ -18,11 +18,10 @@ public class News implements Serializable {
     private String category;
     private int userId;
     private String local;
-
+    private String likeCount;
     
-    public News() {
-    }
-    // 
+   
+    // create
     public News(String title, String text, String imageDir, String category, int userId, String local) {
         this.title = title;
         this.text = text;
@@ -32,6 +31,7 @@ public class News implements Serializable {
         this.userId = userId;
         this.local = local;
     }
+    //edit
     public News(int id, String title, String text, String imageDir, String category, int userId, String local) { 
         this.id = id;
         this.title = title;
@@ -41,7 +41,20 @@ public class News implements Serializable {
         this.userId = userId;
         this.local = local;
     }
-    // 
+    //read
+    public News(int id, String title, String text, String postDate, String imageDir, String category, int userId, String likeCount) { 
+        this.id = id;
+        this.title = title;
+        this.text = text;
+        this.postDate = postDate;
+        this.imageDir = imageDir;
+        this.category = category;
+        this.userId = userId;
+        this.likeCount = likeCount;
+
+    }
+    // ------------------------------------------------------------------------------
+
     //create
     public News(String title, String text, String imageDir, String category, int userId) {
         this.title = title;
@@ -89,7 +102,14 @@ public class News implements Serializable {
         this.category = category;
     }
 
-   
+    public String getLikeCount() {
+        return likeCount;
+    }
+    public void setLikeCount(String likeCount) {
+        this.likeCount = likeCount;
+    }
+    public News() {
+    }
 
     public String getImageDir() {
         return imageDir;
@@ -99,11 +119,11 @@ public class News implements Serializable {
         this.imageDir = imageDir;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

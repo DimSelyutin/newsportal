@@ -16,31 +16,38 @@ public class DoAddTranslate implements Command {
     private final String CATEGORY = "category";
     private final String TITLE = "title";
     private final String POSTTEXT = "postText";
-    private final String IMAGEDIR = "imageDir";
     private final String IDUSER = "idUser";
+    private final String IDNEWS = "idNews";
     private final String EXCEPTION = "exception";
     private static final String JSP_LOGIN_PARAM = "login";
+
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String idCategory = request.getParameter(CATEGORY);
+        String idNews = request.getParameter(IDNEWS);
         String title = request.getParameter(TITLE);
         String text = request.getParameter(POSTTEXT);
         String category = request.getParameter(CATEGORY);
         String local = request.getSession().getAttribute("local").toString();
-        if (local == null) {
+
+        String imageDir = "";
+        if (local.equals("en")) {
+            local = "ru";
+        } else {
             local = "en";
         }
-        String imageDir = "";
 
-        String login = request.getSession().getAttribute(JSP_LOGIN_PARAM).toString();
         try {
             int userId = (int) request.getSession().getAttribute(IDUSER);
-            News editedNews = new News(title, text, imageDir, category, userId, local);
-            if (!service.update(editedNews)) {
+
+            News editedNews;
+            editedNews = new News(Integer.parseInt(idNews),title, text, imageDir, category, userId, local);
+
+            if (!service.saveTranslate(editedNews)) {
                 throw new ServiceException("Error save post!");
             }
-            request.getSession().setAttribute("access", "Post was added!");
+            request.setAttribute("access", "Translate was added!");
             response.sendRedirect("controller?command=go_to_main_page");
         } catch (ServiceException e) {
             e.printStackTrace();

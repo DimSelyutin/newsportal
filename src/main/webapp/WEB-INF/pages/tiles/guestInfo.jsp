@@ -1,7 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 	<div class="body-title">
-		<a href="">News</a> News List
-
 		<form action="command.do?method=delete" method="post" class="news_list">
 			<c:forEach var="news" items="${requestScope.news}">
 				<div class="single-news-wrapper">

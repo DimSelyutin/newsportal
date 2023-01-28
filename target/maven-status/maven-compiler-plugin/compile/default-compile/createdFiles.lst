@@ -51,7 +51,6 @@ by\htp\ex\dao\ICommentDAO.class
 by\htp\ex\controller\impl\DoAddNews.class
 by\htp\ex\dao\impl\CommentDAO.class
 by\htp\ex\controller\impl\DoSignIn.class
-by\htp\ex\controller\impl\DoAddLike.class
 by\htp\ex\service\impl\NewsServiceImpl$1.class
 by\htp\ex\controller\impl\DoDeleteComment.class
 by\htp\ex\controller\impl\ChangeLocale.class

@@ -5,7 +5,6 @@ jQuery(document).ready(function () {
   var btn_register = $('.signup');
   var form_register = $('.popup-register');
   var form_login = $('.popup-login');
-  var like_btn = $('.like-svg');
 
 
   $('.msg_close').click(function () {
@@ -22,15 +21,6 @@ jQuery(document).ready(function () {
   });
   btn_register.click(function () {
     popup(form_register);
-  });
-
-
-  like_btn.click(function () {
-    if ($(this).hasClass('like-svg-active')) {
-      $(this).removeClass('like-svg-active');
-    } else {
-      $(this).addClass('like-svg-active');
-    }
   });
 
   $("#img-download").change(function () {
@@ -75,29 +65,34 @@ jQuery(document).ready(function () {
 
 
   $(".like-svg-container").bind("click", function () {
-    var link = $(this);
-    var id = link.data('idNews');
-    var nam = link.val();
-    console.log(id);
-    console.log(nam);
+    var divlike = $(this).find('.like-svg');
+    var counter = $(this).find('.counter');
+    var link = $(this).find('#idNews').val();
+    var number = parseInt(counter.text());
+
     $.ajax({
       url: "controller?command=do_add_like",
-      type: "GET",
-      data: {id : link.val()}, // Передаем ID нашей статьи
-      dataType: "json",
-      success: function (result) {
-        if (!result.error) { //если на сервере не произойло ошибки то обновляем количество лайков на странице
-          link.addClass('like-svg-active'); // помечаем лайк как "понравившийся"
-          $('.counter', link).html(result.count);
+      type: "POST",
+      data: { idNews: link },
+      dataType: "text",
+      success: function () {
+        if (divlike.hasClass('like-svg-active')) {
+          counter.html(number - 1);
+          divlike.removeClass('like-svg-active');
         } else {
-          console.log(result.message);
+          counter.html(number + 1);
+          divlike.addClass('like-svg-active');
         }
+
+      },
+      error: function () {
+        console.log("error");
       }
     });
 
   });
-  
-  $('.answer_comment').click(function(){
+
+  $('.answer_comment').click(function () {
     $('#wmd-input').val($('#wmd-input').val() + 'more text');
   });
 });
@@ -111,6 +106,7 @@ function popup(form_any) {
 
 }
 
+
 function navbarScroll() {
   var y = window.scrollY;
   if (y > 265) {
@@ -119,9 +115,6 @@ function navbarScroll() {
     $('.header').removeClass('small');
 
   }
-
-
-
 
 }
 

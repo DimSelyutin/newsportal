@@ -48,6 +48,7 @@ E:\GitHub\newproject\project\src\main\java\by\htp\ex\dao\DaoException.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\dao\impl\CommentDAO.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\security\LocaleFilter.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\controller\impl\GoToEditNews.java
+E:\GitHub\newproject\project\src\main\java\by\htp\ex\controller\impl\GoToAddTranslate.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\service\impl\UserServiceImpl.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\dao\impl\NewsDAO.java
 E:\GitHub\newproject\project\src\main\java\by\htp\ex\controller\impl\DoDeleteComment.java

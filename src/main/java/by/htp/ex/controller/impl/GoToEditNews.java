@@ -33,18 +33,21 @@ public class GoToEditNews implements Command {
             String local = request.getSession().getAttribute("local").toString();
 
             post = newsService.findById(local, idNews);
-            userLogin = userService.findUserById(post.getUserId() + "").getLogin();
-            if (request.getSession().getAttribute("role").equals("admin") || request.getSession().getAttribute(JSP_LOGIN_PARAM).equals(userLogin)) {
-                request.setAttribute("presentation", "postId");
-                request.setAttribute("link", "/WEB-INF/pages/tiles/editNews.jsp");
-                request.setAttribute("post", post);
+
+            if (post == null) {
+                request.setAttribute("exception", "Post wasn't find!");
                 request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
 
             } else {
 
-                response.sendRedirect("controller?command=go_to_news");
-
+                userLogin = userService.findUserById(post.getUserId() + "").getLogin();
+                
+                request.setAttribute("presentation", "postId");
+                request.setAttribute("link", "/WEB-INF/pages/tiles/editNews.jsp");
+                request.setAttribute("post", post);
+                request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
             }
+
         } catch (ServiceException e) {
 
             request.setAttribute("exception", e.getMessage());

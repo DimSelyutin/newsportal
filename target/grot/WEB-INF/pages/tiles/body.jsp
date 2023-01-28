@@ -13,6 +13,10 @@
 	<c:import url="/WEB-INF/pages/tiles/editNews.jsp" />
 </c:if>
 
+<c:if test="${requestScope.presentation eq 'newsTranslate'}">
+	<c:import url="/WEB-INF/pages/tiles/addTranslate.jsp" />
+</c:if>
+
 <c:if test="${requestScope.presentation eq 'viewNews'}">
 	<c:import url="/WEB-INF/pages/tiles/viewNews.jsp" />
 </c:if>

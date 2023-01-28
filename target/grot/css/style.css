@@ -189,6 +189,10 @@ body {
   font-size: 0.7vw;
 }
 
+.news-footer {
+  display: flex;
+  justify-content: space-between;
+}
 .news-content {
   font-size: 1vw;
 }
@@ -621,6 +625,7 @@ button:hover,
 }
 
 .menu-icons {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -691,11 +696,28 @@ button:hover,
 
 }
 
-.list-menu {}
+.list-menu {
+  list-style: none;
+}
+.menu-title {
+  font-size: 2rem;
+  font-weight: 600;
+}
 
 .list-menu-point {}
 
 
+.list-menu-post {
+  padding: 5px;
+  border-radius: 5px;
+}
+.list-menu-post:hover {
+  background: #ffc5057a;
+}
+.list-menu-post>a {
+  color: #000;
+  text-decoration: none;
+}
 .menu-svg {
   float: right;
 }
@@ -708,8 +730,10 @@ button:hover,
   stroke-linejoin: round;
 }
 .like-svg-container {
-  display: grid;
+  display: flex;
   justify-items: center;
+  align-items: center;
+  font-size: 1.4rem;
 }
 
 .setting-svg {

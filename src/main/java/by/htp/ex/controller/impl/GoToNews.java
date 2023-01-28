@@ -23,14 +23,19 @@ public class GoToNews implements Command {
     private final String LOGIN = "login";
     private final String PRESENTATION = "news";
     private final String CATEGORY = "category";
+    private final String IDUSER = "idUser";
+
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String local = request.getSession().getAttribute("local").toString();
+        String local = request.getSession().getAttribute("local")+"";
+        String userId = (request.getSession().getAttribute(IDUSER)+"");
 
         String category = null;
         List<News> newsList;
         try {
+
+            List<String> likedNews = newsService.getLikedNews(userId);
             category = request.getParameter(CATEGORY);
             if (category == null) {
                 newsList = newsService.list(local);
@@ -40,6 +45,7 @@ public class GoToNews implements Command {
                 newsList = newsService.sortByCategory(category);
             }
             request.setAttribute(PRESENTATION, newsList);
+            request.setAttribute("likedNews", likedNews);
 
             request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
         } catch (ServiceException e) {

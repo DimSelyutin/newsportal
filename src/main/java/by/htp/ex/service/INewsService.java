@@ -10,11 +10,12 @@ import by.htp.ex.bean.News;
 
 public interface INewsService {
     boolean save(News news) throws ServiceException;
+    boolean saveTranslate(News news) throws ServiceException;
     void find(int idNews) throws ServiceException;
     boolean update(News news) throws ServiceException;
     boolean delete(String idNews) throws ServiceException;
-    void addLike(String idUser, String idNews) throws ServiceException;	
-    
+    boolean addLike(String idUser, String idNews) throws ServiceException;	
+    List<String> getLikedNews(String idUser) throws ServiceException;
     List<News> sortByCategory(String category) throws ServiceException;
     List<News> sortByDate(String local) throws ServiceException;
     List<Category> findAllCategoryes() throws ServiceException;

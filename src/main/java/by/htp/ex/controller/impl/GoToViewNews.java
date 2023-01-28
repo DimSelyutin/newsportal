@@ -24,18 +24,22 @@ public class GoToViewNews extends HttpServlet implements Command {
     private final ICommentService commentService = ServiceProvider.getInstance().getCommentService();
     private final String IDNEWS = "idNews";
     private final String ACCESS = "access";
+    private final String IDUSER = "idUser";
 
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String idNews = request.getParameter(IDNEWS);
+        String userId = (request.getSession().getAttribute(IDUSER)+"");
+
         String userLogin;
         News post = null;
         try {
-            String local = request.getSession().getAttribute("local").toString();
+            String local = request.getSession().getAttribute("local")+"";
 
             List<Comment> comments = commentService.findCommentOfPost(idNews);
-            
+
+            List<String> likedNews = newsService.getLikedNews(userId);
             post = newsService.findById(local, idNews);
             
             if (post == null) {
@@ -46,11 +50,13 @@ public class GoToViewNews extends HttpServlet implements Command {
             request.setAttribute("presentation", "viewNews");
             request.setAttribute("comments", comments);
             request.setAttribute("post", post);
-    
+            request.setAttribute("likedNews", likedNews);
+
+            
             request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
         } catch (ServiceException e) {
             request.setAttribute(ACCESS, e.getMessage());
-
+            
             response.sendRedirect("controller?command=go_to_404");
         }
 

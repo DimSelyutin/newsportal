@@ -9,6 +9,7 @@
 			<fmt:message bundle="${loc}" key="local.aboutbtn" var="aboutbtn" />
 			<fmt:message bundle="${loc}" key="local.management" var="management" />
 			<fmt:message bundle="${loc}" key="local.signin" var="signin" />
+            <fmt:message bundle="${loc}" key="local.signout" var="signout" />
 			<fmt:message bundle="${loc}" key="local.signup" var="signup" />
 		</head>
 		<h2>
@@ -62,7 +63,7 @@
 					<form action="controller" method="post">
 						<input type="hidden" name="command" value="do_sign_out" />
 						<div class="header_button">
-							<input class="button" type="submit" value="Sign Out" /><br />
+							<input class="button" type="submit" value="${signout}" /><br />
 						</div>
 					</form>
 				</div>

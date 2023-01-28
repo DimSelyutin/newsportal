@@ -29,6 +29,16 @@ public class NewsServiceImpl implements INewsService {
 
     }
 
+    
+    @Override
+    public boolean saveTranslate(News news) throws ServiceException {
+        try {
+            return newsDAO.saveTranslate(news);
+        } catch (DaoException e) {
+            throw new ServiceException(MSG_ERR, e);
+        }
+    }
+
     @Override
     public void find(int idNews) throws ServiceException {
         try {
@@ -103,8 +113,9 @@ public class NewsServiceImpl implements INewsService {
 
     @Override
     public News findById(String local, String id) throws ServiceException {
+        News news;
         try {
-            News news = newsDAO.getNews(local, id);
+            news = newsDAO.getNews(local, id);
             return news;
         } catch (DaoException e) {
             throw new ServiceException(e);
@@ -122,9 +133,9 @@ public class NewsServiceImpl implements INewsService {
     }
 
     @Override
-    public void addLike(String idUser, String newsId) throws ServiceException {
+    public boolean addLike(String idUser, String newsId) throws ServiceException {
         try {
-            newsDAO.writeLike(idUser, newsId);
+            return newsDAO.writeLike(idUser, newsId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -146,5 +157,16 @@ public class NewsServiceImpl implements INewsService {
             throw new ServiceException(e);
         }
     }
+
+
+    @Override
+    public List<String> getLikedNews(String idUser) throws ServiceException {
+        try {
+            return newsDAO.getLikedNews(idUser);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
 
 }

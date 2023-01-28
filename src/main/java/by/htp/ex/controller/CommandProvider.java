@@ -15,6 +15,7 @@ import by.htp.ex.controller.impl.DoSignIn;
 import by.htp.ex.controller.impl.DoSignOut;
 import by.htp.ex.controller.impl.GoTo404;
 import by.htp.ex.controller.impl.GoToAddNews;
+import by.htp.ex.controller.impl.GoToAddTranslate;
 import by.htp.ex.controller.impl.GoToEditNews;
 import by.htp.ex.controller.impl.GoToMainPage;
 import by.htp.ex.controller.impl.GoToNews;
@@ -42,6 +43,7 @@ public class CommandProvider {
         commandProvider.put(CommandName.GO_TO_404, new GoTo404());
         commandProvider.put(CommandName.CHANGE_LOCAL, new ChangeLocale());
         commandProvider.put(CommandName.DO_ADD_LIKE, new DoAddLike());
+        commandProvider.put(CommandName.GO_TO_ADD_TRANSLATE, new GoToAddTranslate());
         commandProvider.put(CommandName.DO_ADD_TRANSLATE, new DoAddTranslate());
         
 
