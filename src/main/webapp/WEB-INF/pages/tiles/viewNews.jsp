@@ -11,12 +11,13 @@
             </head>
             <div class="edit_news">
                 <div class="h_right">
-                    <div class="user-name edit-form">
-                        <c:out value="${sessionScope.login}" />
-                    </div>
-                    <div class="user-role edit-form">
-                        <c:out value="${sessionScope.role}" />
-
+                    <div class="h_right_info">
+                        <div class="user-name edit-form">
+                            <c:out value="${sessionScope.login}" />
+                        </div>
+                        <div class="user-role edit-form">
+                            <c:out value="${sessionScope.role}" />
+                        </div>
                     </div>
                     <div class="menu-icons">
                         <div class="setting-svg">

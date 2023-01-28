@@ -43,7 +43,7 @@ public class DoSignIn implements Command {
                 request.getSession().setAttribute("idUser", idUser);
                 request.getSession().setAttribute("login", login);
                 request.getSession().setAttribute("listCategory", listCategory);
-                request.setAttribute(ACCESS, "Welcome "+request.getSession().getAttribute(JSP_LOGIN_PARAM));
+                request.getSession().setAttribute(ACCESS, "Welcome "+request.getSession().getAttribute(JSP_LOGIN_PARAM));
                 
                 response.sendRedirect("controller?command=go_to_news");
 

@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import java.util.List;
 
+import by.htp.ex.bean.Category;
 import by.htp.ex.bean.News;
 import by.htp.ex.controller.Command;
 import by.htp.ex.dao.DaoException;
@@ -34,7 +35,6 @@ public class GoToNews implements Command {
         String category = null;
         List<News> newsList;
         try {
-
             List<String> likedNews = newsService.getLikedNews(userId);
             category = request.getParameter(CATEGORY);
             if (category == null) {

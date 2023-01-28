@@ -5,7 +5,7 @@
 			<html>
 
 			<head>
-				<title>Html page</title>
+				<title>News Blog</title>
 				<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 				<script src="./script/jquery.min.js"></script>
 				<script type="text/javascript" src="./script/script.js"></script>
@@ -18,6 +18,7 @@
 				<fmt:setBundle basename="localization.local" var="loc" />
 				<fmt:message bundle="${loc}" key="local.title" var="title" />
 				<fmt:message bundle="${loc}" key="local.main" var="main" />
+				<fmt:message bundle="${loc}" key="local.loginmessage" var="loginmessage" />
 
 				<fmt:message bundle="${loc}" key="local.en" var="en_button" />
 				<fmt:message bundle="${loc}" key="local.ru" var="ru_button" />
@@ -36,7 +37,6 @@
 				<div class="first-page">
 					<h1>
 						<c:out value="${title}" />
-
 					</h1>
 				</div>
 				<div class="content">
@@ -44,7 +44,7 @@
 
 						<div class="menu">
 							<c:if test="${not (sessionScope.user eq 'active')}">
-								Log in or register for read news.
+								<c:out value="${loginmessage}" />
 							</c:if>
 							<c:if test="${sessionScope.user eq 'active'}">
 								<c:import url="/WEB-INF/pages/tiles/menu.jsp" />

@@ -99,7 +99,17 @@ body {
   padding: 0 15px;
 }
 
-.header_button .h_right {
+
+.h_right {
+  display: flex;
+  justify-content: space-between;
+}
+
+.lk_info {
+  display: grid;
+}
+
+.h_right_info {
   display: grid;
 }
 
@@ -163,6 +173,7 @@ body {
 }
 
 .language-button>input {
+  outline: none;
   padding: 5px;
   text-decoration: none;
   border: none;
@@ -179,11 +190,24 @@ body {
 }
 
 .news-title {
-
   font-size: 1.5vw;
   font-weight: 800;
 
 }
+
+.input__label {
+  font-weight: 300;
+  transform: translate(0.25rem, -65%) scale(.8);
+  color: #000;
+  position: absolute;
+  left: 0;
+  top: 0;
+  line-height: 0.2;
+  font-size: 1.577rem;
+  background: #fafafa;
+
+}
+
 
 .news-date {
   font-size: 0.7vw;
@@ -193,7 +217,10 @@ body {
   display: flex;
   justify-content: space-between;
 }
+
 .news-content {
+  max-width: 48rem;
+  position: relative;
   font-size: 1vw;
 }
 
@@ -207,6 +234,8 @@ body {
 }
 
 .news-content>textarea {
+  padding: 5px;
+  outline: none;
   width: 100%;
   height: 200px;
 }
@@ -229,13 +258,10 @@ body {
   width: 60%;
 }
 
-.form-edit-news {
-  display: grid;
-  gap: 15px;
-  margin: 10px 0;
-}
+
 
 .news-title-edit {
+  position: relative;
   font-weight: 800;
   font-size: 1.7vw;
 }
@@ -243,10 +269,27 @@ body {
 .edit-form {
   line-height: 100%;
 }
-
-.form-edit-news {
+.edit_news {
+  display:grid;
+  gap: 1rem;
+}
+.form_edit_news {
   display: grid;
   gap: 1rem;
+  margin: 10px 0;
+}
+
+.form_edit_news input {
+  padding: 2px;
+  line-height: 1.777rem;
+  outline: none;
+
+}
+
+.form_edit_news input:focus {
+  border: none;
+  border-bottom: 2px solid #ffc505;
+  border-radius: 5px;
 }
 
 #img-display {
@@ -270,7 +313,6 @@ body {
   display: block;
   overflow: hidden;
   width: 50%;
-  height: 50%;
 }
 
 .post-img>img {
@@ -631,12 +673,13 @@ button:hover,
   align-items: center;
   float: right;
   gap: 0.5vw;
-  right: 15px;
 
 }
+
 .menu-wraper {
   padding: 15px;
 }
+
 .comment-wraper {
   display: grid;
   margin-top: 1vw;
@@ -699,6 +742,7 @@ button:hover,
 .list-menu {
   list-style: none;
 }
+
 .menu-title {
   font-size: 2rem;
   font-weight: 600;
@@ -711,13 +755,16 @@ button:hover,
   padding: 5px;
   border-radius: 5px;
 }
+
 .list-menu-post:hover {
   background: #ffc5057a;
 }
+
 .list-menu-post>a {
   color: #000;
   text-decoration: none;
 }
+
 .menu-svg {
   float: right;
 }
@@ -729,6 +776,7 @@ button:hover,
   stroke-width: 3px;
   stroke-linejoin: round;
 }
+
 .like-svg-container {
   display: flex;
   justify-items: center;
@@ -815,6 +863,7 @@ button:hover,
 
 .textarea.wmd-input,
 textarea#wmd-input {
+  outline: none;
   max-width: 100%;
   max-height: 600px;
   padding: 10px;

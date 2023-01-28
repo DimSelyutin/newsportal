@@ -12,16 +12,14 @@
         </head>
         <div class="edit_news">
             <div class="h_right">
-                <div class="user-name edit-form">
-                    <c:out value="${sessionScope.login}" />
+                <div class="h_right_info">
+                    <div class="user-name edit-form">
+                        <c:out value="${sessionScope.login}" />
+                    </div>
+                    <div class="user-role edit-form">
+                        <c:out value="${sessionScope.role}" />
+                    </div>
                 </div>
-                <div class="user-role edit-form">
-                    <c:out value="${sessionScope.role}" />
-                </div>
-
-            </div>
-            <form action="controller?command=do_edit_news&idNews=${post.id}" method="post"
-                enctype="multipart/form-data">
                 <div class="menu-icons">
                     <div class="setting-svg">
                         <div class="hidden_menu" style="display: none;">
@@ -43,12 +41,17 @@
                         </svg>
                     </div>
                 </div>
+            </div>
+            <form action="controller?command=do_edit_news&idNews=${post.id}" method="post"
+                enctype="multipart/form-data">
+
                 <input type="hidden" name="command" value="do_edit_news" />
                 <div class="form_edit_news">
                     <div class="news-title-edit">
                         <input value="
                         <c:out value=" ${post.title}" />
                         " name="title">
+                        <span class="input__label">Title</span>
                     </div>
                     <div class="select">
                         <select id="select_category" name="category">
@@ -61,8 +64,10 @@
                     </div>
                     <div class="news-content">
                         <textarea name="postText">
-                    <c:out value="${post.text}"/>
-                </textarea>
+                            <c:out value="${post.text}"/>
+                        </textarea>
+                        <span class="input__label">Text</span>
+
                     </div>
                     <div class="news-date">
                         <c:out value="${post.postDate}" />

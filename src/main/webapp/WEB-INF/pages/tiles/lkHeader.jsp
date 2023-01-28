@@ -26,7 +26,7 @@
             <div class="user-icon">
 
             </div>
-            <div class="h_right">
+            <div class="lk_info">
                 <div class="user-name">
                     <c:out value="${sessionScope.login}" />
                 </div>

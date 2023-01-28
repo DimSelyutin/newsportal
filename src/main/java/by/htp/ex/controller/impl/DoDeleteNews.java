@@ -24,26 +24,26 @@ public class DoDeleteNews implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+            boolean execRes = false;
             String local = request.getSession().getAttribute("local").toString();
+            String idUser = request.getSession().getAttribute(IDUSER).toString();
 
             String idNews = request.getParameter(IDNEWS);
-            boolean execRes = false;
-            String idUser = request.getSession().getAttribute(IDUSER).toString();
             News news = service.findById(local, idNews);
+
+            
+
             if ((news.getUserId() + "").equals(idUser)) {
-                
                 execRes = service.delete(idNews);
-             
             } else {
-                request.setAttribute(EXCEPTION, "This post does not belong to you!");
+                request.getSession().setAttribute(EXCEPTION, "This post does not belong to you!");
             }
 
-            request.setAttribute(ACCESS, "Post was deleted!");
-
+            request.getSession().setAttribute(ACCESS, "Post was deleted!");
             response.sendRedirect("controller?command=go_to_main_page");
+
         } catch (ServiceException e) {
             request.setAttribute(EXCEPTION, "Failed to delete post, service exception");
-           
             request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
 
         }

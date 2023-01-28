@@ -18,6 +18,7 @@ public class DoAddComment implements Command {
     private final String POSTTEXT = "post-text";
     private final String IDUSER = "idUser";
     private final String EXCEPTION = "exception";
+    private final String ACCESS = "access";
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int idNews = Integer.parseInt(request.getParameter(IDNEWS));
@@ -25,18 +26,21 @@ public class DoAddComment implements Command {
         int idUser = (int)request.getSession().getAttribute(IDUSER);
 
         if(postText.trim().equals("")){
-            request.setAttribute(EXCEPTION, "Text of post is null!");
+            request.getSession().setAttribute(ACCESS, "Enter text of comment!");
         } else {
 
             try {
                 service.addComment(new Comment(idNews, idUser, postText));
+                request.getSession().setAttribute(ACCESS, "Comment was added!");
             } catch (ServiceException e) {
-                request.setAttribute(EXCEPTION, "Error to adding a comment! ");
-                e.printStackTrace();
-                response.sendRedirect("controller?command=go_to_main_page");
+                request.getSession().setAttribute(EXCEPTION, "Error to adding a comment! ");
+                response.sendRedirect("controller?command=go_to_view_news&idNews="+idNews);
             }
         }
-        response.sendRedirect("controller?command=go_to_main_page");
+        response.sendRedirect("controller?command=go_to_view_news&idNews="+idNews);
+
+
+        
     }
     
 }

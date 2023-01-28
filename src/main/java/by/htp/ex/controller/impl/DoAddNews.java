@@ -6,7 +6,9 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 
+import by.htp.ex.bean.Category;
 import by.htp.ex.bean.News;
 import by.htp.ex.controller.Command;
 import by.htp.ex.service.INewsService;
@@ -29,7 +31,6 @@ public class DoAddNews implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String idCategory = request.getParameter(CATEGORY);
         String title = request.getParameter(TITLE);
         String text = request.getParameter(POSTTEXT);
         String category = request.getParameter(CATEGORY);
@@ -53,20 +54,19 @@ public class DoAddNews implements Command {
                 InputStream is = filePart.getInputStream();
                 
                 imageDir = "/upload/" + login + fileName;
-                Files.copy(is, Paths.get(file.getAbsolutePath() + "/" + login + fileName),
-                        StandardCopyOption.REPLACE_EXISTING);
+                // Files.copy(is, Paths.get(file.getAbsolutePath() + "/" + login + fileName),
+                //         StandardCopyOption.REPLACE_EXISTING);
             }
-            
+
             int userId = (int) request.getSession().getAttribute(IDUSER);
             News editedNews = new News(title, text, imageDir, category, userId, local);
-           
+    
             if (!service.save(editedNews)) {
                 throw new ServiceException("Error save post!");
             }
-            request.setAttribute("access", "Post was added!");
+            request.getSession().setAttribute("access", "Post was added!");
             response.sendRedirect("controller?command=go_to_main_page");
         } catch (ServiceException e) {
-            e.printStackTrace();
             request.setAttribute(EXCEPTION, "Error to add news!");
             request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
 

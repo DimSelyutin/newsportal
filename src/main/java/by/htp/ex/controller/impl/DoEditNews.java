@@ -41,6 +41,7 @@ public class DoEditNews implements Command {
         String category = request.getParameter(CATEGORY);
         String text = request.getParameter(POSTTEXT);
         String imageDir = "";
+        System.out.println(category);
         ////////////////////////////////////////////////////////////////////////////////
         String login = request.getSession().getAttribute(JSP_LOGIN_PARAM) + "";
         String local = request.getSession().getAttribute("local").toString();
@@ -48,36 +49,37 @@ public class DoEditNews implements Command {
         try {
             String contentType = request.getContentType();
             if ((contentType != null) && contentType.startsWith("multipart/form-data")) {
-
+                
                 String path = "/opt/tomcat/webapps/upload";
-
+                
                 File file = new File(path);
-
+                
                 Part filePart = request.getPart("file");
-
+                
                 String fileName = filePart.getSubmittedFileName();
-
+                
                 imageDir = "/upload/" + login + fileName;
-
+                
                 InputStream is = filePart.getInputStream();
-
-                Files.copy(is, Paths.get(file.getAbsolutePath() + "/" + login + fileName),
-                        StandardCopyOption.REPLACE_EXISTING);
+                
+                // Files.copy(is, Paths.get(file.getAbsolutePath() + "/" + login + fileName),
+                //         StandardCopyOption.REPLACE_EXISTING);
 
             }
 
             int userId = (int) request.getSession().getAttribute(IDUSER);
 
             News editedNews = new News((Integer.parseInt(idNews)), title, text, imageDir, category, userId, local);
+            
             if (service.update(editedNews)) {
-                request.setAttribute("access", "Post saved!");
+                request.getSession().setAttribute("access", "Post saved!");
             }
             
     
 
-            request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
+            response.sendRedirect("controller?command=go_to_news");
+
         } catch (ServiceException e) {
-            e.printStackTrace();
             request.setAttribute(EXCEPTION, "Error server, pls try again later");
             request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
         }

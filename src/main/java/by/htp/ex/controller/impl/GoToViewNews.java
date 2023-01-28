@@ -43,7 +43,7 @@ public class GoToViewNews extends HttpServlet implements Command {
             post = newsService.findById(local, idNews);
             
             if (post == null) {
-                throw new ServiceException("Post is null");
+                throw new ServiceException("News not found!");
             } else {
                 userLogin = userService.findUserById(post.getUserId() + "").getLogin();
             }
@@ -51,11 +51,10 @@ public class GoToViewNews extends HttpServlet implements Command {
             request.setAttribute("comments", comments);
             request.setAttribute("post", post);
             request.setAttribute("likedNews", likedNews);
-
+            
             
             request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
-        } catch (ServiceException e) {
-            request.setAttribute(ACCESS, e.getMessage());
+        } catch (ServiceException e) {            
             
             response.sendRedirect("controller?command=go_to_404");
         }

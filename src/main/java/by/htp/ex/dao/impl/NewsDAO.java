@@ -19,19 +19,16 @@ public class NewsDAO implements INewsDAO {
     private final String INSERT_NEWS = "INSERT INTO `posts` (`title`, `text`, `image`, `date_post`, `user_id`, `idCategory`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')";
     private final String INSERT_NEWS_TRANSLATE = "INSERT INTO `posts_%s` (`posts_id`,`title`, `text`) VALUES ('%s','%s', '%s')";
     private final String DROP_TRIGER = "DROP TRIGGER IF EXISTS `vibestretch`.`posts_AFTER_INSERT`";
-
     private final String CREATE_TRIGER = "CREATE DEFINER = CURRENT_USER TRIGGER `vibestretch`.`posts_AFTER_INSERT` AFTER INSERT ON `posts` FOR EACH ROW BEGIN INSERT INTO posts_%s (posts_id, title, text) VALUES (NEW.id, NEW.title, NEW.text); END";
-
-    private final String UPDATE_NEWS = "UPDATE `posts_%s` SET `title` = '%s', `text` = '%s' WHERE (`id` = '%s')";
+    private final String UPDATE_NEWS = "UPDATE `posts_%s` SET `title` = '%s', `text` = '%s' WHERE (`posts_id` = '%s')";
     private final String DELETE_NEWS = "DELETE FROM `posts` WHERE (`id` = '%s')";
     private final String SELECT_CATEGORY = "SELECT *,(SELECT COUNT(idCategory) FROM posts where category.id = posts.idCategory) FROM category";
-
     private final String S_POSTS_CATEGORYS = "SELECT posts_%s.*, posts.date_post,  posts.image, category.category_name, posts.user_id, (SELECT COUNT(post) FROM vibestretch.user_post_likes where user_post_likes.post = posts_%s.posts_id) FROM posts_%s LEFT JOIN posts ON posts.id = posts_%s.posts_id LEFT JOIN category ON category.id = posts.idCategory";
-
     private final String S_POSTS_CATEGPRY_CNAME = "SELECT * FROM posts, category where `idCategory`= category.id and category_name ='%s'";
     private final String INSERT_LIKE = "INSERT INTO `vibestretch`.`user_post_likes` (`user`, `post`) VALUES ('%s', '%s')";
     private final String GET_LIKE_NEWS = "SELECT COUNT(post) FROM vibestretch.user_post_likes where post = '%s';";
     private final String GET_LIKED_NEWS = "SELECT * FROM vibestretch.user_post_likes where user = '%s'";
+    private final String UPDATE_IMG_CATEGORY = "UPDATE `vibestretch`.`posts` SET `image` = '%s', `idCategory` = '%s' WHERE (`id` = '%s');";
 
     @Override
     public boolean addNews(News news) throws DaoException {
@@ -95,15 +92,15 @@ public class NewsDAO implements INewsDAO {
         boolean exec = false;
 
         con = DaoProvider.getInstance().getConnectionDAO().getConnection();
+
         try {
-            String sqlAllNews = String.format(UPDATE_NEWS, news.getLocal(), news.getTitle(), news.getText(),
-                    news.getImageDir(),
-                    news.getUserId(), news.getId());
+            String sqlAllNews = String.format(UPDATE_NEWS, news.getLocal(), news.getTitle(), news.getText(), news.getId());
+            String sqlUpdImgCAteg = String.format(UPDATE_IMG_CATEGORY,news.getImageDir(),news.getCategory(), news.getId());
             st = con.prepareStatement(sqlAllNews);
-            if (st.executeUpdate(sqlAllNews) == 1) {
+            if (st.executeUpdate(sqlAllNews) == 1 && con.createStatement().executeUpdate(sqlUpdImgCAteg) == 1) {
                 exec = true;
             }
-
+            
             return exec;
         } catch (SQLException e) {
             throw new DaoException("Error to update news!", e);

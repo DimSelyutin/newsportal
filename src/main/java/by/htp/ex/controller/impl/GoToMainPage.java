@@ -2,7 +2,9 @@ package by.htp.ex.controller.impl;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
+import by.htp.ex.bean.Category;
 import by.htp.ex.controller.Command;
 import by.htp.ex.dao.DaoException;
 import by.htp.ex.dao.connectionpool.ConnectionPoolException;
@@ -24,15 +26,11 @@ public class GoToMainPage implements Command {
         
         try {
             
-            // request.getSession().getAttribute("acess");
-            // request.getSession().setAttribute("accessCount", );
-            
-
             String local = request.getSession().getAttribute("local").toString();
-
-            
+            request.setAttribute(local, local);
             request.setAttribute("news", newsService.latestList(local, COUNT_NEWS));
             request.setAttribute("presentation", "userInfo");
+            request.getSession().setAttribute("listCategory", newsService.findAllCategoryes());
             request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
         } catch (ServiceException e) {
             request.setAttribute("exception", "Some problems whith server functional.");

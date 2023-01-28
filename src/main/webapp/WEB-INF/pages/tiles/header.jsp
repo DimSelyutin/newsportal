@@ -16,7 +16,7 @@
 			<c:out value="${management}" />
 		</h2>
 		<div class="burger_menu">
-			<a href="controller">
+			<a href="controller?command=go_to_news">
 				<c:out value="${mainbtn}" />
 			</a>
 			<a href="">

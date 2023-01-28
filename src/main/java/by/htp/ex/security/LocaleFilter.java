@@ -19,13 +19,15 @@ public class LocaleFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
         httpRequest = (HttpServletRequest) request;
-        
+
+        setResponseForUser(httpRequest);
+
         if (httpRequest.getSession().getAttribute("local") == null) {
-            
+
             httpRequest.getSession().setAttribute("local", "en");
-            
+
         }
-        String path = httpRequest.getRequestURI()+"/"+httpRequest.getQueryString();
+        String path = httpRequest.getRequestURI() + "/" + httpRequest.getQueryString();
 
         if (!path.contains("change_local") && !path.contains("do_add_like")) {
             // sett last command in session if not change local
@@ -34,6 +36,15 @@ public class LocaleFilter implements Filter {
         }
         chain.doFilter(request, response);
 
+    }
+
+    private void setResponseForUser(HttpServletRequest httpsRequest) {
+        Object excep = httpRequest.getSession().getAttribute("exception");
+        Object acces = httpRequest.getSession().getAttribute("access");
+        httpRequest.setAttribute("access", acces);
+        httpRequest.setAttribute("exception", excep);
+        httpRequest.getSession().removeAttribute("exception");
+        httpRequest.getSession().removeAttribute("access");
     }
 
 }

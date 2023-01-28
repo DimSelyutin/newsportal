@@ -35,12 +35,13 @@ public class DoRegister implements Command {
                 User newUser;
                 newUser = new User(login, phone, email, passsword);
                 if (service.registration(newUser)) {
-                    request.setAttribute("access", "Register succes!");
+                    request.getSession().setAttribute("access", "Register succes!");
                 }
             } else {
-                request.setAttribute("exception", "Passwords doesn't match");
+                request.getSession().setAttribute("exception", "Passwords doesn't match");
             }
-            request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
+            response.sendRedirect("controller?command=go_to_news");
+
         } catch (ServiceException e) {
             request.setAttribute("exception", e.getMessage());
             request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);

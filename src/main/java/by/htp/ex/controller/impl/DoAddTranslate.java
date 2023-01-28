@@ -47,10 +47,9 @@ public class DoAddTranslate implements Command {
             if (!service.saveTranslate(editedNews)) {
                 throw new ServiceException("Error save post!");
             }
-            request.setAttribute("access", "Translate was added!");
+            request.getSession().setAttribute("access", "Translate was added!");
             response.sendRedirect("controller?command=go_to_main_page");
         } catch (ServiceException e) {
-            e.printStackTrace();
             request.setAttribute(EXCEPTION, "Error to add news!");
             request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
 

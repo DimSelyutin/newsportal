@@ -35,7 +35,7 @@ public class GoToEditNews implements Command {
             post = newsService.findById(local, idNews);
 
             if (post == null) {
-                request.setAttribute("exception", "Post wasn't find!");
+                request.setAttribute("exception", "News not found!");
                 request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
 
             } else {

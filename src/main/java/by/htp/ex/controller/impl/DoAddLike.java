@@ -26,9 +26,8 @@ public class DoAddLike implements Command {
             newsService.addLike(idUser, idNews);
             response.setContentType("application/json");
             response.setCharacterEncoding("utf-8");
-
         } catch (ServiceException e) {
-            request.setAttribute("exception", "Error to add like for news!");
+            
         }
 
     }
