@@ -1,8 +1,8 @@
-build/
-nbproject/
-target/
-.vscode
-test/
+/build
+/nbproject
+/target
+/.vscode
+/test
 psbkey
 *.pub
 *.xml
