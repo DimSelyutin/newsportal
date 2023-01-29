@@ -196,6 +196,7 @@ pre {
 .news-title {
   font-size: 1.5vw;
   font-weight: 800;
+  line-height: 100%;
 
 }
 
@@ -268,6 +269,7 @@ pre {
   position: relative;
   font-weight: 800;
   font-size: 1.7vw;
+  line-height: 100%;
 }
 
 .edit-form {
