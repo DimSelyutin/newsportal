@@ -40,36 +40,35 @@ public class DoEditNews implements Command {
         String title = request.getParameter(TITLE);
         String category = request.getParameter(CATEGORY);
         String text = request.getParameter(POSTTEXT);
-        String imageDir = "";
-        System.out.println(category);
-        ////////////////////////////////////////////////////////////////////////////////
+        String newDir = request.getParameter(IMAGEDIR);
+        
         String login = request.getSession().getAttribute(JSP_LOGIN_PARAM) + "";
         String local = request.getSession().getAttribute("local").toString();
 
         try {
             String contentType = request.getContentType();
+        
             if ((contentType != null) && contentType.startsWith("multipart/form-data")) {
                 
                 String path = "/opt/tomcat/webapps/upload";
-                
                 File file = new File(path);
-                
                 Part filePart = request.getPart("file");
-                
                 String fileName = filePart.getSubmittedFileName();
                 
-                imageDir = "/upload/" + login + fileName;
                 
-                InputStream is = filePart.getInputStream();
+                if (fileName.trim() != "") {
+                    newDir = "/upload/" + login + fileName;
+                    InputStream is = filePart.getInputStream();
+                    
+                    Files.copy(is, Paths.get(file.getAbsolutePath() + "/" + login + fileName),
+                    StandardCopyOption.REPLACE_EXISTING);
+                }
                 
-                // Files.copy(is, Paths.get(file.getAbsolutePath() + "/" + login + fileName),
-                //         StandardCopyOption.REPLACE_EXISTING);
-
             }
 
             int userId = (int) request.getSession().getAttribute(IDUSER);
 
-            News editedNews = new News((Integer.parseInt(idNews)), title, text, imageDir, category, userId, local);
+            News editedNews = new News((Integer.parseInt(idNews)), title, text, newDir, category, userId, local);
             
             if (service.update(editedNews)) {
                 request.getSession().setAttribute("access", "Post saved!");

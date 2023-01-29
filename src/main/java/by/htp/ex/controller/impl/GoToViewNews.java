@@ -40,6 +40,7 @@ public class GoToViewNews extends HttpServlet implements Command {
             List<Comment> comments = commentService.findCommentOfPost(idNews);
 
             List<String> likedNews = newsService.getLikedNews(userId);
+            System.out.println(likedNews +" - "+ idNews);
             post = newsService.findById(local, idNews);
             
             if (post == null) {

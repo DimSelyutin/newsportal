@@ -79,11 +79,12 @@ jQuery(document).ready(function () {
         if (divlike.hasClass('like-svg-active')) {
           counter.html(number - 1);
           divlike.removeClass('like-svg-active');
+          disp();
         } else {
           counter.html(number + 1);
           divlike.addClass('like-svg-active');
+          disp();
         }
-
       },
       error: function () {
         console.log("error");
@@ -95,6 +96,10 @@ jQuery(document).ready(function () {
   $('.answer_comment').click(function () {
     $('#wmd-input').val($('#wmd-input').val() + 'more text');
   });
+
+
+  disp();
+
 });
 
 function popup(form_any) {
@@ -128,4 +133,17 @@ function readURL(input) {
 
     reader.readAsDataURL(input.files[0]);
   }
+}
+
+function disp() {
+  var block_array_ = $('.counter');
+
+  $.each(block_array_, function (index, val) {
+    if ($(val).text() == 0) {
+      $(val).css("visibility", "hidden");
+    } else {
+      $(val).css("visibility", "visible");
+
+    }
+  });
 }

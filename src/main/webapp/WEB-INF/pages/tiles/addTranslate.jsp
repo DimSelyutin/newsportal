@@ -14,12 +14,13 @@
             <div class="h_right">
                 <div class="h_right_info">
                     <div class="user-name edit-form">
-                        <c:out value="${}" />
+                        <c:out value="${sessionScope.user}" />
                     </div>
                     <div class="user-role edit-form">
                         <c:out value="${sessionScope.role}" />
                     </div>
                 </div>
+                Add translate
                 <div class="menu-icons">
                     <div class="setting-svg">
                         <div class="hidden_menu" style="display: none;">
@@ -69,14 +70,6 @@
                     </div>
                     <div class="news-date">
                         <c:out value="${post.postDate}" />
-                    </div>
-                    <div class="post_img">
-                        <input type="file" name="file" id="img-download" size="50" multiple
-                            accept="image/*,image/jpeg,image/png" />
-                        <img id="img-display" src="#" alt="" />
-
-
-
                     </div>
                 </div>
                 <input class="button" type="submit" value="${sendchanges}">

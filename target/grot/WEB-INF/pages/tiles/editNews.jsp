@@ -73,6 +73,7 @@
                         <c:out value="${post.postDate}" />
                     </div>
                     <div class="post_img">
+                        <input type="hidden" name="imageDir" value="${post.imageDir}"/>
                         <input type="file" name="file" id="img-download" size="50" multiple
                             accept="image/*,image/jpeg,image/png" />
                         <img id="img-display" src="#" alt="" />

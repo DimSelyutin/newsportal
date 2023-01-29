@@ -750,6 +750,9 @@ button:hover,
 
 .list-menu-point {}
 
+.counter{
+  width: 1.011rem;
+}
 
 .list-menu-post {
   padding: 5px;

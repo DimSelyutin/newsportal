@@ -54,8 +54,8 @@ public class DoAddNews implements Command {
                 InputStream is = filePart.getInputStream();
                 
                 imageDir = "/upload/" + login + fileName;
-                // Files.copy(is, Paths.get(file.getAbsolutePath() + "/" + login + fileName),
-                //         StandardCopyOption.REPLACE_EXISTING);
+                Files.copy(is, Paths.get(file.getAbsolutePath() + "/" + login + fileName),
+                        StandardCopyOption.REPLACE_EXISTING);
             }
 
             int userId = (int) request.getSession().getAttribute(IDUSER);
