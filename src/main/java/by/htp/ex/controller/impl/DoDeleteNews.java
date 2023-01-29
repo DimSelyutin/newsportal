@@ -24,7 +24,6 @@ public class DoDeleteNews implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            boolean execRes = false;
             String local = request.getSession().getAttribute("local").toString();
             String idUser = request.getSession().getAttribute(IDUSER).toString();
 
@@ -34,8 +33,9 @@ public class DoDeleteNews implements Command {
             
 
             if ((news.getUserId() + "").equals(idUser)) {
-                execRes = service.delete(idNews);
+                service.delete(idNews);
             } else {
+                
                 request.getSession().setAttribute(EXCEPTION, "This post does not belong to you!");
             }
 

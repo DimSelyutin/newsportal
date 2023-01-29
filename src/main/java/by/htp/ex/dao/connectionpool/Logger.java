@@ -2,7 +2,6 @@ package by.htp.ex.dao.connectionpool;
 
 
 import java.lang.System.Logger.Level;
-import java.sql.SQLException;
 
 
 public class Logger {
@@ -12,7 +11,7 @@ public class Logger {
     public Logger() {
     }
 
-    public void log(Level lvl, String str, SQLException e) {
+    public void log(Level lvl, String str, Exception e) {
         System.out.println(lvl + ", " + str + ", " + e);
     }
 

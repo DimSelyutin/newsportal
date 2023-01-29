@@ -1,10 +1,7 @@
 package by.htp.ex.bean;
 
 public class Category {
-    
-    
 
-    
     private static final long serialVersionUID = 1L;
     
     private int idCategory;

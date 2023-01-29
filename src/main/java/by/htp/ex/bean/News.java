@@ -20,7 +20,9 @@ public class News implements Serializable {
     private String local;
     private String likeCount;
     
-   
+    public News() {
+    }
+
     // create
     public News(String title, String text, String imageDir, String category, int userId, String local) {
         this.title = title;
@@ -55,26 +57,8 @@ public class News implements Serializable {
     }
     // ------------------------------------------------------------------------------
 
-    //create
-    public News(String title, String text, String imageDir, String category, int userId) {
-        this.title = title;
-        this.text = text;
-        this.postDate = onCreate();
-        this.imageDir = imageDir;
-        this.category = category;
-        this.userId = userId;
-    }
 
-    //read
-    public News(int id, String title, String text, String imageDir, String category, int userId) { 
-        this.id = id;
-        this.title = title;
-        this.text = text;
-        this.imageDir = imageDir;
-        this.category = category;
-        this.userId = userId;
-    }
-    //edit
+    //read without local
     public News(int id, String title, String text, String postDate, String imageDir, String category, int userId) { 
         this.id = id;
         this.title = title;
@@ -107,8 +91,6 @@ public class News implements Serializable {
     }
     public void setLikeCount(String likeCount) {
         this.likeCount = likeCount;
-    }
-    public News() {
     }
 
     public String getImageDir() {

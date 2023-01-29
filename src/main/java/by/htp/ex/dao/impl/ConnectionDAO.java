@@ -7,12 +7,16 @@ import java.sql.Statement;
 import by.htp.ex.dao.DaoException;
 import by.htp.ex.dao.IConnectionDAO;
 import by.htp.ex.dao.connectionpool.ConnectionPoolException;
+import by.htp.ex.dao.connectionpool.Logger;
+import java.lang.System.Logger.Level;
 import by.htp.ex.dao.connectionpool.PoolConnection;
 
 public class ConnectionDAO implements IConnectionDAO{
 
     private PoolConnection poolConnection;
     private Connection connection;
+    private Logger logger;
+    private Level lvl;
 
 
     
@@ -20,11 +24,8 @@ public class ConnectionDAO implements IConnectionDAO{
         this.poolConnection = new PoolConnection();
         try {
             poolConnection.initPoolData();
-            
         } catch (ConnectionPoolException e) {
-
-            e.printStackTrace();
-            
+            logger.log(lvl.ERROR, "Error to init pooldata!", e);
         }
     }
     

@@ -15,10 +15,10 @@ public class User implements Serializable{
     private String phone;
     private String email;
     private String password;
-
     private String dateRegister;
 
-    
+    public User() {
+    }
 
     public User(String login, String phone, String email, String password) {
         
@@ -47,8 +47,7 @@ public class User implements Serializable{
     
     }
 
-    public User() {
-    }
+
 
 
     public int getId() {

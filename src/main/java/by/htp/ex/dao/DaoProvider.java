@@ -21,7 +21,7 @@ public final class DaoProvider {
     private DaoProvider() {
     }
     
-    public ICommentDAO getCommentDAO() {
+    public ICommentDAO getCommentDAO()  {
         return commentDAO;
     }
     

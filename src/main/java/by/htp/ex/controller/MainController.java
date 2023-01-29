@@ -13,8 +13,6 @@ public class MainController extends HttpServlet {
     private final String COMMAND = "command";
     private final String EXCEPTION = "exception";
 
-    private static final long serialVersionUID = 1L;
-
     private final CommandProvider commandProvider = new CommandProvider();
 
     public MainController() {

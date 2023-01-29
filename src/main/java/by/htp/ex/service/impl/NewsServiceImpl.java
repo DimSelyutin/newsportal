@@ -55,7 +55,6 @@ public class NewsServiceImpl implements INewsService {
             return newsDAO.deleteNews(idNews);
         
         } catch (DaoException e) {
-            e.printStackTrace();
             throw new ServiceException(MSG_ERR, e);
         }
 
@@ -95,7 +94,6 @@ public class NewsServiceImpl implements INewsService {
             }
             return listNews;
         } catch (DaoException e) {
-            e.printStackTrace();
             throw new ServiceException(e);
         }
     }

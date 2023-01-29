@@ -55,7 +55,7 @@
             </div>
             <div class="modal__section">
                 <div class="input-with-label">
-                    <input id="password2" name="password2" type="password2" value="" class="input-with-label__input">
+                    <input id="password2" name="password2" type="password" value="" class="input-with-label__input">
                     <label for="password2" class="input-with-label__label">Confirm password
                         <div class="input-with-label__label__corner"></div>
                     </label>

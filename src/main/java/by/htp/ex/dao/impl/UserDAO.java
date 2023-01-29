@@ -9,20 +9,24 @@ import by.htp.ex.dao.DaoProvider;
 import by.htp.ex.dao.IUserDAO;
 
 import java.sql.Connection;
-
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder.BCryptVersion;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class UserDAO implements IUserDAO {
+    private final BCryptVersion bCryptVersion = BCryptVersion.$2A;
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(bCryptVersion);
     private final String SQL_INSERT_USER = "INSERT INTO `user` (`login`, `password`, `phone`, `email`,`date_register`) VALUES ('%s','%s','%s','%s','%s');";
-    private final String SQL_SELECT_LOGIN_PASS = "SELECT * FROM user WHERE (`login`, `password`) = ('%s','%s')";
+    private final String SQL_SELECT_LOGIN_PASS = "SELECT * FROM user WHERE `login` = '%s'";
     private final String SQL_SELECT_LOGIN = "SELECT * FROM user WHERE `login`='%s'";
     private final String SQL_SELECT_ID_USER = "SELECT * FROM user where `id`='%s'";
     private final String SQL_SELECT_ROLE = "SELECT * FROM role_user, role WHERE role.id = role_user.role and `user_id`='%s';";
     private final String SQL_SELECT_ALL = "SELECT * FROM user";
     private final String ERR_MSG = "Some problems with database. Please, try again";
     private final String SQL_INSERT_ROLE = "INSERT INTO `role_user` (`role`, `user_id`) VALUES ('2', '%s')";
+
 
     @Override
     public boolean register(User newUser) throws DaoException {
@@ -80,13 +84,13 @@ public class UserDAO implements IUserDAO {
         Statement st = null;
         con = DaoProvider.getInstance().getConnectionDAO().getConnection();
         try {
-            String sqlLoginPass = String.format(SQL_SELECT_LOGIN_PASS, login, password);
+            String sqlLoginPass = String.format(SQL_SELECT_LOGIN_PASS, login);
             boolean ret = false;
             st = con.prepareStatement(sqlLoginPass);
             rs = st.executeQuery(sqlLoginPass);
 
             if (rs.next()) {
-                if (rs.getString(2).equals(login) && rs.getString(3).equals(password)) {
+                if (rs.getString(2).equals(login) && passwordEncoder.matches(password, rs.getString(3))) {
                     ret = true;
                 }
             }
@@ -193,7 +197,7 @@ public class UserDAO implements IUserDAO {
             }
             return user;
         } catch (SQLException e) {
-            throw new DaoException("Error find user!", e);
+            throw new DaoException("Error find user!");
         } finally {
             DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st, rs);
         }

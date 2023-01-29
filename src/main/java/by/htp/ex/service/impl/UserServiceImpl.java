@@ -7,6 +7,9 @@ import by.htp.ex.dao.IUserDAO;
 import by.htp.ex.service.ServiceException;
 import by.htp.ex.util.validation.Validation;
 import by.htp.ex.util.validation.Validation.ValidationBuilder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder.BCryptVersion;
+
 import by.htp.ex.service.IUserService;
 
 public class UserServiceImpl implements IUserService {
@@ -14,6 +17,8 @@ public class UserServiceImpl implements IUserService {
     private final IUserDAO userDAO = DaoProvider.getInstance().getUserDAO();
     private final String ROLE_GUEST = "guest";
     private Validation.ValidationBuilder valid;
+    private final BCryptVersion bCryptVersion = BCryptVersion.$2A;
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(bCryptVersion);
 
     @Override
     public boolean registration(User newUser) throws ServiceException {
@@ -28,6 +33,7 @@ public class UserServiceImpl implements IUserService {
             if (!valid.uncorrectFieldName.isEmpty()) {
                 throw new ServiceException(valid.uncorrectFieldName.toString());
             }
+            newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
             return userDAO.register(newUser);
         } catch (DaoException e) {
             throw new ServiceException(e);

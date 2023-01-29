@@ -19,6 +19,8 @@ public class DoAddComment implements Command {
     private final String IDUSER = "idUser";
     private final String EXCEPTION = "exception";
     private final String ACCESS = "access";
+
+    
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int idNews = Integer.parseInt(request.getParameter(IDNEWS));

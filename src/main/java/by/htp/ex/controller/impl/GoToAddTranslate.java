@@ -27,8 +27,6 @@ public class GoToAddTranslate implements Command {
         try {
             String local = request.getSession().getAttribute("local").toString();
             
- 
-
             post = newsService.findById(local, idNews);
             post.setId(Integer.parseInt(idNews));
             

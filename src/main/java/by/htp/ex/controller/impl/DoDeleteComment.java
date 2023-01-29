@@ -22,12 +22,14 @@ public class DoDeleteComment implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String idComment = request.getParameter(IDCOMMENT);
-            boolean execRes = false;
             String idUser = request.getSession().getAttribute(IDUSER).toString();
+
             Comment comment = serviceComment.findCommentById(idComment);
+
+            
             if ((comment.getUserId() + "").equals(idUser)) {
                
-                execRes = serviceComment.deleteComment(idComment);
+               serviceComment.deleteComment(idComment);
                 
             } else {
                 request.getSession().setAttribute(EXCEPTION, "This post does not belong to you!");

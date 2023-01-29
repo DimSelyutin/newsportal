@@ -37,14 +37,16 @@ public class DoSignIn implements Command {
             role = userService.signin(login, passsword);
             idUser = userService.getUserId(login);
             listCategory = newsService.findAllCategoryes();
+
             if (!role.equals(ROLE_GUEST)) {
+                
                 request.getSession(true).setAttribute("user", "active");
                 request.getSession().setAttribute("role", role);
                 request.getSession().setAttribute("idUser", idUser);
                 request.getSession().setAttribute("login", login);
                 request.getSession().setAttribute("listCategory", listCategory);
                 request.getSession().setAttribute(ACCESS, "Welcome "+request.getSession().getAttribute(JSP_LOGIN_PARAM));
-                
+
                 response.sendRedirect("controller?command=go_to_news");
 
             } else {

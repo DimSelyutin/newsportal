@@ -224,8 +224,7 @@ public class NewsDAO implements INewsDAO {
             }
             return listok;
         } catch (SQLException e) {
-            e.printStackTrace();
-            throw new DaoException("Error to get all news!", e);
+            throw new DaoException("Error to get all news!");
         } finally {
             DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st, rs);
         }
