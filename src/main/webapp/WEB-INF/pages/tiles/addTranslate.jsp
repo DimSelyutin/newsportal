@@ -7,20 +7,19 @@
             <fmt:message bundle="${loc}" key="local.deletenews" var="deletenews" />
             <fmt:message bundle="${loc}" key="local.addtranslate" var="addtranslate" />
             <fmt:message bundle="${loc}" key="local.sendchanges" var="sendchanges" />
-
-
+            <fmt:message bundle="${loc}" key="local.messageTranslate" var="messageTranslate" />
         </head>
         <div class="edit_news">
             <div class="h_right">
                 <div class="h_right_info">
                     <div class="user-name edit-form">
-                        <c:out value="${sessionScope.user}" />
+                        <c:out value="${sessionScope.login}" />
                     </div>
                     <div class="user-role edit-form">
                         <c:out value="${sessionScope.role}" />
                     </div>
                 </div>
-                Add translate
+                    <c:out value="${messageTranslate}" />
                 <div class="menu-icons">
                     <div class="setting-svg">
                         <div class="hidden_menu" style="display: none;">
@@ -43,13 +42,12 @@
                     </div>
                 </div>
             </div>
-            <form action="controller?command=do_add_translate&idNews=${post.id}" method="post" enctype="multipart/form-data">
+            <form action="controller?command=do_add_translate&idNews=${post.id}" method="post"
+                enctype="multipart/form-data">
                 <input type="hidden" name="command" value="do_edit_news" />
                 <div class="form_edit_news">
                     <div class="news-title-edit">
-                        <input value="
-                        <c:out value=" ${post.title}" />
-                        " name="title">
+                        <input value="<c:out value=" ${post.title}" />" name="title">
                         <span class="input__label">Title</span>
                     </div>
                     <div class="select">
@@ -62,9 +60,7 @@
                         </select>
                     </div>
                     <div class="news-content">
-                        <textarea name="postText">
-                            <c:out value="${post.text}"/>
-                        </textarea>
+                        <textarea name="postText"><c:out value="${post.text}"/></textarea>
                         <span class="input__label">Text</span>
 
                     </div>

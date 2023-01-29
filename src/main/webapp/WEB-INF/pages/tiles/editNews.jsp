@@ -48,9 +48,7 @@
                 <input type="hidden" name="command" value="do_edit_news" />
                 <div class="form_edit_news">
                     <div class="news-title-edit">
-                        <input value="
-                        <c:out value=" ${post.title}" />
-                        " name="title">
+                        <input value="<c:out value=" ${post.title}" />" name="title">
                         <span class="input__label">Title</span>
                     </div>
                     <div class="select">
@@ -63,9 +61,7 @@
                         </select>
                     </div>
                     <div class="news-content">
-                        <textarea name="postText">
-                            <c:out value="${post.text}"/>
-                        </textarea>
+                        <textarea name="postText"><c:out value="${post.text}"/></textarea>
                         <span class="input__label">Text</span>
 
                     </div>

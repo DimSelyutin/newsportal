@@ -90,7 +90,6 @@ public class NewsDAO implements INewsDAO {
         Connection con = null;
         Statement st = null;
         boolean exec = false;
-
         con = DaoProvider.getInstance().getConnectionDAO().getConnection();
 
         try {

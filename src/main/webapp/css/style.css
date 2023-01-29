@@ -16,6 +16,10 @@ body {
   box-sizing: border-box;
 }
 
+pre {
+  white-space: break-spaces;
+}
+
 .b_black {
   background-color: black;
   color: #fafafa;

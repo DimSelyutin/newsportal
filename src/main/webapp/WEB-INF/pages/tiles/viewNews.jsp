@@ -42,7 +42,7 @@
                 <input type="hidden" name="command" value="go_view_news" />
                 <div class="form_edit_news">
                     <div class="news-title-edit">
-                        <c:out value=" ${post.title}" />
+                        <pre><c:out value=" ${post.title}" /></pre>
                     </div>
                     <div class="post-img">
                         <img src="
@@ -51,7 +51,7 @@
 
                     </div>
                     <div class="news-content">
-                        <c:out value="${post.text}" />
+                        <pre><c:out value="${post.text}" /></pre>
 
                     </div>
                     <div class="news-footer">

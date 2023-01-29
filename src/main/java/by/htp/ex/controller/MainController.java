@@ -32,7 +32,6 @@ public class MainController extends HttpServlet {
 
     private void doAction(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Command command = null;
- 
 
         String commandStr = req.getParameter(COMMAND);
         try {
