@@ -1,6 +1,7 @@
 build/
 nbproject/
 target/
+.vscode
 test/
 psbkey
 *.pub
