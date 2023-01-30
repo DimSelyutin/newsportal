@@ -21,7 +21,7 @@
 								<div class="menu-icons">
 									<div class="setting-svg">
 										<div class="hidden_menu" style="display: none;">
-											<c:if test="${news.userId == sessionScope.idUser}">
+											<c:if test="${news.userId == sessionScope.idUser || sessionScope.role eq 'admin'}">
 												<span><a href="controller?command=go_to_edit_news&idNews=${news.id}">
 														<c:out value="${editnews}" />
 													</a></span>

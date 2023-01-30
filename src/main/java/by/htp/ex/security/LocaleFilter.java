@@ -28,7 +28,7 @@ public class LocaleFilter implements Filter {
 
         }
         String path = httpRequest.getRequestURI() + "/" + httpRequest.getQueryString();
-
+    
         if (!path.contains("change_local") && !path.contains("do_add_like")) {
             // sett last command in session if not change local
             link = "controller?" + httpRequest.getQueryString();

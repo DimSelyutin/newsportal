@@ -22,12 +22,12 @@
                     <div class="menu-icons">
                         <div class="setting-svg">
                             <div class="hidden_menu" style="display: none;">
-                                <c:if test="${requestScope.post.userId == sessionScope.idUser}">
+                                <c:if test="${requestScope.post.userId == sessionScope.idUser || sessionScope.role eq 'admin'}">
                                     <span><a href="controller?command=go_to_edit_news&idNews=${post.id}">
                                             <c:out value="${editnews}" />
                                         </a></span>
                                 </c:if>
-                                <span><a href="">Hidden news</a></span>
+                                <span><a href="">Hidd news</a></span>
                             </div>
                             <svg aria-label="Дополнительно" class="menu-svg" color="#262626" fill="#262626" height="24"
                                 role="img" viewBox="0 0 24 24" width="24">

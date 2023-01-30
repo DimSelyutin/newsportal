@@ -31,9 +31,9 @@ public class AuthenticationFilter implements Filter {
         HttpSession session = httpRequest.getSession();
 
         boolean isLoggedIn = (session != null && session.getAttribute("user") != null);
-        if (isLoggedIn) {
+        boolean isLoggedAdmin = (session != null && session.getAttribute("role") == "admin");
+        if (isLoggedIn || isLoggedAdmin) {
             httpRequest.setAttribute("presentation", "userInfo");
-            
             chain.doFilter(request, response);
 
         } else if (!isLoggedIn && isLoginRequired()) {

@@ -10,6 +10,12 @@
 
 
         </head>
+        <div id="zatemnenie">
+            <div id="okno">Do you want delete news?<br>
+              <a href="controller?command=do_delete_news&idNews=${post.id}" class="button">Accept</a>
+              <a href="#" class="button">Cancel</a>
+            </div>
+        </div>
         <div class="edit_news">
             <div class="h_right">
                 <div class="h_right_info">
@@ -23,8 +29,9 @@
                 <div class="menu-icons">
                     <div class="setting-svg">
                         <div class="hidden_menu" style="display: none;">
-                            <c:if test="${requestScope.post.userId == sessionScope.idUser}">
-                                <span><a href="controller?command=do_delete_news&idNews=${post.id}">
+                            <c:if test="${requestScope.post.userId == sessionScope.idUser || sessionScope.role eq 'admin'}">
+                               
+                                <span><a href="#zatemnenie">
                                         <c:out value="${deletenews}" />
                                     </a></span>
                                 <span><a href="controller?command=go_to_add_translate&idNews=${post.id}">

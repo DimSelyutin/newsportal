@@ -29,6 +29,7 @@ public class GoToEditNews implements Command {
         String idNews = request.getParameter(IDNEWS);
         News post = null;
         String userLogin = "null";
+
         try {
             String local = request.getSession().getAttribute("local").toString();
 
@@ -39,12 +40,14 @@ public class GoToEditNews implements Command {
                 request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
 
             } else {
-
                 userLogin = userService.findUserById(post.getUserId() + "").getLogin();
-                
-                request.setAttribute("presentation", "postId");
-                request.setAttribute("link", "/WEB-INF/pages/tiles/editNews.jsp");
-                request.setAttribute("post", post);
+                if (request.getSession().getAttribute("role").equals("admin")
+                        || request.getSession().getAttribute(JSP_LOGIN_PARAM).equals(userLogin)) {
+
+                    request.setAttribute("presentation", "postId");
+                    request.setAttribute("link", "/WEB-INF/pages/tiles/editNews.jsp");
+                    request.setAttribute("post", post);
+                }
                 request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
             }
 
