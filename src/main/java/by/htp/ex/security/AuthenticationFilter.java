@@ -11,7 +11,7 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-@WebFilter("/*")
+@WebFilter("/controller")
 public class AuthenticationFilter implements Filter {
     private HttpServletRequest httpRequest;
 
@@ -20,7 +20,12 @@ public class AuthenticationFilter implements Filter {
             "do_delete_comment",
             "do_add_news",
             "do_edit_news",
-            "do_delete_news"
+            "do_delete_news",
+            "do_add_like",
+            "do_add_translate",
+            "go_to_edit_news",
+            "go_to_translate_news"
+
     };
 
     @Override
@@ -29,6 +34,7 @@ public class AuthenticationFilter implements Filter {
 
         httpRequest = (HttpServletRequest) request;
         HttpSession session = httpRequest.getSession();
+
 
         boolean isLoggedIn = (session != null && session.getAttribute("user") != null);
         boolean isLoggedAdmin = (session != null && session.getAttribute("role") == "admin");

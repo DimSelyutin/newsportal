@@ -10,7 +10,7 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 
-@WebFilter("/*")
+@WebFilter("*")
 public class LocaleFilter implements Filter {
     private HttpServletRequest httpRequest;
     private String link;

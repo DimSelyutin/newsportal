@@ -8,11 +8,14 @@
             <fmt:message bundle="${loc}" key="local.addtranslate" var="addtranslate" />
             <fmt:message bundle="${loc}" key="local.sendchanges" var="sendchanges" />
             <fmt:message bundle="${loc}" key="local.messageTranslate" var="messageTranslate" />
+            <fmt:message bundle="${loc}" key="local.question" var="question" />
+            <fmt:message bundle="${loc}" key="local.accept" var="accept" />
+            <fmt:message bundle="${loc}" key="local.cancel" var="cancel" />
         </head>
         <div id="zatemnenie">
-            <div id="okno">Do you want delete news?<br>
-              <a href="controller?command=do_delete_news&idNews=${post.id}" class="button">Accept</a>
-              <a href="#" class="button">Cancel</a>
+            <div id="okno"><c:out value="${question}"/><br>
+              <a href="controller?command=do_delete_news&idNews=${post.id}" class="button"><c:out value="${accept}"/></a>
+              <a href="#" class="button"><c:out value="${cancel}"/></a>
             </div>
         </div>
         <div class="edit_news">

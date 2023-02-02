@@ -14,9 +14,9 @@ public class ChangeLocale implements Command{
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        request.getSession().setAttribute(LOCALE, request.getParameter(LOCALE));
-        
-        String str = request.getSession().getAttribute(LINK).toString();
+        request.getSession().setAttribute(LOCALE, request.getParameter(LOCALE));    
+        String str = (String)request.getSession().getAttribute(LINK);
+  
         response.sendRedirect(str);
 
     }

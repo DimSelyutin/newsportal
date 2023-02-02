@@ -76,8 +76,8 @@ public class NewsDAO implements INewsDAO {
                     news.getId(),
                     news.getTitle(),
                     news.getText());
-            st = con.prepareStatement(sqlQuery);
-            return !st.execute(sqlQuery);
+            con.prepareStatement(sqlQuery).executeUpdate(sqlQuery);
+            return true;
         } catch (SQLException e) {
             throw new DaoException("Error to add news!", e);
         } finally {
