@@ -12,6 +12,7 @@ import by.htp.ex.service.INewsService;
 import by.htp.ex.service.IUserService;
 import by.htp.ex.service.ServiceException;
 import by.htp.ex.service.ServiceProvider;
+import by.htp.ex.util.messageconst.MessageType;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -36,8 +37,8 @@ public class GoToEditNews implements Command {
             post = newsService.findById(local, idNews);
 
             if (post == null) {
-                request.setAttribute("exception", "News not found!");
-                request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
+                request.setAttribute(MessageType.EXCEPTION.toString(), "News not found!");
+                request.getRequestDispatcher(MessageType.BASELINK.toString()).forward(request, response);
 
             } else {
                 userLogin = userService.findUserById(post.getUserId() + "").getLogin();
@@ -48,13 +49,13 @@ public class GoToEditNews implements Command {
                     request.setAttribute("link", "/WEB-INF/pages/tiles/editNews.jsp");
                     request.setAttribute("post", post);
                 }
-                request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
+                request.getRequestDispatcher(MessageType.BASELINK.toString()).forward(request, response);
             }
 
         } catch (ServiceException e) {
 
-            request.setAttribute("exception", e.getMessage());
-            request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
+            request.setAttribute(MessageType.EXCEPTION.toString(), e.getMessage());
+            request.getRequestDispatcher(MessageType.BASELINK.toString()).forward(request, response);
 
         }
 

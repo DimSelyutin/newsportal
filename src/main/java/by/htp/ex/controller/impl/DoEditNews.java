@@ -13,6 +13,7 @@ import by.htp.ex.controller.Command;
 import by.htp.ex.service.INewsService;
 import by.htp.ex.service.ServiceException;
 import by.htp.ex.service.ServiceProvider;
+import by.htp.ex.util.messageconst.MessageType;
 import jakarta.servlet.ServletException;
 
 import jakarta.servlet.annotation.MultipartConfig;
@@ -31,7 +32,6 @@ public class DoEditNews implements Command {
     private final String IMAGEDIR = "imageDir";
     private final String IDUSER = "idUser";
     private final String IDNEWS = "idNews";
-    private final String EXCEPTION = "exception";
     private static final String JSP_LOGIN_PARAM = "login";
 
     @Override
@@ -71,7 +71,7 @@ public class DoEditNews implements Command {
             News editedNews = new News((Integer.parseInt(idNews)), title, text, newDir, category, userId, local);
             
             if (service.update(editedNews)) {
-                request.getSession().setAttribute("access", "Post saved!");
+                request.getSession().setAttribute(MessageType.ACCESS.toString(), "Post saved!");
             }
             
     
@@ -79,8 +79,8 @@ public class DoEditNews implements Command {
             response.sendRedirect("controller?command=go_to_news");
 
         } catch (ServiceException e) {
-            request.setAttribute(EXCEPTION, "Error server, pls try again later");
-            request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
+            request.setAttribute(MessageType.EXCEPTION.toString(), "Error server, pls try again later");
+            request.getRequestDispatcher(MessageType.BASELINK.toString()).forward(request, response);
         }
 
     }

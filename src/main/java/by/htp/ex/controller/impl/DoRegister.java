@@ -7,6 +7,7 @@ import by.htp.ex.controller.Command;
 import by.htp.ex.service.IUserService;
 import by.htp.ex.service.ServiceException;
 import by.htp.ex.service.ServiceProvider;
+import by.htp.ex.util.messageconst.MessageType;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -35,16 +36,18 @@ public class DoRegister implements Command {
                 User newUser;
                 newUser = new User(login, phone, email, passsword);
                 if (service.registration(newUser)) {
-                    request.getSession().setAttribute("access", "Register succes!");
+                    request.getSession().setAttribute(MessageType.ACCESS.toString(), "Register succes!");
                 }
             } else {
-                request.getSession().setAttribute("exception", "Passwords doesn't match");
+                request.getSession().setAttribute(MessageType.EXCEPTION.toString(), "Passwords doesn't match");
             }
             response.sendRedirect("controller?command=go_to_news");
 
         } catch (ServiceException e) {
-            request.setAttribute("exception", e.getMessage());
-            request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
+            if (e.getMessage().contains("password")) {
+                request.setAttribute(MessageType.EXCEPTION.toString(), e.getMessage()+"Password must contain numbers,special characters uppercase and lowercase letters. Minimum length is 6 characters!");
+            }
+            request.getRequestDispatcher(MessageType.BASELINK.toString()).forward(request, response);
         }
 
     }

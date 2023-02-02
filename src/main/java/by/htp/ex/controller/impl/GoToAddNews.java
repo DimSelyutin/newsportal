@@ -3,6 +3,7 @@ package by.htp.ex.controller.impl;
 import java.io.IOException;
 
 import by.htp.ex.controller.Command;
+import by.htp.ex.util.messageconst.MessageType;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,7 +15,7 @@ public class GoToAddNews implements Command {
        
                 
             request.setAttribute("presentation", "addNews");
-            request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
+            request.getRequestDispatcher(MessageType.BASELINK.toString()).forward(request, response);
 
     }
 

@@ -14,6 +14,7 @@ import by.htp.ex.controller.Command;
 import by.htp.ex.service.INewsService;
 import by.htp.ex.service.ServiceException;
 import by.htp.ex.service.ServiceProvider;
+import by.htp.ex.util.messageconst.MessageType;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -63,11 +64,11 @@ public class DoAddNews implements Command {
             if (!service.save(editedNews)) {
                 throw new ServiceException("Error save post!");
             }
-            request.getSession().setAttribute("access", "Post was added!");
+            request.getSession().setAttribute(MessageType.ACCESS.toString(), "Post was added!");
             response.sendRedirect("controller?command=go_to_main_page");
         } catch (ServiceException e) {
-            request.setAttribute(EXCEPTION, "Error to add news!");
-            request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
+            request.setAttribute(MessageType.EXCEPTION.toString(), "Error to add news!");
+            request.getRequestDispatcher(MessageType.BASELINK.toString()).forward(request, response);
 
         }
 

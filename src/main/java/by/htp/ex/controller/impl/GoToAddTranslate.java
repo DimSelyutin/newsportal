@@ -8,6 +8,7 @@ import by.htp.ex.service.INewsService;
 import by.htp.ex.service.IUserService;
 import by.htp.ex.service.ServiceException;
 import by.htp.ex.service.ServiceProvider;
+import by.htp.ex.util.messageconst.MessageType;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -15,9 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class GoToAddTranslate implements Command {
 
     private final INewsService newsService = ServiceProvider.getInstance().getNewsService();
-    private final IUserService userService = ServiceProvider.getInstance().getUserService();
     private final String IDNEWS = "idNews";
-    private static final String JSP_LOGIN_PARAM = "login";
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,11 +33,11 @@ public class GoToAddTranslate implements Command {
             request.setAttribute("presentation", "newsTranslate");
             request.setAttribute("link", "/WEB-INF/pages/tiles/addTranslate.jsp");
             request.setAttribute("post", post);
-            request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
+            request.getRequestDispatcher(MessageType.BASELINK.toString()).forward(request, response);
 
         } catch (ServiceException e) {
-            request.setAttribute("exception", e.getMessage());
-            request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
+            request.setAttribute(MessageType.EXCEPTION.toString(), e.getMessage());
+            request.getRequestDispatcher(MessageType.BASELINK.toString()).forward(request, response);
 
         }
 

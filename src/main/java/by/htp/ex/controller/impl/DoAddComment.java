@@ -8,6 +8,7 @@ import by.htp.ex.controller.Command;
 import by.htp.ex.service.ICommentService;
 import by.htp.ex.service.ServiceException;
 import by.htp.ex.service.ServiceProvider;
+import by.htp.ex.util.messageconst.MessageType;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -17,8 +18,6 @@ public class DoAddComment implements Command {
     private final String IDNEWS = "idNews";
     private final String POSTTEXT = "post-text";
     private final String IDUSER = "idUser";
-    private final String EXCEPTION = "exception";
-    private final String ACCESS = "access";
 
     
     @Override
@@ -28,14 +27,14 @@ public class DoAddComment implements Command {
         int idUser = (int)request.getSession().getAttribute(IDUSER);
 
         if(postText.trim().equals("")){
-            request.getSession().setAttribute(ACCESS, "Enter text of comment!");
+            request.getSession().setAttribute(MessageType.ACCESS.toString(), "Enter text of comment!");
         } else {
 
             try {
                 service.addComment(new Comment(idNews, idUser, postText));
-                request.getSession().setAttribute(ACCESS, "Comment was added!");
+                request.getSession().setAttribute(MessageType.ACCESS.toString(), "Comment was added!");
             } catch (ServiceException e) {
-                request.getSession().setAttribute(EXCEPTION, "Error to adding a comment! ");
+                request.getSession().setAttribute(MessageType.EXCEPTION.toString(), "Error to adding a comment! ");
                 response.sendRedirect("controller?command=go_to_view_news&idNews="+idNews);
             }
         }

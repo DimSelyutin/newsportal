@@ -13,6 +13,7 @@ import by.htp.ex.dao.connectionpool.ConnectionPoolException;
 import by.htp.ex.service.INewsService;
 import by.htp.ex.service.ServiceException;
 import by.htp.ex.service.ServiceProvider;
+import by.htp.ex.util.messageconst.MessageType;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,8 +21,6 @@ import jakarta.servlet.http.HttpServletResponse;
 public class GoToNews implements Command {
 
     private final INewsService newsService = ServiceProvider.getInstance().getNewsService();
-    private final String ACCESS = "access";
-    private final String LOGIN = "login";
     private final String PRESENTATION = "news";
     private final String CATEGORY = "category";
     private final String IDUSER = "idUser";
@@ -47,10 +46,10 @@ public class GoToNews implements Command {
             request.setAttribute(PRESENTATION, newsList);
             request.setAttribute("likedNews", likedNews);
 
-            request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
+            request.getRequestDispatcher(MessageType.BASELINK.toString()).forward(request, response);
         } catch (ServiceException e) {
-            request.setAttribute(ACCESS, e.getMessage());
-            request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
+            request.setAttribute(MessageType.EXCEPTION.toString(), e.getMessage());
+            request.getRequestDispatcher(MessageType.BASELINK.toString()).forward(request, response);
         }
     }
 

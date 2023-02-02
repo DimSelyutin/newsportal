@@ -10,7 +10,7 @@ import by.htp.ex.service.INewsService;
 import by.htp.ex.service.IUserService;
 import by.htp.ex.service.ServiceException;
 import by.htp.ex.service.ServiceProvider;
-
+import by.htp.ex.util.messageconst.MessageType;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,7 +22,6 @@ public class DoSignIn implements Command {
     private static final String JSP_LOGIN_PARAM = "login";
     private static final String JSP_PASSWORD_PARAM = "password";
     private static final String ROLE_GUEST = "guest";
-    private final String ACCESS = "access";
 
 
     @Override
@@ -45,18 +44,18 @@ public class DoSignIn implements Command {
                 request.getSession().setAttribute("idUser", idUser);
                 request.getSession().setAttribute("login", login);
                 request.getSession().setAttribute("listCategory", listCategory);
-                request.getSession().setAttribute(ACCESS, "Welcome "+request.getSession().getAttribute(JSP_LOGIN_PARAM));
+                request.getSession().setAttribute(MessageType.ACCESS.toString(), "Welcome "+request.getSession().getAttribute(JSP_LOGIN_PARAM));
 
                 response.sendRedirect("controller?command=go_to_news");
 
             } else {
                 request.getSession(true).setAttribute("user", "not active");
-                request.setAttribute("exception", "Wrong login or password");
-                request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
+                request.setAttribute(MessageType.EXCEPTION.toString(), "Wrong login or password");
+                request.getRequestDispatcher(MessageType.BASELINK.toString()).forward(request, response);
             }
         } catch (ServiceException e) {
-            request.setAttribute("exception", "Error server, pls try again later");
-            request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
+            request.setAttribute(MessageType.EXCEPTION.toString(), "Error server, pls try again later");
+            request.getRequestDispatcher(MessageType.BASELINK.toString()).forward(request, response);
         }
 
         response.getWriter().println("<h2>Do logination</h2>");

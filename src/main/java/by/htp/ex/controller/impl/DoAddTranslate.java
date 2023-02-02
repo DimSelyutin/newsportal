@@ -7,6 +7,7 @@ import by.htp.ex.controller.Command;
 import by.htp.ex.service.INewsService;
 import by.htp.ex.service.ServiceException;
 import by.htp.ex.service.ServiceProvider;
+import by.htp.ex.util.messageconst.MessageType;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,8 +19,6 @@ public class DoAddTranslate implements Command {
     private final String POSTTEXT = "postText";
     private final String IDUSER = "idUser";
     private final String IDNEWS = "idNews";
-    private final String EXCEPTION = "exception";
-    private static final String JSP_LOGIN_PARAM = "login";
 
 
     @Override
@@ -50,8 +49,8 @@ public class DoAddTranslate implements Command {
             request.getSession().setAttribute("access", "Translate was added!");
             response.sendRedirect("controller?command=go_to_main_page");
         } catch (ServiceException e) {
-            request.setAttribute(EXCEPTION, "Error to add news!");
-            request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
+            request.setAttribute(MessageType.EXCEPTION.toString(), "Error to add news!");
+            request.getRequestDispatcher(MessageType.BASELINK.toString()).forward(request, response);
 
         }
     }

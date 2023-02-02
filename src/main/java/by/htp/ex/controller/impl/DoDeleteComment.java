@@ -7,6 +7,7 @@ import by.htp.ex.controller.Command;
 import by.htp.ex.service.ICommentService;
 import by.htp.ex.service.ServiceException;
 import by.htp.ex.service.ServiceProvider;
+import by.htp.ex.util.messageconst.MessageType;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -15,8 +16,6 @@ public class DoDeleteComment implements Command {
     private final ICommentService serviceComment = ServiceProvider.getInstance().getCommentService();
     private final String IDUSER = "idUser";
     private final String IDCOMMENT = "commentId";
-    private final String EXCEPTION = "exception";
-    private final String ACCESS = "access";
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,14 +31,14 @@ public class DoDeleteComment implements Command {
                serviceComment.deleteComment(idComment);
                 
             } else {
-                request.getSession().setAttribute(EXCEPTION, "This post does not belong to you!");
+                request.getSession().setAttribute(MessageType.EXCEPTION.toString(), "This post does not belong to you!");
             }
 
-            request.getSession().setAttribute(ACCESS, "Post was deleted!");
+            request.getSession().setAttribute(MessageType.ACCESS.toString(), "Post was deleted!");
             response.sendRedirect("controller?command=go_to_main_page");
         } catch (ServiceException e) {
-            request.setAttribute(EXCEPTION, "Failed to delete post, service exception");
-            request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
+            request.setAttribute(MessageType.EXCEPTION.toString(), "Failed to delete post, service exception");
+            request.getRequestDispatcher(MessageType.BASELINK.toString()).forward(request, response);
 
         }
 

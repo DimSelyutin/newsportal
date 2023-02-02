@@ -12,6 +12,7 @@ import by.htp.ex.service.INewsService;
 import by.htp.ex.service.IUserService;
 import by.htp.ex.service.ServiceException;
 import by.htp.ex.service.ServiceProvider;
+import by.htp.ex.util.messageconst.MessageType;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,7 +24,6 @@ public class GoToViewNews extends HttpServlet implements Command {
     private final IUserService userService = ServiceProvider.getInstance().getUserService();
     private final ICommentService commentService = ServiceProvider.getInstance().getCommentService();
     private final String IDNEWS = "idNews";
-    private final String ACCESS = "access";
     private final String IDUSER = "idUser";
 
 
@@ -53,9 +53,8 @@ public class GoToViewNews extends HttpServlet implements Command {
             request.setAttribute("likedNews", likedNews);
             
             
-            request.getRequestDispatcher("/WEB-INF/pages/layouts/baselayout.jsp").forward(request, response);
-        } catch (ServiceException e) {            
-            
+            request.getRequestDispatcher(MessageType.BASELINK.toString()).forward(request, response);
+        } catch (ServiceException e) {          
             response.sendRedirect("controller?command=go_to_404");
         }
 
