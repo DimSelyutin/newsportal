@@ -16,15 +16,16 @@ import by.htp.ex.service.ServiceException;
 public class NewsServiceImpl implements INewsService {
 
     private final INewsDAO newsDAO = DaoProvider.getInstance().getNewsDAO();
-    private final String MSG_ERR = "Somthing went wrong!";
 
     @Override
     public boolean save(News news) throws ServiceException {
         try {
+            if (news.getTitle().equals("") || news.getText().equals("")) {
+                throw new ServiceException("Title or text is empty!");
+            }
             return newsDAO.addNews(news);
         } catch (DaoException e) {
-
-            throw new ServiceException(MSG_ERR, e);
+            throw new ServiceException(e);
         }
 
     }
@@ -33,9 +34,12 @@ public class NewsServiceImpl implements INewsService {
     @Override
     public boolean saveTranslate(News news) throws ServiceException {
         try {
+            if (news.getTitle().equals("") || news.getText().equals("")) {
+                throw new ServiceException("Title or text is empty!");
+            }
             return newsDAO.saveTranslate(news);
         } catch (DaoException e) {
-            throw new ServiceException(MSG_ERR, e);
+            throw new ServiceException(e);
         }
     }
 
@@ -44,7 +48,7 @@ public class NewsServiceImpl implements INewsService {
         try {
 
         } catch (Exception e) {
-            throw new ServiceException(MSG_ERR, e);
+            throw new ServiceException(e);
         }
     }
 
@@ -55,7 +59,7 @@ public class NewsServiceImpl implements INewsService {
             return newsDAO.deleteNews(idNews);
         
         } catch (DaoException e) {
-            throw new ServiceException(MSG_ERR, e);
+            throw new ServiceException(e);
         }
 
     }

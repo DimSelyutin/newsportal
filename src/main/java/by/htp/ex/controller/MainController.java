@@ -32,14 +32,12 @@ public class MainController extends HttpServlet {
 
     private void doAction(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Command command = null;
-
         String commandStr = req.getParameter(COMMAND);
         try {
             command = commandProvider.getCommand(commandStr);
             command.execute(req, resp);
         } catch ( RuntimeException | ServiceException | ServletException | IOException e) {
             req.setAttribute(EXCEPTION, "Page not found. Pls chek you link!");
-
         } 
 
     }

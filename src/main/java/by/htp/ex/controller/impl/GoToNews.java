@@ -46,10 +46,10 @@ public class GoToNews implements Command {
             request.setAttribute(PRESENTATION, newsList);
             request.setAttribute("likedNews", likedNews);
 
-            request.getRequestDispatcher(MessageType.BASELINK.toString()).forward(request, response);
+            request.getRequestDispatcher(MessageType.BASELINK.getText()).forward(request, response);
         } catch (ServiceException e) {
-            request.setAttribute(MessageType.EXCEPTION.toString(), e.getMessage());
-            request.getRequestDispatcher(MessageType.BASELINK.toString()).forward(request, response);
+            request.setAttribute(MessageType.EXCEPTION.getText(), e.getMessage());
+            request.getRequestDispatcher(MessageType.BASELINK.getText()).forward(request, response);
         }
     }
 

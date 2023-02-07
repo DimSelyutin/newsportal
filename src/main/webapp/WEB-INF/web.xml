@@ -15,6 +15,10 @@
   </context-param>
 
 
+    <listener>
+        <listener-class>by.htp.ex.dao.impl.ConnectionDAO</listener-class>
+    </listener>
+
 
 
 

@@ -14,7 +14,7 @@ public enum MessageType {
         this.messageType = messageType;
     }
 
-    public String getMessageType(){
+    public String getText(){
         return messageType;
     }
 }

@@ -18,17 +18,17 @@ public class GoToMainPage implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+
         try {
-            
+
             String local = request.getSession().getAttribute("local").toString();
             request.setAttribute(local, local);
             request.setAttribute("news", newsService.latestList(local, COUNT_NEWS));
             request.setAttribute("presentation", "userInfo");
             request.getSession().setAttribute("listCategory", newsService.findAllCategoryes());
-            request.getRequestDispatcher(MessageType.BASELINK.toString()).forward(request, response);
+            request.getRequestDispatcher(MessageType.BASELINK.getText()).forward(request, response);
         } catch (ServiceException e) {
-            request.setAttribute(MessageType.EXCEPTION.toString(), "Some problems whith server functional.");
+            request.setAttribute(MessageType.EXCEPTION.getText(), "Some problems whith server functional.");
             response.sendRedirect("controller?command=go_to_news");
         }
 

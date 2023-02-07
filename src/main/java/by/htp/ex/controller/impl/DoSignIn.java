@@ -44,18 +44,18 @@ public class DoSignIn implements Command {
                 request.getSession().setAttribute("idUser", idUser);
                 request.getSession().setAttribute("login", login);
                 request.getSession().setAttribute("listCategory", listCategory);
-                request.getSession().setAttribute(MessageType.ACCESS.toString(), "Welcome "+request.getSession().getAttribute(JSP_LOGIN_PARAM));
+                request.getSession().setAttribute(MessageType.ACCESS.getText(), "Welcome "+request.getSession().getAttribute(JSP_LOGIN_PARAM));
 
                 response.sendRedirect("controller?command=go_to_news");
 
             } else {
                 request.getSession(true).setAttribute("user", "not active");
-                request.setAttribute(MessageType.EXCEPTION.toString(), "Wrong login or password");
-                request.getRequestDispatcher(MessageType.BASELINK.toString()).forward(request, response);
+                request.setAttribute(MessageType.EXCEPTION.getText(), "Wrong login or password");
+                request.getRequestDispatcher(MessageType.BASELINK.getText()).forward(request, response);
             }
         } catch (ServiceException e) {
-            request.setAttribute(MessageType.EXCEPTION.toString(), "Error server, pls try again later");
-            request.getRequestDispatcher(MessageType.BASELINK.toString()).forward(request, response);
+            request.setAttribute(MessageType.EXCEPTION.getText(), "Error server, pls try again later");
+            request.getRequestDispatcher(MessageType.BASELINK.getText()).forward(request, response);
         }
 
         response.getWriter().println("<h2>Do logination</h2>");

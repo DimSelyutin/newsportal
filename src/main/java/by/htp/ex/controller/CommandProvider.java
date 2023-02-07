@@ -51,12 +51,13 @@ public class CommandProvider {
     }
 
     public Command getCommand(String commandInput) throws ServiceException {
+
         CommandName commandName;
         Command command = null;
-        if (commandInput == null) {
+        if (commandInput == null || commandInput.equals("")) {
             commandInput = CommandName.GO_TO_MAIN_PAGE.toString();
         }
-
+        
         try {
             commandName = CommandName.valueOf(commandInput.toUpperCase()); 
         } catch (IllegalArgumentException e) {

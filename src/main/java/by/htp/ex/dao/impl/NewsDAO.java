@@ -9,8 +9,10 @@ import java.sql.Statement;
 import by.htp.ex.bean.Category;
 import by.htp.ex.bean.News;
 import by.htp.ex.dao.DaoException;
-import by.htp.ex.dao.DaoProvider;
+
 import by.htp.ex.dao.INewsDAO;
+import by.htp.ex.dao.connectionpool.ConnectionPoolException;
+import by.htp.ex.dao.connectionpool.PoolConnection;
 
 import java.sql.ResultSet;
 
@@ -29,15 +31,21 @@ public class NewsDAO implements INewsDAO {
     private final String GET_LIKE_NEWS = "SELECT COUNT(post) FROM vibestretch.user_post_likes where post = '%s';";
     private final String GET_LIKED_NEWS = "SELECT * FROM vibestretch.user_post_likes where user = '%s'";
     private final String UPDATE_IMG_CATEGORY = "UPDATE `vibestretch`.`posts` SET `image` = '%s', `idCategory` = '%s' WHERE (`id` = '%s');";
+    private final PoolConnection pool = ConnectionDAO.getConnectionPool();
+
+    public NewsDAO(){
+        
+    }
 
     @Override
     public boolean addNews(News news) throws DaoException {
         boolean exec = false;
+        Connection con = null;
         Statement st = null;
 
-        Connection con = DaoProvider.getInstance().getConnectionDAO().getConnection();
         String sqlQueryLocal = String.format(CREATE_TRIGER, news.getLocal());
         try {
+            con = pool.takeConnection();
             con.createStatement().execute(DROP_TRIGER);
 
             con.createStatement().execute(sqlQueryLocal);
@@ -57,20 +65,20 @@ public class NewsDAO implements INewsDAO {
             }
 
             return exec;
-        } catch (SQLException e) {
+        } catch (ConnectionPoolException | SQLException e) {
             throw new DaoException("Error to add news!", e);
         } finally {
-            DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st);
+            pool.closeConnection(con, st);
         }
     }
 
     @Override
     public boolean saveTranslate(News news) throws DaoException {
-
+        Connection con = null;
         Statement st = null;
 
-        Connection con = DaoProvider.getInstance().getConnectionDAO().getConnection();
         try {
+            con = pool.takeConnection();
 
             String sqlQuery = String.format(INSERT_NEWS_TRANSLATE, news.getLocal(),
                     news.getId(),
@@ -78,10 +86,10 @@ public class NewsDAO implements INewsDAO {
                     news.getText());
             con.prepareStatement(sqlQuery).executeUpdate(sqlQuery);
             return true;
-        } catch (SQLException e) {
+        } catch (ConnectionPoolException | SQLException e) {
             throw new DaoException("Error to add news!", e);
         } finally {
-            DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st);
+            pool.closeConnection(con, st);
         }
     }
 
@@ -90,9 +98,9 @@ public class NewsDAO implements INewsDAO {
         Connection con = null;
         Statement st = null;
         boolean exec = false;
-        con = DaoProvider.getInstance().getConnectionDAO().getConnection();
-
+        
         try {
+            con = pool.takeConnection();
             String sqlAllNews = String.format(UPDATE_NEWS, news.getLocal(), news.getTitle(), news.getText(), news.getId());
             String sqlUpdImgCAteg = String.format(UPDATE_IMG_CATEGORY,news.getImageDir(),news.getCategory(), news.getId());
             st = con.prepareStatement(sqlAllNews);
@@ -101,10 +109,10 @@ public class NewsDAO implements INewsDAO {
             }
             
             return exec;
-        } catch (SQLException e) {
+        } catch (ConnectionPoolException | SQLException e) {
             throw new DaoException("Error to update news!", e);
         } finally {
-            DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st);
+            pool.closeConnection(con, st);
         }
     }
 
@@ -113,8 +121,8 @@ public class NewsDAO implements INewsDAO {
         Connection con = null;
         Statement st = null;
         boolean exec = false;
-        con = DaoProvider.getInstance().getConnectionDAO().getConnection();
         try {
+            con = pool.takeConnection();
             String sqlDel = String.format(DELETE_NEWS, idNews);
             st = con.prepareStatement(sqlDel);
             if (st.executeUpdate(sqlDel) == 1) {
@@ -122,10 +130,11 @@ public class NewsDAO implements INewsDAO {
             }
             return exec;
 
-        } catch (SQLException e) {
+        } catch (ConnectionPoolException | SQLException e) {
+
             throw new DaoException("Error to delete news!", e);
         } finally {
-            DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st);
+            pool.closeConnection(con, st);
         }
     }
 
@@ -135,8 +144,8 @@ public class NewsDAO implements INewsDAO {
         ResultSet rs = null;
         Statement st = null;
         try {
+            con = pool.takeConnection();
             List<Category> categoryList = new ArrayList<>();
-            con = DaoProvider.getInstance().getConnectionDAO().getConnection();
             st = con.prepareStatement(SELECT_CATEGORY);
             rs = st.executeQuery(SELECT_CATEGORY);
 
@@ -145,11 +154,12 @@ public class NewsDAO implements INewsDAO {
             }
 
             return categoryList;
-        } catch (SQLException e) {
+        } catch (ConnectionPoolException | SQLException e) {
+
             throw new DaoException("Error to find category news!", e);
 
         } finally {
-            DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st, rs);
+            pool.closeConnection(con, st, rs);
 
         }
     }
@@ -160,7 +170,7 @@ public class NewsDAO implements INewsDAO {
         ResultSet rs = null;
         Statement st = null;
         try {
-            con = DaoProvider.getInstance().getConnectionDAO().getConnection();
+            con = pool.takeConnection();
             String sqlAllNews = String.format(S_POSTS_CATEGORYS + " WHERE posts_%s.posts_id = '%s'", local, local,
                     local,
                     local, local, idPost);
@@ -173,11 +183,12 @@ public class NewsDAO implements INewsDAO {
                         rs.getString(6), rs.getInt(7), rs.getString(8));
             }
             return news;
-        } catch (SQLException e) {
+        } catch (ConnectionPoolException | SQLException e) {
+
             throw new DaoException("Error to find news!", e);
 
         } finally {
-            DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st, rs);
+            pool.closeConnection(con, st,rs);
         }
 
     }
@@ -187,7 +198,7 @@ public class NewsDAO implements INewsDAO {
         ResultSet rs = null;
         Statement st = null;
         try {
-            con = DaoProvider.getInstance().getConnectionDAO().getConnection();
+            con = pool.takeConnection();
 
             List<News> listok2 = new ArrayList<>();
             String sqlByCategory = String.format(S_POSTS_CATEGPRY_CNAME, category);
@@ -198,10 +209,11 @@ public class NewsDAO implements INewsDAO {
                         rs.getString(10), rs.getInt(6)));
             }
             return listok2;
-        } catch (SQLException e) {
+        } catch (ConnectionPoolException | SQLException e) {
+
             throw new DaoException("Error to find by category!", e);
         } finally {
-            DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st, rs);
+            pool.closeConnection(con, st,rs);
         }
     }
 
@@ -209,9 +221,8 @@ public class NewsDAO implements INewsDAO {
         Connection con = null;
         ResultSet rs = null;
         Statement st = null;
-
         try {
-            con = DaoProvider.getInstance().getConnectionDAO().getConnection();
+            con = pool.takeConnection();
             List<News> listok = new ArrayList<>();
             String getAllNewsLocal = String.format(S_POSTS_CATEGORYS, local, local, local, local);
 
@@ -222,10 +233,11 @@ public class NewsDAO implements INewsDAO {
                         rs.getString(6), rs.getInt(7), rs.getString(8)));
             }
             return listok;
-        } catch (SQLException e) {
+        } catch (ConnectionPoolException | SQLException e) {
             throw new DaoException("Error to get all news!");
         } finally {
-            DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st, rs);
+            pool.closeConnection(con, st,rs);
+
         }
     }
 
@@ -234,9 +246,9 @@ public class NewsDAO implements INewsDAO {
         Connection con = null;
         ResultSet rs = null;
         Statement st = null;
-        con = DaoProvider.getInstance().getConnectionDAO().getConnection();
-
+        
         try {
+            con = pool.takeConnection();
 
             String sqlCheck = String.format("SELECT * FROM user_post_likes where user = '%s' and post = '%s'", idUser,
                     idNews);
@@ -253,10 +265,10 @@ public class NewsDAO implements INewsDAO {
                 st.executeUpdate(sqlgetLike);
                 return true;
             }
-        } catch (SQLException e) {
+        } catch (ConnectionPoolException | SQLException e) {
             throw new DaoException("Error to add like for news!", e);
         } finally {
-            DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st, rs);
+            pool.closeConnection(con, st, rs);
         }
 
     }
@@ -268,8 +280,8 @@ public class NewsDAO implements INewsDAO {
         ResultSet rs = null;
         Statement st = null;
         int likeCount = 0;
-        con = DaoProvider.getInstance().getConnectionDAO().getConnection();
         try {
+            con = pool.takeConnection();
             String sqlgetLike = String.format(GET_LIKE_NEWS, idNews);
             st = con.createStatement();
             rs = st.executeQuery(sqlgetLike);
@@ -277,10 +289,11 @@ public class NewsDAO implements INewsDAO {
                 likeCount = rs.getInt(1);
             }
             return likeCount;
-        } catch (SQLException e) {
+        } catch (ConnectionPoolException | SQLException e) {
+
             throw new DaoException("Error to add like for news!", e);
         } finally {
-            DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st, rs);
+            pool.closeConnection(con, st, rs);
         }
     }
 
@@ -290,8 +303,8 @@ public class NewsDAO implements INewsDAO {
         ResultSet rs = null;
         Statement st = null;
         List<String> likedNews = new ArrayList<>();
-        con = DaoProvider.getInstance().getConnectionDAO().getConnection();
         try {
+            con = pool.takeConnection();
             String sql = String.format(GET_LIKED_NEWS, idUser);
             st = con.createStatement();
             rs = st.executeQuery(sql);
@@ -299,10 +312,11 @@ public class NewsDAO implements INewsDAO {
                 likedNews.add(rs.getString(3));
             }
             return likedNews;
-        } catch (SQLException e) {
+        } catch (ConnectionPoolException | SQLException e) {
+
             throw new DaoException("Error to add like for news!", e);
         } finally {
-            DaoProvider.getInstance().getConnectionDAO().closeConnection(con, st, rs);
+            pool.closeConnection(con, st, rs);
         }
     }
 

@@ -53,7 +53,7 @@ public class GoToViewNews extends HttpServlet implements Command {
             request.setAttribute("likedNews", likedNews);
             
             
-            request.getRequestDispatcher(MessageType.BASELINK.toString()).forward(request, response);
+            request.getRequestDispatcher(MessageType.BASELINK.getText()).forward(request, response);
         } catch (ServiceException e) {          
             response.sendRedirect("controller?command=go_to_404");
         }

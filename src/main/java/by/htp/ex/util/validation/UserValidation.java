@@ -12,7 +12,7 @@ import by.htp.ex.util.validation.validexpression.ExpressionEnum;
 
 
 
-public class Validation{
+public class UserValidation{
 
     public List<String> uncorrectFieldName;
     
@@ -20,14 +20,14 @@ public class Validation{
         return uncorrectFieldName;
     }
 
-    private Validation(ValidationBuilder validationBuilder) throws ValidException{
+    private UserValidation(ValidationBuilder validationBuilder) throws ValidException{
         // uncorrectFieldName = validationBuilder.uncorrectFieldName;
         if (validationBuilder.uncorrectFieldName.isEmpty()) {
             
         }
     }
     
-    public static class ValidationBuilder implements ObjBuilder<Validation>{
+    public static class ValidationBuilder implements ObjBuilder<UserValidation>{
         public final List<String> uncorrectFieldName = new ArrayList<>();
         private User newUser;
         public ValidationBuilder(User _newUser){
@@ -75,8 +75,8 @@ public class Validation{
 
         
         @Override
-        public Validation build() throws ValidException {
-            return new Validation(this);
+        public UserValidation build() throws ValidException {
+            return new UserValidation(this);
         }
     }
 }

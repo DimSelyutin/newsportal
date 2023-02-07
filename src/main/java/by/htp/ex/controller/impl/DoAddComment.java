@@ -27,14 +27,14 @@ public class DoAddComment implements Command {
         int idUser = (int)request.getSession().getAttribute(IDUSER);
 
         if(postText.trim().equals("")){
-            request.getSession().setAttribute(MessageType.ACCESS.toString(), "Enter text of comment!");
+            request.getSession().setAttribute(MessageType.ACCESS.getText(), "Enter text of comment!");
         } else {
 
             try {
                 service.addComment(new Comment(idNews, idUser, postText));
-                request.getSession().setAttribute(MessageType.ACCESS.toString(), "Comment was added!");
+                request.getSession().setAttribute(MessageType.ACCESS.getText(), "Comment was added!");
             } catch (ServiceException e) {
-                request.getSession().setAttribute(MessageType.EXCEPTION.toString(), "Error to adding a comment! ");
+                request.getSession().setAttribute(MessageType.EXCEPTION.getText(), "Error to adding a comment! ");
                 response.sendRedirect("controller?command=go_to_view_news&idNews="+idNews);
             }
         }

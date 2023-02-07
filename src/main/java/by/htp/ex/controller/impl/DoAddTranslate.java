@@ -49,8 +49,8 @@ public class DoAddTranslate implements Command {
             request.getSession().setAttribute("access", "Translate was added!");
             response.sendRedirect("controller?command=go_to_main_page");
         } catch (ServiceException e) {
-            request.setAttribute(MessageType.EXCEPTION.toString(), "Error to add news!");
-            request.getRequestDispatcher(MessageType.BASELINK.toString()).forward(request, response);
+            request.setAttribute(MessageType.EXCEPTION.getText(), "Error to add news!");
+            request.getRequestDispatcher(MessageType.BASELINK.getText()).forward(request, response);
 
         }
     }

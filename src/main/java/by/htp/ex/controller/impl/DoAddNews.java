@@ -25,9 +25,7 @@ public class DoAddNews implements Command {
     private static final String CATEGORY = "category";
     private static final String TITLE = "title";
     private static final String POSTTEXT = "postText";
-    private static final String IMAGEDIR = "imageDir";
     private static final String IDUSER = "idUser";
-    private static final String EXCEPTION = "exception";
     private static final String JSP_LOGIN_PARAM = "login";
 
     @Override
@@ -36,42 +34,49 @@ public class DoAddNews implements Command {
         String text = request.getParameter(POSTTEXT);
         String category = request.getParameter(CATEGORY);
         String local = request.getSession().getAttribute("local").toString();
-        String newDir = request.getParameter(IMAGEDIR);
 
-        String login = request.getSession().getAttribute(JSP_LOGIN_PARAM).toString();
         try {
-            String contentType = request.getContentType();
-            if ((contentType != null) && contentType.startsWith("multipart/form-data")) {
-
-                String path = "/opt/tomcat/webapps/upload";
-                File file = new File(path);
-                Part filePart = request.getPart("file");
-                String fileName = filePart.getSubmittedFileName();
-
-                
-                if (fileName.trim() != "") {
-                    newDir = "/upload/" + login + fileName;
-                    InputStream is = filePart.getInputStream();
-                    
-                    Files.copy(is, Paths.get(file.getAbsolutePath() + "/" + login + fileName),
-                    StandardCopyOption.REPLACE_EXISTING);
-                }
-            }
-
+            String imgPath = saveImage(request);
             int userId = (int) request.getSession().getAttribute(IDUSER);
-            News editedNews = new News(title, text, newDir, category, userId, local);
+            News editedNews = new News(title, text, imgPath, category, userId, local);
     
             if (!service.save(editedNews)) {
                 throw new ServiceException("Error save post!");
             }
-            request.getSession().setAttribute(MessageType.ACCESS.toString(), "Post was added!");
+            request.getSession().setAttribute(MessageType.ACCESS.getText(), "Post was added!");
             response.sendRedirect("controller?command=go_to_main_page");
         } catch (ServiceException e) {
-            request.setAttribute(MessageType.EXCEPTION.toString(), "Error to add news!");
-            request.getRequestDispatcher(MessageType.BASELINK.toString()).forward(request, response);
+            request.setAttribute(MessageType.EXCEPTION.getText(), "Error to add news!");
+            request.getRequestDispatcher(MessageType.BASELINK.getText()).forward(request, response);
 
         }
 
     }
+
+    private String saveImage(HttpServletRequest request) throws IOException, ServletException{
+        String newDir = null;
+        String contentType = request.getContentType();
+        String login = request.getSession().getAttribute(JSP_LOGIN_PARAM).toString();
+
+        if ((contentType != null) && contentType.startsWith("multipart/form-data")) {
+            String path = "/opt/tomcat/webapps/upload";
+
+            File file = new File(path);
+            Part filePart = request.getPart("file");
+            String fileName = filePart.getSubmittedFileName();
+
+            
+            if (fileName.trim() != "") {
+                newDir = "/upload/" + login + fileName;
+                InputStream is = filePart.getInputStream();
+                
+                Files.copy(is, Paths.get(file.getAbsolutePath() + "/" + login + fileName),
+                StandardCopyOption.REPLACE_EXISTING);
+                
+                return newDir;
+            }
+        }
+        return "/upload/default.jpg";
+    };
 
 }

@@ -37,15 +37,15 @@ public class DoDeleteNews implements Command {
                 service.delete(idNews);
             } else {
                 
-                request.getSession().setAttribute(MessageType.EXCEPTION.toString(), "This post does not belong to you!");
+                request.getSession().setAttribute(MessageType.EXCEPTION.getText(), "This post does not belong to you!");
             }
 
-            request.getSession().setAttribute(MessageType.ACCESS.toString(), "Post was deleted!");
+            request.getSession().setAttribute(MessageType.ACCESS.getText(), "Post was deleted!");
             response.sendRedirect("controller?command=go_to_main_page");
 
         } catch (ServiceException e) {
-            request.setAttribute(MessageType.EXCEPTION.toString(), "Failed to delete post, service exception");
-            request.getRequestDispatcher(MessageType.BASELINK.toString()).forward(request, response);
+            request.setAttribute(MessageType.EXCEPTION.getText(), "Failed to delete post, service exception");
+            request.getRequestDispatcher(MessageType.BASELINK.getText()).forward(request, response);
 
         }
 

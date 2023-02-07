@@ -15,7 +15,7 @@ public class GoToAddNews implements Command {
        
                 
             request.setAttribute("presentation", "addNews");
-            request.getRequestDispatcher(MessageType.BASELINK.toString()).forward(request, response);
+            request.getRequestDispatcher(MessageType.BASELINK.getText()).forward(request, response);
 
     }
 
