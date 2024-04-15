@@ -21,38 +21,38 @@ DAO слой
 Сервисы
 Утилиты
 Структура проекта
-src
-└── main
-    ├── java
-    │   └── com
-    │       └── example
-    │           └── newsportal
-    │               ├── bean
-    │               │   ├── EncriptedPassword.java
-    │               ├── controller
-    │               │   ├── impl
-    │               │   ├── CommandProvider.java
-    │               │   ├── Command.java
-    │               │   ├── CommandName.java
-    │               │   └── MainController.java
-    │               ├── dao
-    │               │   ├── connectionpool
-    │               │   ├── impl
-    │               │   ├── DaoException.java
-    │               │   ├── DaoProvider.java
-    │               │   ├── ICommentDAO.java
-    │               │   ├── INewsDAO.java
-    │               │   ├── IUserDAO.java
-    │               │   └── NewsDAOException.java
-    │               ├── security
-    │               ├── service
-    │               │    ──── impl
-    │               │    ├── ICommentService.java
-    │               │    ├── INewsService.java
-    │               │    ├── IUserService.java
-    │               │    ├── ServiceException.java
-    │               │    └── ServiceProvider.java
-    │               ├── util  
+    src
+    └── main
+        ├── java
+        │   └── com
+        │       └── example
+        │           └── newsportal
+        │               ├── bean
+        │               │   ├── EncriptedPassword.java
+        │               ├── controller
+        │               │   ├── impl
+        │               │   ├── CommandProvider.java
+        │               │   ├── Command.java
+        │               │   ├── CommandName.java
+        │               │   └── MainController.java
+        │               ├── dao
+        │               │   ├── connectionpool
+        │               │   ├── impl
+        │               │   ├── DaoException.java
+        │               │   ├── DaoProvider.java
+        │               │   ├── ICommentDAO.java
+        │               │   ├── INewsDAO.java
+        │               │   ├── IUserDAO.java
+        │               │   └── NewsDAOException.java
+        │               ├── security
+        │               ├── service
+        │               │    ──── impl
+        │               │    ├── ICommentService.java
+        │               │    ├── INewsService.java
+        │               │    ├── IUserService.java
+        │               │    ├── ServiceException.java
+        │               │    └── ServiceProvider.java
+        │               ├── util  
 
 
     
