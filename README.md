@@ -21,7 +21,6 @@ DAO слой
 Сервисы
 Утилиты
 Структура проекта
-![image](https://github.com/DimSelyutin/newsapp/assets/102747240/93601411-a695-43eb-a6bb-07665489278c)
 
     src
     └── main
